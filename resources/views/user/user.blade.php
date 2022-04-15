@@ -1,44 +1,45 @@
 @extends('layouts.admin')
-@section('title', 'User')
-@section('konten')
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-striped" id="viewTable" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Jabatan</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($user as $usr)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $usr->nama }}</td>
-                        <td>{{ $usr->username }}</td>
-                        <td>{{ $usr->email }}</td>
-                        <td>{{ $usr->jabatan}}</td>
-                        {{-- <td>
-                            <a href="{{ route('user.edit', $usr->id) }}"
-                                class="btn btn-warning btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('user.destroy', $usr->id) }}" method="POST"
-                                class="float-left">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td> --}}
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+
+@section('title','User')
+
+@section('content')
+<h1> Data User</h1>
+
+<a href="{{route('user.userCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
+<br>
+<br>
+
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width:5%">No</th>
+        <th style="width:10%">Nama</th>
+        <th style="width:15%">Username</th>
+        <th style="width:15%">NIP</th>
+        <th style="width:15%">Jabatan</th>
+        <th style="width:20%">Email</th>
+        <th style="width:35%">Aksi</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        @foreach ($dataUser as $data )
+
+      <tr>
+        <td>{{$loop ->iteration}}</td>
+        <td>{{$data ->nama}}</td>
+        <td>{{$data ->username}}</td>
+        <td>{{$data ->nip}}</td>
+        <td>{{$data ->jabatan}}</td>
+        <td>{{$data ->email}}</td>
+        <td>
+            <form action="{{route('user.destroy',$data->id)}}" method="POST">@csrf
+                <a href="{{route('user.edit', $data->id)}}" class="btn btn-warning"> Edit</a>
+                <button class="btn btn-danger"> Delete</button>
+            </form>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 
 @endsection

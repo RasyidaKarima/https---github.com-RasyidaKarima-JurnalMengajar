@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\User;
 
 class userController extends Controller
 {
@@ -17,19 +17,18 @@ class userController extends Controller
     public function index()
     {
         //untuk menampilkan index
-        $user = DB::select('SELECT id,nama,username,email,nama_jabatan');
-        // echo "<pre>"; print_r($user); die;
-        return view('content.user.user')->with(compact('user'));
+        $data = User::all();
+        return view('user.user',['dataUser' => $data]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-    //  $user
+     */
     public function create()
     {
-        //
+        return view('user.userCreate');
     }
 
     /**
@@ -40,7 +39,14 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new User;
+        $data ->nama = $request->nama;
+        $data ->username = $request->username;
+        $data ->nip = $request->nip;
+        $data ->jabatan = $request->jabatan;
+        $data ->email = $request->email;
+        $data->save();
+        return redirect('/user');
     }
 
     /**
@@ -62,7 +68,8 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::find($id);
+        return view('user.userEdit',compact('data'));
     }
 
     /**
@@ -74,7 +81,14 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = User::find($id);
+        $data->nama = $request->nama;
+        $data ->username = $request->username;
+        $data ->nip = $request->nip;
+        $data ->jabatan = $request->jabatan;
+        $data ->email = $request->email;
+        $data->update();
+        return redirect('/user');
     }
 
     /**
@@ -85,6 +99,8 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::find($id);
+        $data->delete();
+        return redirect('/user');
     }
 }
