@@ -1,8 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Jurnal;
 
 class jurnalController extends Controller
 {
@@ -13,7 +15,8 @@ class jurnalController extends Controller
      */
     public function index()
     {
-        //
+        $jurnal = Jurnal::all();
+        return view('jurnal.jurnal',['dataJurnal' => $jurnal]);
     }
 
     /**
@@ -23,7 +26,7 @@ class jurnalController extends Controller
      */
     public function create()
     {
-        //
+        return view('jurnal.jurnalCreate');
     }
 
     /**
@@ -34,7 +37,16 @@ class jurnalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jurnal = new Jurnal;
+        $jurnal->nama = $request->nama;
+        $jurnal->kelas = $request->kelas;
+        $jurnal->uraian_tugas = $request->uraian_tugas;
+        $jurnal->hasil = $request->hasil;
+        $jurnal->kendala = $request->kendala;
+        $jurnal->tindak_lanjut= $request->tindak_lanjut;
+        $jurnal->foto_kegiatan = $request->foto_kegiatan;
+        $jurnal->save();
+        return redirect('/jurnal');
     }
 
     /**
@@ -56,7 +68,8 @@ class jurnalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jurnal = Jurnal::find($id);
+        return view('jurnal.jurnalEdit',compact('jurnal'));
     }
 
     /**
@@ -68,7 +81,16 @@ class jurnalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jurnal = Jurnal::find($id);
+        $jurnal->nama = $request->nama;
+        $jurnal->kelas = $request->kelas;
+        $jurnal->uraian_tugas = $request->uraian_tugas;
+        $jurnal->hasil = $request->hasil;
+        $jurnal->kendala = $request->kendala;
+        $jurnal->tindak_lanjut= $request->tindak_lanjut;
+        $jurnal->foto_kegiatan = $request->foto_kegiatan;
+        $jurnal->update();
+        return redirect('/jurnal');
     }
 
     /**
@@ -79,6 +101,8 @@ class jurnalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jurnal= Jurnal::find($id);
+        $jurnal->delete();
+        return redirect('/jurnal');
     }
 }
