@@ -35,12 +35,14 @@
         <td>{{$jurnal ->hasil}}</td>
         <td>{{$jurnal ->kendala}}</td>
         <td>{{$jurnal ->tindak_lanjut}}</td>
-        <td>{{$jurnal ->foto_kegiatan}}</td>
+        <td>
+          <img src="{{ url(''.$jurnal->foto_kegiatan) }}" alt="{{ $jurnal->foto_kegiatan }}" class="img img-thumbnail" style="width: 100px !important;">
+        </td>
 
 
         <td>
             <form action="{{route('jurnal.destroy',$jurnal->id)}}" method="POST">@csrf
-                <a href="{{route('jurnal.edit', $jurnal->id)}}" class="btn btn-warning"> Edit</a>
+                <a href="{{route('jurnal.edit', $jurnal->id)}}" class="btn btn-warning">Edit</a>
                 <button class="btn btn-danger"> Delete</button>
             </form>
       </tr>

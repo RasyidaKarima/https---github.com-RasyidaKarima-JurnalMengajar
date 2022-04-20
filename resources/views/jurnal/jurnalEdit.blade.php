@@ -42,7 +42,7 @@
 <div class="mb-3">
     <label class="font-weight-bold" for="foto_kegiatan">Foto Kegiatan *</label>
     <input type="file" name="foto_kegiatan" class="form-control form-control-file"
-        accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" required />
+        accept="image/*" required />
 </div>
 <br>
 <br>

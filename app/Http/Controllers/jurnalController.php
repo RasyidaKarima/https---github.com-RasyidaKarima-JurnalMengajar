@@ -35,19 +35,20 @@ class jurnalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $jurnal = new Jurnal;
-        $jurnal->nama = $request->nama;
-        $jurnal->kelas = $request->kelas;
-        $jurnal->uraian_tugas = $request->uraian_tugas;
-        $jurnal->hasil = $request->hasil;
-        $jurnal->kendala = $request->kendala;
-        $jurnal->tindak_lanjut= $request->tindak_lanjut;
-        $jurnal->foto_kegiatan = $request->foto_kegiatan;
-        $jurnal->save();
-        return redirect('/jurnal');
-    }
+
+        public function store(Request $req){
+            $file = $req->file('foto_kegiatan');
+            DB::table('jurnal')->insert([
+                'nama' => $req->nama,
+                'kelas' => $req->kelas,
+                'uraian_tugas' => $req->uraian_tugas,
+                'hasil' => $req->hasil,
+                'kendala' => $req->kendala,
+                'tindak_lanjut' => $req->tindak_lanjut,
+                'foto_kegiatan' => $file->move('images')
+            ]);
+            return redirect('jurnal');
+        }
 
     /**
      * Display the specified resource.
@@ -68,6 +69,7 @@ class jurnalController extends Controller
      */
     public function edit($id)
     {
+
         $jurnal = Jurnal::find($id);
         return view('jurnal.jurnalEdit',compact('jurnal'));
     }

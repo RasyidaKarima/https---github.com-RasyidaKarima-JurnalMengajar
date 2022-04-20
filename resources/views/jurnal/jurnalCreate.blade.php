@@ -6,7 +6,7 @@
 
 <h1> Tambah Data Jurnal</h1>
 <br>
-<form action="{{route('jurnal.store')}}" method="POST">
+<form action="{{route('jurnal.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
 <div class="mb-3">
     <label for="nama" class="form-label">Nama</label>
