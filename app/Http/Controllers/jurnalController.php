@@ -83,17 +83,37 @@ class jurnalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jurnal = Jurnal::find($id);
-        $jurnal->nama = $request->nama;
-        $jurnal->kelas = $request->kelas;
-        $jurnal->uraian_tugas = $request->uraian_tugas;
-        $jurnal->hasil = $request->hasil;
-        $jurnal->kendala = $request->kendala;
-        $jurnal->tindak_lanjut= $request->tindak_lanjut;
-        $jurnal->foto_kegiatan = $request->foto_kegiatan;
-        $jurnal->update();
-        return redirect('/jurnal');
+        date_default_timezone_set('Asia/Jakarta');
+        $file = $request->file('foto_kegiatan');
+        if($file != ''){
+            // JIKA GAMBAR DIUBAH
+            DB::table('jurnal')->where('id',$id)->update([
+                'nama' => $request->nama,
+                'kelas' => $request->kelas,
+                'uraian_tugas' => $request->uraian_tugas,
+                'hasil' => $request->hasil,
+                'kendala' => $request->kendala,
+                'tindak_lanjut' => $request->tindak_lanjut,
+                'foto_kegiatan' => $file->move('images'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }else{
+            // JIKA TIDAK MENGUBAH GAMBAR
+            DB::table('jurnal')->where('id',$id)->update([
+                'nama' => $request->nama,
+                'kelas' => $request->kelas,
+                'uraian_tugas' => $request->uraian_tugas,
+                'hasil' => $request->hasil,
+                'kendala' => $request->kendala,
+                'tindak_lanjut' => $request->tindak_lanjut,
+                'foto_kegiatan' => $request->foto_kegiatan_old,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        return redirect('jurnal');
+
     }
+
 
     /**
      * Remove the specified resource from storage.

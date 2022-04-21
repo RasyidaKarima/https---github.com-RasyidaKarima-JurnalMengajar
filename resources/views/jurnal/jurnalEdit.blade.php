@@ -6,7 +6,7 @@
 
 <h1> Tambah Data Jurnal</h1>
 <br>
-<form action="{{route('jurnal.update', $jurnal->id)}}" method="post">
+<form action="{{route('jurnal.update', $jurnal->id)}}" method="post" enctype="multipart/form-data">
     @csrf
 
 <div class="mb-3">
@@ -41,8 +41,11 @@
 
 <div class="mb-3">
     <label class="font-weight-bold" for="foto_kegiatan">Foto Kegiatan *</label>
-    <input type="file" name="foto_kegiatan" class="form-control form-control-file"
-        accept="image/*" required />
+    <input type="hidden" name="foto_kegiatan_old" value="{{ $jurnal->foto_kegiatan }}">
+    <input type="file" name="foto_kegiatan" class="form-control form-control-file" accept="image/*" />
+    <small class="text-danger">
+        <b>NB*:</b> Kosongi jika tidak mengubah gambar.
+    </small>
 </div>
 <br>
 <br>
