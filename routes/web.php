@@ -5,7 +5,6 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jurnalController;
 use App\Http\Controllers\absenController;
-use App\Http\Controllers\rakapanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,13 +24,14 @@ route::view('/user','user.user');
 route::view('/jurnal','jurnal.jurnal');
 route::view('/absen','absen.absen');
 route::view('/jabatan','jabatan.jabatan');
+route::view('/rekapan','absen.');
 
 //view
 route::get('user',[userController::class, 'index'])->name('user.index');
 route::get('jabatan',[jabatanController::class, 'index'])->name('jabatan.index');
 route::get('jurnal',[jurnalController::class, 'index'])->name('jurnal.index');
 route::get('absen',[absenController::class, 'index'])->name('absen.index');
-route::get('rekapan',[absenController::class, 'index'])->name('absen.index');
+route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
 
 
 //create

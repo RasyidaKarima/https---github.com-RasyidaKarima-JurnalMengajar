@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Absen;
@@ -38,6 +39,7 @@ class absenController extends Controller
      */
     public function store(Request $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $file = $request->file('lampiran');
         DB::table('absen')->insert([
             'id_users' => $request->id_users,
@@ -118,5 +120,14 @@ class absenController extends Controller
         $absen = Absen::find($id);
         $absen ->delete();
         return redirect('/absen');
+    }
+    public function rekapan()
+    {
+        // Untuk menampilkan index
+        $absen = DB::select('SELECT id_users,jam_masuk,tanggal_absen,status
+        FROM absen;');
+        // echo "<pre>"; print_r($disposisi); die;
+        // dd($disposisi); die;
+        return view('absen.rekapan',['dataAbsen' => $absen]);
     }
 }

@@ -10,14 +10,13 @@
     @csrf
 <div class="mb-3">
     <label for="id_users" class="form-label">Id User</label>
-    <input type="text" class="form-control" id="id_users" name="id_users" placeholder="Masukkan Nama">
+    <input type="text" class="form-control" id="id_users" name="id_users" placeholder="Masukkan Nama" value="{{$absen->id_users}}">
 </div>
 <div class="mb-3">
-    <label for="status" class="form-label">Status keterlambatan </label> <br>
+    <label for="status" class="form-label">Status Absensi </label> <br>
     <input type="radio" name="status" value="Hadir"> Hadir
     <input type="radio" name="status" value="Izin"> Izin
     <input type="radio" name="status" value="sakit"> Sakit
-
 </div>
 
 <div class="mb-3">
