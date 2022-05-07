@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Absen;
 
 class absenController extends Controller
 {
@@ -13,7 +15,9 @@ class absenController extends Controller
      */
     public function index()
     {
-        //
+        $absen = Absen::all();
+        return view('absen.absen',['dataAbsen' => $absen]);
+
     }
 
     /**
@@ -23,7 +27,7 @@ class absenController extends Controller
      */
     public function create()
     {
-        //
+        return view('absen.absenCreate');
     }
 
     /**
@@ -34,7 +38,15 @@ class absenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('lampiran');
+        DB::table('absen')->insert([
+            'id_users' => $request->id_users,
+            'jam_masuk' => date('Y-m-d H:i:s'),
+            'tanggal_absen' =>  date('Y-m-d H:i:s'),
+            'status' => $request -> status,
+            'lampiran' => $file->move('images')
+        ]);
+        return redirect('absen');
     }
 
     /**
@@ -56,7 +68,8 @@ class absenController extends Controller
      */
     public function edit($id)
     {
-        //
+        $absen = Absen::find($id);
+        return view('absen.absenEdit',compact('absen'));
     }
 
     /**
@@ -68,7 +81,30 @@ class absenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        date_default_timezone_set('Asia/Jakarta');
+        $file = $request->file('lampiran');
+        if($file != ''){
+            // JIKA GAMBAR DIUBAH
+            DB::table('absen')->where('id',$id)->update([
+                'id_users' => $request->id_users,
+                'jam_masuk' => date('Y-m-d H:i:s'),
+                'tanggal_absen' =>  date('Y-m-d H:i:s'),
+                'status' => $request -> status,
+                'lampiran' => $file->move('images'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }else{
+            // JIKA TIDAK MENGUBAH GAMBAR
+            DB::table('absen')->where('id',$id)->update([
+                'id_users' => $request->id_users,
+                'jam_masuk' => date('Y-m-d H:i:s'),
+                'tanggal_absen' =>  date('Y-m-d H:i:s'),
+                'status' => $request -> status,
+                'lampiran' => $request->lampiran_old,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+        return redirect('absen');
     }
 
     /**
@@ -79,6 +115,8 @@ class absenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $absen = Absen::find($id);
+        $absen ->delete();
+        return redirect('/absen');
     }
 }

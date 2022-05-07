@@ -1,6 +1,49 @@
 @extends('layouts.admin')
 
+@section('title','Absen')
 
 @section('content')
-    <h1>Ini Halaman Absensi</h1>
+<h1> Absensi </h1>
+
+<a href="{{route('absen.absenCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
+<br>
+<br>
+
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width:5%">No</th>
+        <th style="width:15%">Nama</th>
+        <th style="width:15%">Jam Masuk</th>
+        <th style="width:15%">Tanggal Absen</th>
+        <th style="width:15%">Status</th>
+        <th style="width:15%">Lampiran</th>
+        <th style="width:15%">Aksi</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        @foreach ($dataAbsen as $absen )
+
+      <tr>
+        <td>{{$loop ->iteration}}</td>
+        <td>{{$absen ->id_users}}</td>
+        <td>{{$absen ->jam_masuk}}</td>
+        <td>{{$absen ->tanggal_absen}}</td>
+        <td>{{$absen ->status}}</td>
+        <td>
+          <img src="{{ url(''.$absen->lampiran) }}" alt="{{ $absen->lampiran }}" class="img img-thumbnail" style="width: 100px !important;">
+        </td>
+
+
+        <td>
+            <form action="{{route('absen.destroy',$absen->id)}}" method="POST">@csrf
+                <a href="{{route('absen.edit', $absen->id)}}" class="btn btn-warning">Edit</a>
+                <button class="btn btn-danger"> Delete</button>
+            </form>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+
 @endsection

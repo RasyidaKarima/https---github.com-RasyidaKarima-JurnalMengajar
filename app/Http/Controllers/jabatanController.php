@@ -39,7 +39,7 @@ class jabatanController extends Controller
     {
         $jabatan = new Jabatan;
         $jabatan -> nama_jabatan = $request->nama_jabatan;
-        $jabatan -> created_at = $request->created_at;
+        $jabatan -> created_at = date('Y-m-d H:i:s');
         $jabatan->save();
         return redirect('/jabatan');
     }
@@ -78,7 +78,7 @@ class jabatanController extends Controller
     {
         $jabatan = Jabatan::find($id);
         $jabatan -> nama_jabatan = $request->nama_jabatan;
-        $jabatan -> created_at = $request->created_at;
+        $jabatan -> created_at = date('Y-m-d H:i:s');
         $jabatan->update();
         return redirect('/jabatan');
     }
