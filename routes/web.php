@@ -32,6 +32,7 @@ route::get('jabatan',[jabatanController::class, 'index'])->name('jabatan.index')
 route::get('jurnal',[jurnalController::class, 'index'])->name('jurnal.index');
 route::get('absen',[absenController::class, 'index'])->name('absen.index');
 route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
+Route::get('/rekapan-pertanggal/{tglawal}/{tglakhir}','absenController@rekapanPertanggal')->name('rekapan-pertanggal');
 
 
 //create

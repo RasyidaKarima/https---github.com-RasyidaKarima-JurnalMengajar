@@ -5,35 +5,26 @@
 @section('content')
 <h1> Rekap Absensi </h1>
 
-<br>
-<br>
+<div class="car-body">
+    <div class="input-group mb-3">
+        <label for="label">Tanggal Awal</label>
+        <input type="date" name="tglawal" id="tglawal" class="form-control" />
+    </div>
 
-<table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th style="width:5%">No</th>
-        <th style="width:15%">Nama</th>
-        <th style="width:15%">Hadir</th>
-        <th style="width:15%">Izin</th>
-        <th style="width:15%">Sakit</th>
 
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($dataAbsen as $absen )
+<div class="car-body">
+    <div class="input-group mb-3">
+        <label for="label">Tanggal Akhir</label>
+        <input type="date" name="tglakhir" id="tglakhir"class="form-control" />
+    </div>
 
-      <tr>
-        <td>{{$loop ->iteration}}</td>
-        <td>{{$absen ->id_users}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        {{-- <td>{{$absen ->jam_masuk}}</td>
-        <td>{{$absen ->tanggal_absen}}</td>
-        <td>{{$absen ->status}}</td> --}}
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+<div class="input-group mb-3">
 
+    <a href="" onclick="this.href='/rekapan-pertanggal/'+ document.getElementById('tglawal').value +
+    '/' document.getElementById('tglakhir').value " target="_blank" class="btn btn-primary col-md-12"> Rekap Absensi Pertanggal <i class="fa fa-print"></i> </a>
+</div>
+
+</div>
+
+</div>
 @endsection

@@ -5,7 +5,7 @@
 @section('content')
 <h1> Absensi </h1>
 
-<a href="{{route('absen.absenCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
+<a href="{{route('absen.absenCreate')}}" class="btn btn-success pull-right"> + Mulai Absen</a>
 <br>
 <br>
 

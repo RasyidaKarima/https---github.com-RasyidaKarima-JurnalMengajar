@@ -123,11 +123,18 @@ class absenController extends Controller
     }
     public function rekapan()
     {
-        // Untuk menampilkan index
-        $absen = DB::select('SELECT id_users,jam_masuk,tanggal_absen,status
-        FROM absen;');
-        // echo "<pre>"; print_r($disposisi); die;
-        // dd($disposisi); die;
-        return view('absen.rekapan',['dataAbsen' => $absen]);
+        // // Untuk menampilkan index
+        // $absen = DB::select('SELECT id_users,jam_masuk,tanggal_absen,status
+        // FROM absen;');
+        // // echo "<pre>"; print_r($disposisi); die;
+        // // dd($disposisi); die;
+        // return view('absen.rekapan',['dataAbsen' => $absen]);
+        return view('absen.rekapan');
     }
+
+    public function rekapanPertanggal($tglawal, $tglakhir){
+        dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
+
+    }
+
 }
