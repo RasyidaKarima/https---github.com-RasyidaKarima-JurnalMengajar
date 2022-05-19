@@ -9,7 +9,8 @@
 <br>
 <br>
 
-<table class="table table-bordered table-striped">
+<div class="container">
+  <table id="jurnalTable" class="table table-bordered table-stripped">
     <thead>
       <tr>
         <th style="width:5%">No</th>
@@ -21,13 +22,12 @@
         <th style="width:15%">Tindak Lanjut</th>
         <th style="width:15%">Foto Kegiatan</th>
         <th style="width:20%">Aksi</th>
-
       </tr>
     </thead>
     <tbody>
         @foreach ($dataJurnal as $jurnal )
 
-      <tr>
+        <tr>
         <td>{{$loop ->iteration}}</td>
         <td>{{$jurnal ->nama}}</td>
         <td>{{$jurnal ->kelas}}</td>
@@ -45,9 +45,16 @@
                 <a href="{{route('jurnal.edit', $jurnal->id)}}" class="btn btn-warning">Edit</a>
                 <button class="btn btn-danger"> Delete</button>
             </form>
-      </tr>
+        </tr>
       @endforeach
     </tbody>
   </table>
-
+</div>
 @endsection
+@push('scripts')
+<script>
+  $(document).ready( function () {
+    $('#jurnalTable').DataTable();
+  } );
+</script>
+@endpush

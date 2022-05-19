@@ -9,7 +9,8 @@
 <br>
 <br>
 
-<table class="table table-bordered table-striped">
+<div class="container">
+  <table id="userTable" class="table table-bordered table-stripped">
     <thead>
       <tr>
         <th style="width:5%">No</th>
@@ -19,7 +20,6 @@
         <th style="width:15%">Jabatan</th>
         <th style="width:20%">Email</th>
         <th style="width:35%">Aksi</th>
-
       </tr>
     </thead>
     <tbody>
@@ -41,5 +41,13 @@
       @endforeach
     </tbody>
   </table>
+</div>
 
 @endsection
+@push('scripts')
+<script>
+  $(document).ready( function () {
+    $('#userTable').DataTable();
+  } );
+</script>
+@endpush

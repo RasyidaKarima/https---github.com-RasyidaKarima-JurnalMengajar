@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jabatan;
+use DataTables;
 class jabatanController extends Controller
 {
     /**
@@ -42,17 +43,6 @@ class jabatanController extends Controller
         $jabatan -> created_at = date('Y-m-d H:i:s');
         $jabatan->save();
         return redirect('/jabatan');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

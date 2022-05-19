@@ -9,19 +9,18 @@
 <br>
 <br>
 
-<table class="table table-bordered table-striped">
+<div class="container">
+  <table id="jabatanTable" class="table table-bordered table-stripped">
     <thead>
       <tr>
-        <th style="width:5%">No</th>
-        <th style="width:10%">Nama Jabatan</th>
-        <th style="width:20%">Created at</th>
-        <th style="width:10%">Aksi</th>
-
+        <th style="width:1%">No</th>
+        <th style="width:2%">Nama Jabatan</th>
+        <th style="width:1%">Created at</th>
+        <th style="width:1%">Aksi</th>
       </tr>
     </thead>
     <tbody>
-        @foreach ($dataJabatan as $jabatan )
-
+      @foreach ($dataJabatan as $jabatan )
       <tr>
         <td>{{$loop ->iteration}}</td>
         <td>{{$jabatan->nama_jabatan}}</td>
@@ -36,5 +35,13 @@
       @endforeach
     </tbody>
   </table>
-
+</div>
 @endsection
+
+@push('scripts')
+<script>
+  $(document).ready( function () {
+    $('#jabatanTable').DataTable();
+  } );
+</script>
+@endpush
