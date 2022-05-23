@@ -132,6 +132,7 @@ class absenController extends Controller
         return view('absen.rekapan');
     }
 
+
     public function rekapanPertanggal($tglawal, $tglakhir){
         dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
 

@@ -29,6 +29,7 @@
         <td>{{$loop ->iteration}}</td>
         <td>{{$absen ->id_users}}</td>
         <td>{{$absen ->jam_masuk}}</td>
+        <td>{{$absen ->jam_pulang}}</td>
         <td>{{$absen ->tanggal_absen}}</td>
         <td>{{$absen ->status}}</td>
         <td>

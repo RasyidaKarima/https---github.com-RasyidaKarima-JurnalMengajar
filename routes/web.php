@@ -5,6 +5,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\jabatanController;
 use App\Http\Controllers\jurnalController;
 use App\Http\Controllers\absenController;
+use App\Http\Controllers\dashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,15 +17,16 @@ use App\Http\Controllers\absenController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+    Route::get('/', [dashboardController::class, 'index']);
+
 
 route::view('/user','user.user');
 route::view('/jurnal','jurnal.jurnal');
 route::view('/absen','absen.absen');
 route::view('/jabatan','jabatan.jabatan');
+route::view('/dashboard','dashboard');
 route::view('/rekapan','absen.');
+
 
 //view
 route::get('user',[userController::class, 'index'])->name('user.index');
@@ -33,6 +35,8 @@ route::get('jurnal',[jurnalController::class, 'index'])->name('jurnal.index');
 route::get('absen',[absenController::class, 'index'])->name('absen.index');
 route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
 Route::get('/rekapan-pertanggal/{tglawal}/{tglakhir}','absenController@rekapanPertanggal')->name('rekapan-pertanggal');
+
+
 
 
 //create
@@ -65,3 +69,7 @@ route::post('/user/delete/{id}',[userController::class, 'destroy'])->name('user.
 route::post('/jabatan/delete/{id}',[jabatanController::class, 'destroy'])->name('jabatan.destroy');
 route::post('/jurnal/delete/{id}',[jurnalController::class, 'destroy'])->name('jurnal.destroy');
 route::post('/absen/delete/{id}',[absenController::class, 'destroy'])->name('absen.destroy');
+
+
+
+Route::get('/check', [DashboardController::class, 'arsipChart']);

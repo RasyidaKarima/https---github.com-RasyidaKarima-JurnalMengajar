@@ -21,7 +21,8 @@
 <div class="input-group mb-3">
 
     <a href="" onclick="this.href='/rekapan-pertanggal/'+ document.getElementById('tglawal').value +
-    '/' document.getElementById('tglakhir').value " target="_blank" class="btn btn-primary col-md-12"> Rekap Absensi Pertanggal <i class="fa fa-print"></i> </a>
+    '/' document.getElementById('tglakhir').value " target="_blank" class="btn btn-primary col-md-12"> Rekap Absensi Pertanggal <i class="fa fa-print"></i>
+    </a>
 </div>
 
 </div>
