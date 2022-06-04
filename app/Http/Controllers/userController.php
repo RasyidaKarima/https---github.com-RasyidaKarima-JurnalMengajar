@@ -18,7 +18,8 @@ class userController extends Controller
     {
         //untuk menampilkan index
         $data = User::all();
-        return view('user.user',['dataUser' => $data]);
+        $active = 'user';
+        return view('user.user',['dataUser' => $data, 'active' => $active]);
     }
 
     /**

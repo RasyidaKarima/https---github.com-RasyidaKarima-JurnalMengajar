@@ -10,8 +10,8 @@
 <br>
 
 <div class="container">
-  <table id="userTable" class="table table-bordered table-stripped">
-    <thead>
+  <table id="userTable" class="table table-hover tale-bordered bg-white table-bordered table-striped shadow" >
+    <thead class="bg-light text-uppercase" >
       <tr>
         <th style="width:5%">No</th>
         <th style="width:10%">Nama</th>

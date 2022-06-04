@@ -17,7 +17,8 @@ class jabatanController extends Controller
     public function index()
     {
         $jabatan = Jabatan::all();
-        return view('jabatan.jabatan',['dataJabatan' => $jabatan]);
+        $active = 'jabatan';
+        return view('jabatan.jabatan',['dataJabatan' => $jabatan, 'active' => $active]);
     }
 
     /**

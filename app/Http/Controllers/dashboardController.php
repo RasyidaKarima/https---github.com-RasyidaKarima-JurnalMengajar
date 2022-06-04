@@ -22,9 +22,9 @@ class dashboardController extends Controller
         $totalUser= DB::select('SELECT COUNT(id) AS total FROM users');
 
         $time = Carbon::now();
-
-        return view('dashboard.index')->with(compact('totalDataJurnal', 'time'));
-        return view('user.user')->with(compact('totalUser', 'time'));
+        $active = 'dashboard';
+        return view('dashboard.index')->with(compact('totalDataJurnal', 'time', 'active'));
+        return view('user.user')->with(compact('totalUser', 'time', 'active'));
     }
 
     /**

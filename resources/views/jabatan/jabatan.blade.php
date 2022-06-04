@@ -5,13 +5,13 @@
 @section('content')
 <h1> Data Jabatan</h1>
 
-<a href="{{route('jabatan.jabatanCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
+<a href="{{route('jabatan.jabatanCreate')}}" class="btn btn-success pull-right"> + Tambah Data </a>
 <br>
 <br>
 
 <div class="container">
-  <table id="jabatanTable" class="table table-bordered table-stripped">
-    <thead>
+  <table id="jabatanTable"  class="table table-hover tale-bordered bg-white table-bordered table-striped shadow">
+    <thead class="bg-light text-uppercase">
       <tr>
         <th style="width:1%">No</th>
         <th style="width:2%">Nama Jabatan</th>

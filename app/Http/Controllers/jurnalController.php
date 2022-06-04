@@ -16,7 +16,9 @@ class jurnalController extends Controller
     public function index()
     {
         $jurnal = Jurnal::all();
-        return view('jurnal.jurnal',['dataJurnal' => $jurnal]);
+        $active = 'jurnal';
+
+        return view('jurnal.jurnal',['dataJurnal' => $jurnal, 'active' => $active]);
     }
 
     /**

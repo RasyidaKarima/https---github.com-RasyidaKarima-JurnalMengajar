@@ -17,7 +17,8 @@ class absenController extends Controller
     public function index()
     {
         $absen = Absen::all();
-        return view('absen.absen',['dataAbsen' => $absen]);
+        $active = 'absen';
+        return view('absen.absen',['dataAbsen' => $absen, 'active' => $active]);
 
     }
 
@@ -81,9 +82,10 @@ class absenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
+        $id = $request->id;
         $file = $request->file('lampiran');
         if($file != ''){
             // JIKA GAMBAR DIUBAH
@@ -129,7 +131,8 @@ class absenController extends Controller
         // // echo "<pre>"; print_r($disposisi); die;
         // // dd($disposisi); die;
         // return view('absen.rekapan',['dataAbsen' => $absen]);
-        return view('absen.rekapan');
+        $active = 'rekap_absensi';
+        return view('absen.rekapan', ['active' => $active]);
     }
 
 
