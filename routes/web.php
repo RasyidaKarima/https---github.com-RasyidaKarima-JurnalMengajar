@@ -17,8 +17,7 @@ use App\Http\Controllers\dashboardController;
 |
 */
 
-    Route::get('/', [dashboardController::class, 'index']);
-
+Auth::routes();
 
 route::view('/user','user.user');
 route::view('/jurnal','jurnal.jurnal');
@@ -26,6 +25,8 @@ route::view('/absen','absen.absen');
 route::view('/jabatan','jabatan.jabatan');
 route::view('/dashboard','dashboard');
 route::view('/rekapan','absen.');
+route::view('/home','guru.home')->name('home.guru');
+route::view('/jurnal-guru','guru.jurnalguru')->name('jurnal.guru');
 
 
 //view
@@ -74,3 +75,4 @@ route::post('/absen/delete/{id}',[absenController::class, 'destroy'])->name('abs
 
 
 Route::get('/check', [DashboardController::class, 'arsipChart']);
+

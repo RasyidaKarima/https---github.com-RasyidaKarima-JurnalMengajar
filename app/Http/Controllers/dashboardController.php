@@ -18,8 +18,9 @@ class dashboardController extends Controller
     public function index()
     {
         //
-        $totalDataJurnal= DB::select('SELECT COUNT(id) AS total FROM jurnal');
+        $totalDataJurnal = DB::select('SELECT COUNT(id) AS total FROM jurnal');
         $totalUser= DB::select('SELECT COUNT(id) AS total FROM users');
+        $totalJabatan= DB::select('SELECT COUNT(id) AS total FROM jabatan');
 
         $time = Carbon::now();
         $active = 'dashboard';
