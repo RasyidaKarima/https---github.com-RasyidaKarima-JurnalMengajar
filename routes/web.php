@@ -23,7 +23,7 @@ route::view('/user','user.user');
 route::view('/jurnal','jurnal.jurnal');
 route::view('/absen','absen.absen');
 route::view('/jabatan','jabatan.jabatan');
-route::view('/dashboard','dashboard');
+route::view('/dashboard','dashboard.index');
 route::view('/rekapan','absen.');
 route::view('/home','guru.home')->name('home.guru');
 route::view('/jurnal-guru','guru.jurnalguru')->name('jurnal.guru');
