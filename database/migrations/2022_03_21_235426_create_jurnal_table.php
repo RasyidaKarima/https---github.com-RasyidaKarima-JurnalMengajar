@@ -14,7 +14,16 @@ class CreateJurnalTable extends Migration
     public function up()
     {
         Schema::create('jurnal', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('rpp_id')->unsigned()->nullable();
+            $table->foreign('rpp_id')->references('id')->on('rpp')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('hasil');
+            $table->text('kendala');
+            $table->text('tindak_lanjut');
+            $table->string('foto_kegiatan');
+            $table->string('status')->default('belum divalidasi');
             $table->timestamps();
         });
     }

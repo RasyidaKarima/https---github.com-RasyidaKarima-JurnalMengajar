@@ -6,11 +6,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,11 +17,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama',
-        'username',
-        'nip',
-        'jabatan',
+        'name',
         'email',
+        'password',
     ];
 
     /**
@@ -43,4 +40,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function jurnals()
+    {
+        return $this->hasMany(Jurnal::class, 'user_id', 'id');
+    }
+
+    public function rpp()
+    {
+        return $this->hasMany(RPP::class, 'user_id', 'id');
+    }
+
+    public function absenDatang()
+    {
+        return $this->hasMany(AbsenDatang::class, 'user_id', 'id');
+    }
+
+    public function absenPulang()
+    {
+        return $this->hasMany(AbsenPulang::class, 'user_id', 'id');
+    }
+
+    public function deleteData($id)
+    {
+        return static::find($id)->delete();
+    }
 }

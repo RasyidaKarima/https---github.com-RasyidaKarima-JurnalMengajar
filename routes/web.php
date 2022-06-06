@@ -26,8 +26,9 @@ route::view('/jabatan','jabatan.jabatan');
 route::view('/dashboard','dashboard.index');
 route::view('/rekapan','absen.');
 route::view('/home','guru.home')->name('home.guru');
-route::view('/jurnal-guru','guru.jurnalguru')->name('jurnal.guru');
-
+route::get('/jurnal-guru',[App\Http\Controllers\Guru\JurnalController::class, 'index'])->name('jurnal.guru');
+route::get('/absen-datang-guru',[App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
+route::get('/rpp-guru',[App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
 
 //view
 route::get('user',[userController::class, 'index'])->name('user.index');
@@ -37,9 +38,6 @@ route::get('absen',[absenController::class, 'index'])->name('absen.index');
 route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
 route::post('absen_edit',[absenController::class, 'update'])->name('absen_edit');
 Route::get('/rekapan-pertanggal/{tglawal}/{tglakhir}','absenController@rekapanPertanggal')->name('rekapan-pertanggal');
-
-
-
 
 //create
 route::get('/tambahuser',[userController::class, 'create'])->name('user.userCreate');
@@ -52,7 +50,6 @@ route::post('/user',[userController::class, 'store'])->name('user.store');
 route::post('/jabatan',[jabatanController::class, 'store'])->name('jabatan.store');
 route::post('/jurnal',[jurnalController::class, 'store'])->name('jurnal.store');
 route::post('/absen',[absenController::class, 'store'])->name('absen.store');
-
 
 //edit data
 route::get('/user/edit/{id}',[userController::class, 'edit'])->name('user.edit');
@@ -71,8 +68,6 @@ route::post('/user/delete/{id}',[userController::class, 'destroy'])->name('user.
 route::post('/jabatan/delete/{id}',[jabatanController::class, 'destroy'])->name('jabatan.destroy');
 route::post('/jurnal/delete/{id}',[jurnalController::class, 'destroy'])->name('jurnal.destroy');
 route::post('/absen/delete/{id}',[absenController::class, 'destroy'])->name('absen.destroy');
-
-
 
 Route::get('/check', [DashboardController::class, 'arsipChart']);
 
