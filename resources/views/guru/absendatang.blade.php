@@ -3,11 +3,11 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h4 class="m-0"><strong>Jurnal Mengajar</strong></h4>
+    <h4 class="m-0"><strong>Absensi Kedatangan</strong></h4>
   </div>
   <br>
   <div class="card-body">
-    <a href="{{route('jurnal.jurnalCreate')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+    <a href="{{route('absen-datangCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
     <div class="col-md-3">
       <label>Filter Tanggal</label>
       <input type="text" class="datepicker">
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-            @foreach ($jurnal as $ju )
+            @foreach ($datang as $ju )
                 <tr>
                     <td>{{$loop ->iteration}}</td>
                     <td>{{$ju ->tanggal}}</td>

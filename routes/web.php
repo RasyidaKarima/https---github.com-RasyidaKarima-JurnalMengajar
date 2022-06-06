@@ -23,12 +23,17 @@ route::view('/user','user.user');
 route::view('/jurnal','jurnal.jurnal');
 route::view('/absen','absen.absen');
 route::view('/jabatan','jabatan.jabatan');
-route::view('/dashboard','dashboard.index');
+route::view('/','dashboard.index');
 route::view('/rekapan','absen.');
+
+//role guru
 route::view('/home','guru.home')->name('home.guru');
-route::get('/jurnal-guru',[App\Http\Controllers\Guru\JurnalController::class, 'index'])->name('jurnal.guru');
-route::get('/absen-datang-guru',[App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
-route::get('/rpp-guru',[App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
+route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
+route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
+route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
+route::get('/absen-datangcreate-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
+Route::post('/absen-datang-guru/{id}',  [App\Http\Controllers\Guru\AbsenDatangController::class, 'save']);
+
 
 //view
 route::get('user',[userController::class, 'index'])->name('user.index');

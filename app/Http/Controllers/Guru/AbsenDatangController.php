@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guru;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\AbsenDatang;
@@ -11,8 +12,8 @@ class AbsenDatangController extends Controller
     
    public function index()
    {
-       $jurnal = AbsenDatang::all();
-       return view('guru.jurnalGuru', compact('jurnal'));
+       $datang = AbsenDatang::all();
+       return view('guru.absendatang', compact('datang'));
    }
 
    /**
@@ -22,7 +23,7 @@ class AbsenDatangController extends Controller
     */
    public function create()
    {
-       return view('jurnal.jurnalCreate');
+       return view('guru.absendatangCreate');
    }
 
    /**
@@ -33,7 +34,7 @@ class AbsenDatangController extends Controller
     */
    
     /*
-       public function store(Request $req){
+       public function store(Request $req, $id){
            $file = $req->file('foto_kegiatan');
            DB::table('jurnal')->insert([
                'nama' => $req->nama,
@@ -71,47 +72,6 @@ class AbsenDatangController extends Controller
        $jurnal = Jurnal::find($id);
        return view('jurnal.jurnalEdit',compact('jurnal'));
    }
-
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-   public function update(Request $request, $id)
-   {
-       date_default_timezone_set('Asia/Jakarta');
-       $file = $request->file('foto_kegiatan');
-       if($file != ''){
-           // JIKA GAMBAR DIUBAH
-           DB::table('jurnal')->where('id',$id)->update([
-               'nama' => $request->nama,
-               'kelas' => $request->kelas,
-               'uraian_tugas' => $request->uraian_tugas,
-               'hasil' => $request->hasil,
-               'kendala' => $request->kendala,
-               'tindak_lanjut' => $request->tindak_lanjut,
-               'foto_kegiatan' => $file->move('images'),
-               'updated_at' => date('Y-m-d H:i:s')
-           ]);
-       }else{
-           // JIKA TIDAK MENGUBAH GAMBAR
-           DB::table('jurnal')->where('id',$id)->update([
-               'nama' => $request->nama,
-               'kelas' => $request->kelas,
-               'uraian_tugas' => $request->uraian_tugas,
-               'hasil' => $request->hasil,
-               'kendala' => $request->kendala,
-               'tindak_lanjut' => $request->tindak_lanjut,
-               'foto_kegiatan' => $request->foto_kegiatan_old,
-               'updated_at' => date('Y-m-d H:i:s')
-           ]);
-       }
-       return redirect('jurnal');
-
-   }
-
 
    /**
     * Remove the specified resource from storage.

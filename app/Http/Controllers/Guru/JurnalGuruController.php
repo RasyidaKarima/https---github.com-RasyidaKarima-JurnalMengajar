@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jurnal;
 use Auth;
 
-class JurnalController extends Controller
+class JurnalGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +17,10 @@ class JurnalController extends Controller
     {
         $jurnal = Jurnal::all();
         return view('guru.jurnalGuru', compact('jurnal'));
+
+        //if(request()->input('tanggal')){
+       //     $data = $data->where('tanggal',request()->input('tanggal'));
+        //}
     }
 
     /**

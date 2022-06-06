@@ -23,6 +23,7 @@ class CreateJurnalTable extends Migration
             $table->text('kendala');
             $table->text('tindak_lanjut');
             $table->string('foto_kegiatan');
+            $table->date('tanggal');
             $table->string('status')->default('belum divalidasi');
             $table->timestamps();
         });

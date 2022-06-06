@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Aplikasi Jurnal Mengajar UPT SD Negeri Butun 02</title>
     <link rel="icon" href="{!! asset('images/school-solid.svg') !!}"/>
@@ -12,11 +10,12 @@
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css"/>
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap1.min.css">
-    <link rel="stylesheet" href="{{asset('css/')}}/guru.css?v=2.0.0 ">
+    <link rel="stylesheet" href="{{asset('css/')}}/guru.css">
 
 </head>
 
@@ -47,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./table.html">
+                        <a class="nav-link" href="{{ route('absen-datang.guru') }}">
                             <p>Absensi Datang</p>
                             <i class="fa-solid fa-clipboard"></i>
                         </a>
@@ -115,11 +114,19 @@
         </div>
     </div>
 
-<script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-
+<script src="{{asset('js/core/')}}/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="{{asset('js/core/')}}/popper.min.js" type="text/javascript"></script>
+<script src="{{asset('js/core/')}}/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{asset('js/')}}/guru.css" type="text/javascript "></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+$(".datepicker").datepicker({
+    format:"yyyy-mm-dd"
+})
+</script>
+@stack('scripts')
 </body>
 
 </html>
