@@ -1,12 +1,10 @@
 @extends('layouts.sidebarGuru')
 
 @section('content')
-<div class="card">
-  <div class="card-header">
-    <h4 class="m-0"><strong>Absensi Kedatangan</strong></h4>
-  </div>
-  <br>
-  <div class="card-body">
+<h4 class="m-0"><strong>Absensi Kedatangan</strong></h4>
+<br>
+
+
     <a href="{{route('absen-datangCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
     <div class="col-md-3">
       <label>Filter Tanggal</label>
@@ -14,16 +12,14 @@
     </div>
     <br>
     <br>
-    <table id="jurnalTable" class="table table-bordered ">
+    <table id="absDatangTable" class="table table-bordered ">
         <thead style="background: rgba(203, 203, 210, 0.15);">
           <tr class="text-center">
             <th style="width:2%">No</th>
             <th style="width:10%">Tanggal</th>
-            <th style="width:15%">Hasil</th>
-            <th style="width:12%">Kendala</th>
-            <th style="width:15%">Tindak Lanjut</th>
-            <th style="width:15%">Foto Kegiatan</th>
             <th style="width:15%">Status</th>
+            <th style="width:12%">Kondisi</th>
+            <th style="width:15%">Foto</th>
             <th style="width:20%">Aksi</th>
           </tr>
         </thead>
@@ -32,16 +28,14 @@
                 <tr>
                     <td>{{$loop ->iteration}}</td>
                     <td>{{$ju ->tanggal}}</td>
-                    <td>{{$ju ->hasil}}</td>
-                    <td>{{$ju ->kendala}}</td>
-                    <td>{{$ju ->tindak_lanjut}}</td>
-                    <td>
-                    <img src="{{ url(''.$ju->foto_kegiatan) }}" alt="{{ $ju->foto_kegiatan }}" class="img img-thumbnail" style="width: 100px !important;">
-                    </td>
                     <td>{{$ju ->status}}</td>
+                    <td>{{$ju ->kondisi}}</td>
                     <td>
-                        <form action="{{route('jurnalguru.destroy',$ju->id)}}" method="POST">@csrf
-                            <a href="{{route('jurnalguru.edit', $ju->id)}}" class="btn btn-warning">Edit</a>
+                    <img src="{{ url(''.$ju->foto) }}" alt="{{ $ju->foto }}" class="img img-thumbnail" style="width: 100px !important;">
+                    </td>
+                    <td>
+                        <form action="{{route('absen-datangDestroy.guru',$ju->id)}}" method="POST">@csrf
+                            <a href="{{route('absen-datangEdit.guru', $ju->id)}}" class="btn btn-warning">Edit</a>
                             <button class="btn btn-danger"> Delete</button>
                         </form>
                     </td>
@@ -49,13 +43,13 @@
             @endforeach
         </tbody>
     </table>
-  </div>
-</div>
+
+
 @endsection
 @push('scripts')
 <script>
   $(document).ready( function () {
-    $('#jurnalTable').DataTable(/*{
+    $('#absDatangTable').DataTable(/*{
       "ajax":{
         url:"{{ route('jurnal.guru') }}",
         type:"POST",

@@ -76,13 +76,6 @@ class jurnalController extends Controller
         return view('jurnal.jurnalEdit',compact('jurnal'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');

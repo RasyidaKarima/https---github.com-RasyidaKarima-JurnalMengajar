@@ -63,6 +63,12 @@
                             <i class="fa-solid fa-list"></i>
                         </a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="./icons.html">
+                            <p>Rencana Pembelajaran</p>
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -142,15 +148,12 @@
 <script src="{{asset('js/')}}/guru.css" type="text/javascript "></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-
 <script>
 $(".datepicker").datepicker({
     format:"yyyy-mm-dd"
 })
 </script>
 @stack('scripts')
-@include('sweetalert::alert')
 </body>
 
 </html>

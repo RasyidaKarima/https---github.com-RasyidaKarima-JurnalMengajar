@@ -8,9 +8,10 @@
   <br>
   <div class="card-body">
     <a href="{{route('jurnal.jurnalCreate')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+    <a href="{{route('jurnal.jurnalCreate')}}" class="btn btn-sm btn-primary" id="filterJurnal"><i class="fa fa-filter"></i> Filter Tanggal</a>
     <div class="col-md-3">
       <label>Filter Tanggal</label>
-      <input type="text" class="datepicker">
+      <input type="date" class="datepicker">
     </div>
     <br>
     <br>

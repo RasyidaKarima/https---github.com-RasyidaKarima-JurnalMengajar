@@ -19,29 +19,31 @@ use App\Http\Controllers\dashboardController;
 
 Auth::routes();
 
-route::view('/user','user.user');
-route::view('/jurnal','jurnal.jurnal');
-route::view('/absen','absen.absen');
-route::view('/jabatan','jabatan.jabatan');
-route::view('/','dashboard.index');
-route::view('/rekapan','absen.');
+Route::view('/user','user.user');
+Route::view('/jurnal','jurnal.jurnal');
+Route::view('/absen','absen.absen');
+Route::view('/jabatan','jabatan.jabatan');
+Route::view('/','dashboard.index');
+Route::view('/rekapan','absen.');
 
 //role guru
-route::view('/home','guru.home')->name('home.guru');
-route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
-route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
-route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
-route::get('/absen-datangcreate-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
+Route::view('/home','guru.home')->name('home.guru');
+Route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
+Route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
+Route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
+Route::get('/absen-datang-guru/vreate', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
 Route::post('/absen-datang-guru/{id}',  [App\Http\Controllers\Guru\AbsenDatangController::class, 'save']);
-
+Route::post('/absen-datang-guru/destroy/{id}',[App\Http\Controllers\Guru\AbsenDatangController::class, 'delete'])->name('absen-datangDestroy.guru');
+Route::get('/absen-datang-guru/edit/{id}',[App\Http\Controllers\Guru\AbsenDatangController::class, 'edit'])->name('absen-datangEdit.guru');
+Route::post('/absen-datang-guru/edit/{id}',[App\Http\Controllers\Guru\AbsenDatangController::class, 'update'])->name('absen-datangUpdate.guru');
 
 //view
-route::get('user',[userController::class, 'index'])->name('user.index');
-route::get('jabatan',[jabatanController::class, 'index'])->name('jabatan.index');
-route::get('jurnal',[jurnalController::class, 'index'])->name('jurnal.index');
-route::get('absen',[absenController::class, 'index'])->name('absen.index');
-route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
-route::post('absen_edit',[absenController::class, 'update'])->name('absen_edit');
+Route::get('user',[userController::class, 'index'])->name('user.index');
+Route::get('jabatan',[jabatanController::class, 'index'])->name('jabatan.index');
+Route::get('jurnal',[jurnalController::class, 'index'])->name('jurnal.index');
+Route::get('absen',[absenController::class, 'index'])->name('absen.index');
+Route::get('rekapan',[absenController::class, 'rekapan'])->name('absen.index');
+Route::post('absen_edit',[absenController::class, 'update'])->name('absen_edit');
 Route::get('/rekapan-pertanggal/{tglawal}/{tglakhir}','absenController@rekapanPertanggal')->name('rekapan-pertanggal');
 
 //create
