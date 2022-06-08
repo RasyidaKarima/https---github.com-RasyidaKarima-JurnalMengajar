@@ -1,7 +1,7 @@
 @extends('layouts.sidebarGuru')
 
 @section('content')
-<h4 class="m-0"><strong>Absensi Kedatangan</strong></h4>
+<h4 class="m-0 font-weight-bold"><strong>Absensi Kedatangan</strong></h4>
 <br>
 
 
@@ -12,8 +12,8 @@
     </div>
     <br>
     <br>
-    <table id="absDatangTable" class="table table-bordered ">
-        <thead style="background: rgba(203, 203, 210, 0.15);">
+    <table style="color: #FFFFFF;" id="absDatangTable" class="table table-bordered table-striped yajra-datatable" >
+        <thead>
           <tr class="text-center">
             <th style="width:2%">No</th>
             <th style="width:10%">Tanggal</th>
@@ -36,7 +36,7 @@
                     <td>
                         <form action="{{route('absen-datangDestroy.guru',$ju->id)}}" method="POST">@csrf
                             <a href="{{route('absen-datangEdit.guru', $ju->id)}}" class="btn btn-warning">Edit</a>
-                            <button class="btn btn-danger"> Delete</button>
+                            <button class="btn btn-danger alert_notif"> Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -64,5 +64,26 @@
 $(".datepicker").datepicker({
     format:"yyyy-mm-dd"
 })
+</script>
+<script>
+  $('.alert_notif').on('click',function(){
+    var getLink = $(this).attr('href');
+    Swal.fire({
+      title: "Yakin hapus data?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: "Batal"
+
+    }).then(result => {
+    //jika klik ya maka arahkan ke proses.php
+      if(result.isConfirmed){
+        window.location.href = getLink
+      }
+    })
+    return false;
+  });
 </script>
 @endpush

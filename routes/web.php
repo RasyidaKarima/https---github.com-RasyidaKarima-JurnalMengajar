@@ -31,7 +31,7 @@ Route::view('/home','guru.home')->name('home.guru');
 Route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
 Route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
 Route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
-Route::get('/absen-datang-guru/vreate', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
+Route::get('/absen-datang-guru/create', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
 Route::post('/absen-datang-guru/{id}',  [App\Http\Controllers\Guru\AbsenDatangController::class, 'save']);
 Route::post('/absen-datang-guru/destroy/{id}',[App\Http\Controllers\Guru\AbsenDatangController::class, 'delete'])->name('absen-datangDestroy.guru');
 Route::get('/absen-datang-guru/edit/{id}',[App\Http\Controllers\Guru\AbsenDatangController::class, 'edit'])->name('absen-datangEdit.guru');

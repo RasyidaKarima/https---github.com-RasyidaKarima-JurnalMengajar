@@ -55,7 +55,7 @@ class AbsenDatangController extends Controller
         $datang->foto = $request->foto;
         $datang->save();
         alert()->success('Absen Kedatangan Berhasil Disimpan');
-        return redirect('absen-datang.guru');
+        return redirect('absen-datang-guru');
     }
 
    public function edit($id)
@@ -96,6 +96,6 @@ class AbsenDatangController extends Controller
     $datang = AbsenDatang::where('id', $id)->first();
     $datang->delete();
     alert()->error('Absen Kedatangan telah dihapus', 'Deleted');
-    return redirect('absen-datang.guru');
+    return redirect('absen-datang-guru');
     }
 }

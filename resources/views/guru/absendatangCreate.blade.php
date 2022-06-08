@@ -38,7 +38,7 @@
 
         <div>
             <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{route('absen-datang.guru')}}" class="btn btn-success">Kembali</a>
+            <a href="{{ url('/absen-datang-guru') }}" class="btn btn-success">Kembali</a>
     </div>
     </div>
 </div>
