@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsenExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,7 @@ class absenController extends Controller
     {
         $absen = Absen::all();
         $active = 'absen';
-        return view('absen.absen',['dataAbsen' => $absen, 'active' => $active]);
-
+        return view('absen.absen', ['dataAbsen' => $absen, 'active' => $active]);
     }
 
     /**
@@ -46,7 +46,7 @@ class absenController extends Controller
             'id_users' => $request->id_users,
             'jam_masuk' => date('Y-m-d H:i:s'),
             'tanggal_absen' =>  date('Y-m-d H:i:s'),
-            'status' => $request -> status,
+            'status' => $request->status,
             'lampiran' => $file->move('images')
         ]);
         return redirect('absen');
@@ -72,7 +72,7 @@ class absenController extends Controller
     public function edit($id)
     {
         $absen = Absen::find($id);
-        return view('absen.absenEdit',compact('absen'));
+        return view('absen.absenEdit', compact('absen'));
     }
 
     /**
@@ -87,23 +87,23 @@ class absenController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $id = $request->id;
         $file = $request->file('lampiran');
-        if($file != ''){
+        if ($file != '') {
             // JIKA GAMBAR DIUBAH
-            DB::table('absen')->where('id',$id)->update([
+            DB::table('absen')->where('id', $id)->update([
                 'id_users' => $request->id_users,
                 'jam_masuk' => date('Y-m-d H:i:s'),
                 'tanggal_absen' =>  date('Y-m-d H:i:s'),
-                'status' => $request -> status,
+                'status' => $request->status,
                 'lampiran' => $file->move('images'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
-        }else{
+        } else {
             // JIKA TIDAK MENGUBAH GAMBAR
-            DB::table('absen')->where('id',$id)->update([
+            DB::table('absen')->where('id', $id)->update([
                 'id_users' => $request->id_users,
                 'jam_masuk' => date('Y-m-d H:i:s'),
                 'tanggal_absen' =>  date('Y-m-d H:i:s'),
-                'status' => $request -> status,
+                'status' => $request->status,
                 'lampiran' => $request->lampiran_old,
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
@@ -120,7 +120,7 @@ class absenController extends Controller
     public function destroy($id)
     {
         $absen = Absen::find($id);
-        $absen ->delete();
+        $absen->delete();
         return redirect('/absen');
     }
     public function rekapan()
@@ -134,11 +134,52 @@ class absenController extends Controller
         $active = 'rekap_absensi';
         return view('absen.rekapan', ['active' => $active]);
     }
-
-
-    public function rekapanPertanggal($tglawal, $tglakhir){
-        dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
-
+    public function exportExcel()
+    {
+        $absens = Absen::all();
+        $active = 'absen';
+        $arr_absens = [];
+        $id = 1;
+        foreach ($absens as  $absen) {
+            # code...
+            $arr_absen = [
+                'id' => $id,
+                'nama' => $absen->id_users,
+                'jam_masuk' => $absen->jam_masuk,
+                'jam_pulang' => '-',
+                'tanggal_absen' => $absen->tanggal_absen,
+                'status' => $absen->status,
+                'lampiran' => $absen->lampiran
+            ];
+            array_push($arr_absens, $arr_absen);
+        }
+        dd($arr_absens);
+        // return view('absen.absen', ['dataAbsen' => $absen, 'active' => $active]);
     }
 
+
+    public function rekapanPertanggal($tglawal, $tglakhir)
+    {
+        // dd(["Tanggal Awal : " . $tglawal, "Tanggal Akhir : " . $tglakhir]);
+        $absens = Absen::whereDate('tanggal_absen', '>=', $tglawal)->whereDate('tanggal_absen', '<=', $tglakhir)->get();
+        // dd($absens);
+        $active = 'absen';
+        $arr_absens = [];
+        $id = 1;
+        foreach ($absens as  $absen) {
+            # code...
+            $arr_absen = [
+                'id' => $id,
+                'nama' => $absen->id_users,
+                'jam_masuk' => $absen->jam_masuk,
+                'jam_pulang' => '-',
+                'tanggal_absen' => $absen->tanggal_absen,
+                'status' => $absen->status,
+                // 'lampiran' => $absen->lampiran
+            ];
+            array_push($arr_absens, $arr_absen);
+        }
+        // dd($arr_absens);
+        return (new AbsenExport($arr_absens))->download('rekap_absen' . date('Y-m-d_H-i-s') . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
+    }
 }
