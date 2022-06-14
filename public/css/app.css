@@ -375,7 +375,7 @@ button,
   -webkit-appearance: button;
 }
 button:not(:disabled),
-[type=button]:yes(:enabled),
+[type=button]:not(:disabled),
 [type=reset]:not(:disabled),
 [type=submit]:not(:disabled) {
   cursor: pointer;

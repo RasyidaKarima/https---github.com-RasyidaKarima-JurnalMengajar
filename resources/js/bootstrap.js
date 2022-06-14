@@ -2,7 +2,7 @@ window._ = require('lodash');
 
 try {
     require('bootstrap');
-} catch (e) {}
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -13,6 +13,24 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+function rekapanPertanggal() {
+    warning = false;
+    let tgl_awal = document.getElementById('tglawal').value;
+    let tgl_akhir = document.getElementById('tglakhir').value;
+
+    if (tgl_awal == '') {
+        warning = true;
+    }
+    if (tgl_akhir == '') {
+        warning = true;
+    }
+    if (!warning) {
+        window.open('http://' + window.location.host + '/rekapan-pertanggal/' + tgl_awal + '/' + tgl_akhir, '_blank').focus();
+    } else {
+        alert('Tanggal awal atau Tanggal akhir kosong!');
+    }
+}
+window.rekapanPertanggal = rekapanPertanggal;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
