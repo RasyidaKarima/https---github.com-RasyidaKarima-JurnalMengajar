@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\AbsenDatang;
 use Auth;
 use Alert;
+use Carbon\Carbon;
+use Yajra\Datatables\Datatables;
+
 
 class AbsenDatangController extends Controller
 {
@@ -17,42 +20,58 @@ class AbsenDatangController extends Controller
         $this->middleware('auth');
     }
 
-   public function index()
-   {
-       $datang = AbsenDatang::all();
-       return view('guru.absendatang', compact('datang'));
-   }
-
-   public function create()
-   {
-       return view('guru.absendatangCreate');
-   }
-   /*
-    public function store(Request $req, $id){
-       $file = $req->file('foto');
-       DB::table('absensi_datang')->insert([
-           'nama' => $req->nama,
-           'kelas' => $req->kelas,
-           'uraian_tugas' => $req->uraian_tugas,
-           'hasil' => $req->hasil,
-           'kendala' => $req->kendala,
-           'tindak_lanjut' => $req->tindak_lanjut,
-           'foto_kegiatan' => $file->move('images')
-       ]);
-       return redirect('jurnal-guru');
-   }*/
-
-   public function save(Request $request)
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = AbsenDatang::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('foto', function ($data) {
+                    $url= asset('images/absendatang/'.$data->foto);
+                    return '<img src="'.$url.'" width="70" alt="..." />'; 
+                })
+                ->addColumn('action', function ($data) {
+                    return '<button type="button" class="btn btn-success btn-sm" id="getEditArticleData" data-id="' . $data->id . '"><i class="fa fa-edit"></i></button>
+                    <button type="button" data-id="' . $data->id . '" data-toggle="modal" data-target="#DeleteArticleModal" class="btn btn-danger btn-sm" id="getDeleteId"><i class="fa fa-trash"></i></button>';
+                })
+                ->rawColumns(['foto', 'action'])
+                ->make(true);
+        }
+        return view('guru.absendatang');
+    }
+
+
+    public function create()
+    {
+       return view('guru.absendatangCreate');
+    }
+   
+
+    public function save(Request $request)
+    {
+        $date = Carbon::now();
         $user = User::where('id', Auth::user()->id)->first();
         $datang = AbsenDatang::where('user_id', $user->id)->first();
 
         $datang = new AbsenDatang;
         $datang->user_id = $user->id;
-        $datang->tanggal = $request->tanggal;
+        $datang->tanggal = $date;
         $datang->status = $request->status;
         $datang->kondisi = $request->kondisi;
-        $datang->foto = $request->foto;
+        $file = $request->file('foto');
+        //Mendapatkan nama file
+        $nama_file = $file->getClientOriginalName();
+
+        // Mendapatkan Extension File
+        $extension = $file->getClientOriginalExtension();
+    
+        // Mendapatkan Ukuran File
+        $ukuran_file = $file->getSize();
+     
+        // Proses Upload File
+        $destinationPath = 'images\absendatang';
+        $file->move($destinationPath,$file->getClientOriginalName());
+        $datang->foto = $nama_file;
         $datang->save();
         alert()->success('Absen Kedatangan Berhasil Disimpan');
         return redirect('absen-datang-guru');

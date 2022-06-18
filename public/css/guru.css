@@ -2931,10 +2931,15 @@ Copyright (c) 2015 Daniel Eden
     padding-left: 15px;
 }
 
+.card .table tbody td,
+.card .table thead th {
+    text-align: center;
+}
+
 .card .table tbody td:last-child,
 .card .table thead th:last-child {
     padding-right: 15px;
-    display: inline-flex;
+    
 }
 
 .card .alert {
@@ -4015,9 +4020,7 @@ Copyright (c) 2015 Daniel Eden
     }
     .nav-mobile-menu {
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-        padding-top: 5px;
+        margin-bottom: 10px;
     }
     .nav-mobile-menu .dropdown .dropdown-menu {
         position: static !important;
@@ -4431,7 +4434,7 @@ Copyright (c) 2015 Daniel Eden
         margin: 1px 0;
     }
     .navbar-nav .show .dropdown-menu .nav-item .nav-link {
-        padding: 10px 15px 10px 60px;
+        padding: 5px 10px 5px 20px;
     }
     [class*="navbar-"] .navbar-nav>li>a,
     [class*="navbar-"] .navbar-nav>li>a:hover,
@@ -5294,5 +5297,3 @@ License - nucleoapp.com/license/
 .nc-zoom-split::before {
     content: "\ea64";
 }
-
-/* all icon font classes list here */

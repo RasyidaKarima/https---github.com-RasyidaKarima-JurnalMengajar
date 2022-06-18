@@ -3,10 +3,10 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h4 class="m-0 font-weight-bold"> Tambah Absen Kedatangan</h4>
+        <h4 class="m-0 font-weight-bold"> Tambah Absen Pulang</h4>
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ url('/absen-datang-guru') }}/{{ auth()->user()->id }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/absen-pulang-guru') }}/{{ auth()->user()->id }}" enctype="multipart/form-data">
             @csrf
         <div class="mb-3">
             <label for="status" class="form-label">Status</label><br>
@@ -27,7 +27,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="font-weight-bold" for="foto">Foto Kedatangan</label>
+            <label class="font-weight-bold" for="foto">Foto Pulang</label>
             <input type="file" name="foto" class="form-control form-control-file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" required />
         </div>
         <br>

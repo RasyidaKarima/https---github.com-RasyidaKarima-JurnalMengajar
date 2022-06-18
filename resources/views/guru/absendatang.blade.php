@@ -1,71 +1,79 @@
 @extends('layouts.sidebarGuru')
 
 @section('content')
-<h4 class="m-0 font-weight-bold"><strong>Absensi Kedatangan</strong></h4>
-<br>
-
-
+<div class="card">
+  <div class="card-header">
+    <h4 class="m-0 font-weight-bold"><strong>Absensi Kedatangan</strong></h4>
+    <br>
     <a href="{{route('absen-datangCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
     <div class="col-md-3">
       <label>Filter Tanggal</label>
       <input type="text" class="datepicker">
     </div>
     <br>
-    <br>
-    <table style="color: #FFFFFF;" id="absDatangTable" class="table table-bordered table-striped yajra-datatable" >
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
         <thead>
           <tr class="text-center">
-            <th style="width:2%">No</th>
-            <th style="width:10%">Tanggal</th>
-            <th style="width:15%">Status</th>
-            <th style="width:12%">Kondisi</th>
-            <th style="width:15%">Foto</th>
-            <th style="width:20%">Aksi</th>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+            <th>Kondisi</th>
+            <th>Foto</th>
+            <th>Aksi</th>
           </tr>
         </thead>
-        <tbody>
-            @foreach ($datang as $ju )
-                <tr>
-                    <td>{{$loop ->iteration}}</td>
-                    <td>{{$ju ->tanggal}}</td>
-                    <td>{{$ju ->status}}</td>
-                    <td>{{$ju ->kondisi}}</td>
-                    <td>
-                    <img src="{{ url(''.$ju->foto) }}" alt="{{ $ju->foto }}" class="img img-thumbnail" style="width: 100px !important;">
-                    </td>
-                    <td>
-                        <form action="{{route('absen-datangDestroy.guru',$ju->id)}}" method="POST">@csrf
-                            <a href="{{route('absen-datangEdit.guru', $ju->id)}}" class="btn btn-warning">Edit</a>
-                            <button class="btn btn-danger alert_notif"> Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
+      </table>
+    </div>
+  </div>
+</div>
 
 @endsection
 @push('scripts')
-<script>
-  $(document).ready( function () {
-    $('#absDatangTable').DataTable(/*{
-      "ajax":{
-        url:"{{ route('jurnal.guru') }}",
-        type:"POST",
-        data:function(d){
-          d.tanggal = $("filter-tanggal").val()
-        }
-      }
-    }*/);
-  } );
-</script>
-<script>
-$(".datepicker").datepicker({
-    format:"yyyy-mm-dd"
-})
-</script>
-<script>
+<script type="text/javascript">
+  $(function() {
+    var table = $('#data_users_side').DataTable({
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                pageLength: 5,
+                ajax: '{!! route('absen-datang.guru') !!}', // memanggil route yang menampilkan data json
+                columns: [{ // mengambil & menampilkan kolom sesuai tabel database
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'tanggal',
+                        name: 'tanggal',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'kondisi',
+                        name: 'kondisi',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'foto',
+                        name: 'foto',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true,
+                        sClass:'text-center'
+                    }
+                ]
+            });
   $('.alert_notif').on('click',function(){
     var getLink = $(this).attr('href');
     Swal.fire({
@@ -85,5 +93,6 @@ $(".datepicker").datepicker({
     })
     return false;
   });
+});
 </script>
 @endpush

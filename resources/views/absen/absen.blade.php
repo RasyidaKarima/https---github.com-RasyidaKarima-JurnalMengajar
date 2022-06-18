@@ -24,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-    @foreach ($dataAbsen as $absen )
+    @foreach ($absen as $absen )
       <tr>
         <td class="text-center">{{$loop ->iteration}}</td>
         <td>{{$absen ->id_users}}</td>

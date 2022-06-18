@@ -20,7 +20,7 @@ class jurnalController extends Controller
         $jurnal = Jurnal::all();
         $active = 'jurnal';
 
-        return view('jurnal.jurnal', ['dataJurnal' => $jurnal, 'active' => $active]);
+        return view('jurnal.jurnal', compact('jurnal', 'active'));
     }
 
     /**
@@ -30,7 +30,8 @@ class jurnalController extends Controller
      */
     public function create()
     {
-        return view('jurnal.jurnalCreate');
+        $active = 'jurnal';
+        return view('jurnal.jurnalCreate', compact('active'));
     }
 
     /**
@@ -129,7 +130,7 @@ class jurnalController extends Controller
         $jurnal = Jurnal::all();
         $active = 'rekap';
 
-        return view('jurnal.jurnalRekap', ['dataJurnal' => $jurnal, 'active' => $active]);
+        return view('jurnal.jurnalRekap', compact('jurnal', 'active'));
     }
 
     public function exportExcel()

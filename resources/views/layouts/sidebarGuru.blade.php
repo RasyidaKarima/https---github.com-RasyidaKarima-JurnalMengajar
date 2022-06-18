@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css"/>
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap1.min.css">
-    <link rel="stylesheet" href="{{asset('css/')}}/guru.css">
+    <link rel="stylesheet" href="{{asset('css/guru.css')}}">
 
 </head>
 
@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./typography.html">
+                        <a class="nav-link" href="{{ route('absen-pulang.guru') }}">
                             <p>Absensi Pulang</p>
                             <i class="fa-solid fa-clipboard"></i>
                         </a>
@@ -96,8 +96,9 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="#">Profil</a>
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                        <a class="dropdown-item" href="{{ route('logout') }}" 
+                                            onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -139,16 +140,8 @@
 <script src="{{asset('js/core/')}}/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/popper.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/bootstrap.min.js" type="text/javascript"></script>
-<script src="{{asset('js/')}}/guru.css" type="text/javascript "></script>
+<script src="{{asset('js/guru.js')}}" type="text/javascript "></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-
-<script>
-$(".datepicker").datepicker({
-    format:"yyyy-mm-dd"
-})
-</script>
 @stack('scripts')
 @include('sweetalert::alert')
 </body>

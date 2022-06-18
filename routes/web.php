@@ -23,11 +23,10 @@ Route::view('/user', 'user.user');
 Route::view('/jurnal', 'jurnal.jurnal');
 Route::view('/absen', 'absen.absen');
 Route::view('/jabatan', 'jabatan.jabatan');
-Route::view('/', 'dashboard.index');
 Route::view('/rekapan', 'absen.');
-
+Route::get('/', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
 //role guru
-Route::view('/home', 'guru.home')->name('home.guru');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.guru');
 Route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
 Route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
 Route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
@@ -36,15 +35,20 @@ Route::post('/absen-datang-guru/{id}',  [App\Http\Controllers\Guru\AbsenDatangCo
 Route::post('/absen-datang-guru/destroy/{id}', [App\Http\Controllers\Guru\AbsenDatangController::class, 'delete'])->name('absen-datangDestroy.guru');
 Route::get('/absen-datang-guru/edit/{id}', [App\Http\Controllers\Guru\AbsenDatangController::class, 'edit'])->name('absen-datangEdit.guru');
 Route::post('/absen-datang-guru/edit/{id}', [App\Http\Controllers\Guru\AbsenDatangController::class, 'update'])->name('absen-datangUpdate.guru');
-
+Route::get('/absen-pulang-guru', [App\Http\Controllers\Guru\AbsenPulangController::class, 'index'])->name('absen-pulang.guru');
+Route::get('/absen-pulang-guru/create', [App\Http\Controllers\Guru\AbsenPulangController::class, 'create'])->name('absen-pulangCreate.guru');
+Route::post('/absen-pulang-guru/{id}',  [App\Http\Controllers\Guru\AbsenPulangController::class, 'save']);
+Route::get('/absen-pulang-guru/edit/{id}', [App\Http\Controllers\Guru\AbsenPulangController::class, 'edit'])->name('absen-pulangEdit.guru');
+Route::post('/absen-pulang-guru/edit/{id}', [App\Http\Controllers\Guru\AbsenPulangController::class, 'update'])->name('absen-pulangUpdate.guru');
+Route::post('/absen-pulang/destroy/{id}', [App\Http\Controllers\Guru\AbsenPulangController::class, 'destroy'])->name('absen-pulangDestroy');
 //view
 Route::get('user', [userController::class, 'index'])->name('user.index');
 Route::get('jabatan', [jabatanController::class, 'index'])->name('jabatan.index');
 Route::get('jurnal', [jurnalController::class, 'index'])->name('jurnal.index');
-route::get('rekapjurnal', [jurnalController::class, 'rekapan'])->name('jurnal.rekapan');
-route::get('rekapjurnal/exportExcel', [jurnalController::class, 'exportExcel'])->name('jurnal.exportExcel');
+route::get('/rekapjurnal', [jurnalController::class, 'rekapan'])->name('jurnal.rekapan');
+route::get('/rekapjurnal/exportExcel', [jurnalController::class, 'exportExcel'])->name('jurnal.exportExcel');
 Route::get('absen', [absenController::class, 'index'])->name('absen.index');
-Route::get('rekapan', [absenController::class, 'rekapan'])->name('absen.index');
+Route::get('rekapan', [absenController::class, 'rekapan'])->name('rekap.index');
 Route::post('absen_edit', [absenController::class, 'update'])->name('absen_edit');
 Route::get('/rekapan-pertanggal/{tglawal}/{tglakhir}', 'absenController@rekapanPertanggal')->name('rekapan-pertanggal');
 

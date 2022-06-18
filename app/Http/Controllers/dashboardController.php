@@ -26,7 +26,7 @@ class dashboardController extends Controller
         $time = Carbon::now();
         $active = 'dashboard';
         return view('dashboard.index')->with(compact('totalDataJurnal', 'time', 'active'));
-        return view('user.user')->with(compact('totalUser', 'time', 'active'));
+        //return view('user.user')->with(compact('totalUser', 'time', 'active'));
     }
 
     /**

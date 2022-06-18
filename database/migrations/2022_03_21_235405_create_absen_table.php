@@ -15,6 +15,12 @@ class CreateAbsenTable extends Migration
     {
         Schema::create('absen', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->time('jam_masuk');
+            $table->date('tanggal_absen');
+            $table->string('status');
+            $table->string('lampiran');
             $table->timestamps();
         });
     }

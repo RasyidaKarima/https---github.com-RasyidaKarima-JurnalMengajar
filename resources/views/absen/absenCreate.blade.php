@@ -10,7 +10,7 @@
     @csrf
 <div class="mb-3">
     <label for="id_users" class="form-label">Id User</label>
-    <input type="text" class="form-control" id="id_users" name="id_users" placeholder="Masukkan Nama">
+    <input type="text" class="form-control" id="id_users" name="id_users" placeholder="Masukkan Nama" value="{{ auth()->user()->id }}">
 </div>
 <div class="mb-3">
     <label for="status" class="form-label">Status Kedatangan </label> <br>

@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($dataJurnal as $jurnal )
+            @foreach ($jurnal as $jurnal )
 
             <tr>
                 <td>{{$loop ->iteration}}</td>

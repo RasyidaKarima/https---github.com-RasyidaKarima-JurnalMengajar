@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Absen;
+use Carbon\Carbon;
 
 class absenController extends Controller
 {
@@ -19,7 +20,7 @@ class absenController extends Controller
     {
         $absen = Absen::all();
         $active = 'absen';
-        return view('absen.absen', ['dataAbsen' => $absen, 'active' => $active]);
+        return view('absen.absen', compact('absen', 'active'));
     }
 
     /**
@@ -29,7 +30,8 @@ class absenController extends Controller
      */
     public function create()
     {
-        return view('absen.absenCreate');
+        $active = 'absen';
+        return view('absen.absenCreate', compact('active'));
     }
 
     /**
@@ -40,39 +42,30 @@ class absenController extends Controller
      */
     public function store(Request $request)
     {
+        $date = Carbon::now();
+
         date_default_timezone_set('Asia/Jakarta');
         $file = $request->file('lampiran');
         DB::table('absen')->insert([
-            'id_users' => $request->id_users,
-            'jam_masuk' => date('Y-m-d H:i:s'),
-            'tanggal_absen' =>  date('Y-m-d H:i:s'),
+            'user_id' => $request->id_users,
+            'jam_masuk' => $date,
+            'tanggal_absen' =>  $date,
             'status' => $request->status,
             'lampiran' => $file->move('images')
         ]);
         return redirect('absen');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $active = 'absen';
         $absen = Absen::find($id);
-        return view('absen.absenEdit', compact('absen'));
+        return view('absen.absenEdit', compact('absen','active'));
     }
 
     /**
@@ -90,7 +83,7 @@ class absenController extends Controller
         if ($file != '') {
             // JIKA GAMBAR DIUBAH
             DB::table('absen')->where('id', $id)->update([
-                'id_users' => $request->id_users,
+                'user_id' => $request->id_users,
                 'jam_masuk' => date('Y-m-d H:i:s'),
                 'tanggal_absen' =>  date('Y-m-d H:i:s'),
                 'status' => $request->status,
@@ -100,7 +93,7 @@ class absenController extends Controller
         } else {
             // JIKA TIDAK MENGUBAH GAMBAR
             DB::table('absen')->where('id', $id)->update([
-                'id_users' => $request->id_users,
+                'user_id' => $request->id_users,
                 'jam_masuk' => date('Y-m-d H:i:s'),
                 'tanggal_absen' =>  date('Y-m-d H:i:s'),
                 'status' => $request->status,
@@ -132,7 +125,7 @@ class absenController extends Controller
         // // dd($disposisi); die;
         // return view('absen.rekapan',['dataAbsen' => $absen]);
         $active = 'rekap_absensi';
-        return view('absen.rekapan', ['active' => $active]);
+        return view('absen.rekapan', compact('active'));
     }
     public function exportExcel()
     {

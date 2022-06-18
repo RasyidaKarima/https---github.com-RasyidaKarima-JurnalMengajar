@@ -73,7 +73,7 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell
                 $event->sheet->getDelegate()->getStyle('E' . $tandatangancount)->getFont()->setName("Times New Roman")->setSize('11');
                 $kepalasekolahcount = $tandatangancount + 1;
                 // $event->sheet->getDelegate()->mergeCells('E' . $kepalasekolahcount . ':F' . $kepalasekolahcount);
-                $event->sheet->getDelegate()->getCell('E' . $kepalasekolahcount)->setValue('Kepala UPT SD BUTUN 03');
+                $event->sheet->getDelegate()->getCell('E' . $kepalasekolahcount)->setValue('Kepala UPT SD BUTUN 02');
                 $event->sheet->getDelegate()->getStyle('E' . $kepalasekolahcount)->getFont()->setName("Times New Roman")->setSize('11');
                 $kecamatancount = $kepalasekolahcount + 1;
                 // $event->sheet->getDelegate()->mergeCells('E' . $kecamatancount . ':F' . $kecamatancount);
