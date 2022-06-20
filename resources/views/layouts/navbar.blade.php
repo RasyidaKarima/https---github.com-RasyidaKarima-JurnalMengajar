@@ -7,3 +7,4 @@
     <li class="<?php if($active == 'rekap'){ echo 'active'; } ?>"> <a href="/rekapjurnal"><i class="fa fa-folder"></i> <span>Rekap Jurnal</span></a></li>
     <li class="<?php if($active == 'absen'){ echo 'active'; } ?>"> <a href="/absen"><i class="fa fa-camera"></i> <span>Absensi</span></a></li>
     <li class="<?php if($active == 'rekap_absensi'){ echo 'active'; } ?>"> <a href="/rekapan"><i class="fa fa-folder"></i> <span>Rekap Absensi</span></a></li>
+</ul>

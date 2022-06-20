@@ -3996,7 +3996,7 @@ Copyright (c) 2015 Daniel Eden
         -moz-transform: translate3d(10px, 0, 0);
         -o-transform: translate3d(10px, 0, 0);
         -ms-transform: translate3d(10px, 0, 0);
-        transform: translate3d(10px, 0, 0) !important;
+        transform: translate3d(0, 0, 10px) !important;
         -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
         -moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
         -o-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);

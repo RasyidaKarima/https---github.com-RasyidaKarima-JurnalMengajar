@@ -63,6 +63,12 @@
                             <i class="fa-solid fa-list"></i>
                         </a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="./icons.html">
+                            <p>Validasi Jurnal</p>
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -96,7 +102,7 @@
                                         <span class="no-icon">{{ Auth::user()->name }}</span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="{{ url('profile') }}">Profil</a>
+                                        <a class="dropdown-item" href="#">Profil</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" 
                                             onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

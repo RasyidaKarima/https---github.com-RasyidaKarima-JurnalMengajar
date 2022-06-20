@@ -6,12 +6,9 @@
         <h3> Edit Absen Kedatangan</h3>
 
     <div class="card-body">
-        <form action="{{ url('/absen-datang-guru/edit') }}/{{ auth()->user()->id }}" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
-        <div class="mb-3">
-            <label for="tanggal" class="form-label">Tanggal</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Masukkan Tanggal" value="{{$datang->tanggal}}">
-        </div>
+    
         <div class="mb-3">
             <label for="status" class="form-label">Status</label><br>
                 <select class="custom-select" name="status" id="status">

@@ -14,7 +14,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Total Data Jurnal</div>
-                       <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">/div> -->
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalDataJurnal}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa fa-archive fa-2x text-gray-300"></i>
@@ -32,7 +32,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Total User</div>
-                        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUser }}</div> --}}
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUser }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa fa-users fa-2x text-gray-300"></i>
@@ -48,11 +48,45 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total Jabatan</div>
-                        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalJabatan }}</div> --}}
+                            Total Absen Datang</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalDatang}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fa fa-user fa-2x text-gray-300"></i>
+                        <i class="fa fa-clock-o fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Absen Pulang</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalPulang}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-clock-o fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total RPP</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalRpp}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-book fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>

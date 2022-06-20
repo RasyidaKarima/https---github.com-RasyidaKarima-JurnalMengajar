@@ -7,12 +7,9 @@
         <h4 class="m-0 font-weight-bold"><strong>Edit Absensi Pulang</strong></h4>
     </div>
     <div class="card-body">
-        <form action="{{ url('/absen-pulang-guru/edit', $pulang->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('/absen-pulang-guru/update', $pulang->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <div class="mb-3">
-            <label for="tanggal" class="form-label">Tanggal</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Masukkan Tanggal" value="{{$pulang->tanggal}}">
-        </div>
+        
         <div class="mb-3">
             <label for="status" class="form-label">Status</label><br>
                 <select class="custom-select" name="status" id="status">
@@ -36,6 +33,7 @@
             <label class="font-weight-bold" for="foto_kegiatan">Foto Kehadiran</label>
             <br>
             <img src="{{ url('images/absenpulang') }}/{{ $pulang->foto }}" width="100" alt="..."> 
+            <input type="hidden" name="foto_old" value="{{ $pulang->foto }}">
             <input type="file" name="foto" class="form-control form-control-file" accept="image/*" />
             <small class="text-danger">
                 <b>NB*:</b> Kosongi jika tidak mengubah gambar.

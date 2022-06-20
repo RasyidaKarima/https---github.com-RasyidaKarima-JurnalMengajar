@@ -1,31 +1,33 @@
 @extends('layouts.sidebarGuru')
 
 @section('content')
-<div class="card">
-  <div class="card-header">
-    <h4 class="m-0 font-weight-bold"><strong>Absensi Pulang</strong></h4>
-    <br>
-    <a href="{{route('absen-pulangCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
-    <div class="col-md-3">
-      <label>Filter Tanggal</label>
-      <input type="text" class="datepicker">
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="m-0 font-weight-bold"><strong>Absensi Pulang</strong></h4>
+      <br>
+      <a href="{{route('absen-pulangCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <div class="col-md-3">
+        <label>Filter Tanggal</label>
+        <input type="text" class="datepicker">
+      </div>
+      <br>
     </div>
-    <br>
-  </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
-        <thead>
-          <tr class="text-center">
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Status</th>
-            <th>Kondisi</th>
-            <th>Foto</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-      </table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
+          <thead>
+            <tr class="text-center">
+              <th>No</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Kondisi</th>
+              <th>Foto</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -79,30 +81,25 @@
 <script>
   $(document).on('click','.hapus', function (e) {
     e.preventDefault();
-    let id = $(this).attr('id');
+    const href = $(this).attr('href');
     Swal.fire({
-      title: 'Apakah yakin hapus data ini?',
-      text: "Kamu tidak dapat memulihkan data ini setelah terhapus!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-        },
-        function() {
-          $.ajax({
-            url : "{{route('absen-pulangDestroy')}}" + id,
-            type : 'post',
-            data: {
-                id: id,
-                "_token" : "{{csrf_token()}}"
-            },
-            success: function (params) {
-                alert(params.text)
-                $('#data_users_side').DataTable().ajax.reload()
-            }
-          });
-        });
+      title: 'Apakah anda yakin menghapus data ini?',
+		  text: "Data yang dihapus tidak bisa dikembalikan!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Hapus Data!'
+        }).then((result) => {
+		  if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        document.location.href = href; //kembalikan nilai true dengan redirect document ke halaman yang dituju
+  		}
+    })
   });
 </script>
 @endpush

@@ -24,7 +24,10 @@ class AbsenPulangController extends Controller
    public function index(Request $request)
    {
     if ($request->ajax()) {
-        $data = AbsenPulang::get();
+        $data = AbsenPulang::select('*')
+            ->where('user_id', Auth::user()->id)
+            ->where('tanggal', Date("Y-m-d"))
+            ->get();
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('foto', function ($data) {
@@ -33,7 +36,7 @@ class AbsenPulangController extends Controller
             })
             ->addColumn('action', function ($data) {
                 $button = ' <a href="'. route("absen-pulangEdit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
-                $button .= ' <button class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></button>';
+                $button .= ' <a href="'. route("absen-pulang.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
                 return $button;
             })
             ->rawColumns(['foto', 'action'])
@@ -83,52 +86,40 @@ class AbsenPulangController extends Controller
        return view('guru.absenpulangEdit',compact('pulang'));
    }
 
-    public function update(Request $request, AbsenPulang $absenpulang)
-    {
-
-        $this->validate($request, [
-            'status'     => 'required',
-            'kondisi'   => 'required'
-        ]);
-
-        $absenpulang = AbsenPulang::findOrFail($absenpulang->id);
-
-        if($request->file('foto') == "") {
-
+   public function update(Request $request, $id)
+   {
+       date_default_timezone_set('Asia/Jakarta');
+       $file = $request->file('foto');
+       if($request->file('foto') != null){
+           // dd($file);
+           $ext_foto = $file->extension();
+           $filename = $file->move(public_path() . '/images/absenpulang/', $file->getClientOriginalName());
+           $date = Carbon::now();
+           $pulang = AbsenPulang::where('id', $id)->first();
+           // dd($absen_datang);
+           $pulang->tanggal      = $date;
+           $pulang->status       = $request->status;
+           $pulang->kondisi      = $request->kondisi;
+           $pulang->foto         = $file->getClientOriginalName();
+           $pulang->updated_at   = date('Y-m-d H:i:s');
+           $pulang->save();
+       }else{
             $date = Carbon::now();
+           DB::table('absen_pulang')->where('id',$id)->update([
+               'tanggal' => $date,
+               'status' => $request->status,
+               'kondisi' => $request->kondisi,
+               'foto' => $request->foto_old,
+               'updated_at' => date('Y-m-d H:i:s')
+           ]);
+       }
+       alert()->success('Absen Pulang Telah Diupdate', 'Success');
+       return redirect('absen-pulang-guru');
 
-            $absenpulang->update([
-                'tanggal'     => $date,
-                'status'   => $request->status,
-                'kondisi'   => $request->kondisi
-            ]);
-    
-        } else {
-            $date = Carbon::now();
-
-            //hapus foto lama
-            Storage::disk('local')->delete('public/images/absenpulang/'.$absenpulang->foto);
-
-            //upload foto baru
-            $foto = $request->file('foto');
-            $foto->storeAs('public/images/absenpulang', $foto->hasName());
-
-            $absenpulang->update([
-                'foto'  => $foto->hashName(),
-                'tanggal'     => $date,
-                'status'   => $request->status,
-                'kondisi'   => $request->kondisi
-            ]);
-
-            alert()->success('Absen Pulang Telah Diupdate', 'Success');
-            return redirect('absen-pulang-guru');
-        }
-
-    }
+   }
 
     public function destroy($id)
     {
-        
         $data = AbsenPulang::find($id);
         $data->delete();
         return redirect('absen-pulang-guru');

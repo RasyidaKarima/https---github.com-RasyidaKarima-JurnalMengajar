@@ -28,7 +28,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="../../index2.html" class="logo">
+            <a href="/" class="logo">
                 <span class="logo-lg"><b>Admin</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
@@ -47,14 +47,10 @@
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{asset('adminlte-v2/')}}/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Rasyida Karima</span>
+                                <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
-                                <li class="user-header">
-                                    <img src="{{asset('adminlte-v2/')}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                </li>
                                 <!-- Menu Body -->
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
@@ -62,7 +58,12 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat" 
+                                            onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
                                     </div>
                                 </li>
                             </ul>
@@ -81,12 +82,7 @@
             <section class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
-                    <div class="pull-left image">
-                        <img src="{{asset('adminlte-v2/')}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
                         <p>Rasyida Karima</p>
-                    </div>
                 </div>
                 <!-- search form -->
                 <!-- /.search form -->

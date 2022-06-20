@@ -1,16 +1,22 @@
 <?php
 namespace App\Http\Controllers\Guru;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\RPP;
+use Auth;
+use Alert;
+use Carbon\Carbon;
+use Yajra\Datatables\Datatables;
 
 class RppController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $jurnal = Jurnal::all();
@@ -27,46 +33,6 @@ class RppController extends Controller
         return view('jurnal.jurnalCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-     /*
-        public function store(Request $req){
-            $file = $req->file('foto_kegiatan');
-            DB::table('jurnal')->insert([
-                'nama' => $req->nama,
-                'kelas' => $req->kelas,
-                'uraian_tugas' => $req->uraian_tugas,
-                'hasil' => $req->hasil,
-                'kendala' => $req->kendala,
-                'tindak_lanjut' => $req->tindak_lanjut,
-                'foto_kegiatan' => $file->move('images')
-            ]);
-            return redirect('jurnal-guru');
-        }
-         */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
 

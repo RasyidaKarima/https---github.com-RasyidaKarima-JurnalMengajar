@@ -10,4 +10,5 @@ class AbsenDatang extends Model
     use HasFactory;
 
     protected $table = 'absen_datang';
+    protected $primaryKey = "id";
 }
