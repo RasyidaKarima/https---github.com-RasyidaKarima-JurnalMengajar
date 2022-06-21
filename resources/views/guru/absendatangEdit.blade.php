@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="card">
-        <h3> Edit Absen Kedatangan</h3>
+    <div class="card-header">
+        <h4 class="m-0 font-weight-bold"><strong>Edit Absensi Datang</strong></h4>
+    </div>
 
     <div class="card-body">
         <form action="" method="POST" enctype="multipart/form-data">

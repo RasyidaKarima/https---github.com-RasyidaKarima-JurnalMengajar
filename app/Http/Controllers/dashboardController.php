@@ -22,14 +22,13 @@ class dashboardController extends Controller
 
     public function index()
     {
-        //
-        $totalDataJurnal = Jurnal::count();
-        $totalUser= User::count();
-        $totalDatang= AbsenDatang::count();
-        $totalPulang= AbsenPulang::count();
-        $totalRpp= RPP::count();
+        $jurnal = Jurnal::count();
+        $user= User::count();
+        $absendatang= AbsenDatang::count();
+        $absenpulang= AbsenPulang::count();
+        $rpp= RPP::count();
 
         $active = 'dashboard';
-        return view('dashboard.index', compact('totalDataJurnal', 'totalUser', 'totalDatang', 'totalPulang', 'totalRpp', 'active'));
+        return view('dashboard.index', compact('jurnal', 'user', 'absendatang', 'absenpulang', 'rpp', 'active'));
     }
 }

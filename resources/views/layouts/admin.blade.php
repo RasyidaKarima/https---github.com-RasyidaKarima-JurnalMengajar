@@ -28,7 +28,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="/" class="logo">
+            <a href="/home-admin" class="logo">
                 <span class="logo-lg"><b>Admin</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
@@ -82,7 +82,7 @@
             <section class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
-                        <p>Rasyida Karima</p>
+                        <p>{{ Auth::user()->name }}</p>
                 </div>
                 <!-- search form -->
                 <!-- /.search form -->

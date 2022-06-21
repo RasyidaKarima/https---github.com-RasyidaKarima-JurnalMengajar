@@ -10,4 +10,9 @@ class AbsenPulang extends Model
     use HasFactory;
 
     protected $table = 'absen_pulang';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

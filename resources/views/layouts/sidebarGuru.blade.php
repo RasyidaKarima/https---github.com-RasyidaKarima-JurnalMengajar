@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./icons.html">
+                        <a class="nav-link" href="{{ route('rpp.guru') }}">
                             <p>Rencana Pembelajaran</p>
                             <i class="fa-solid fa-list"></i>
                         </a>

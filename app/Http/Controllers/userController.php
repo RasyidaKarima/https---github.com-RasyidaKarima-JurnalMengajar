@@ -29,7 +29,8 @@ class userController extends Controller
      */
     public function create()
     {
-        return view('user.userCreate');
+        $active = 'user';
+        return view('user.userCreate', compact('active'));
     }
 
     /**
@@ -50,36 +51,13 @@ class userController extends Controller
         return redirect('/user');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = User::find($id);
-        return view('user.userEdit',compact('data'));
+        $active = 'user';
+        return view('user.userEdit',compact('data', 'active'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $data = User::find($id);

@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use App\Models\RPP;
 use Auth;
 use Alert;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
+
 
 class RppController extends Controller
 {
@@ -16,81 +19,71 @@ class RppController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function index()
+
+    public function index(Request $request)
     {
-        $jurnal = Jurnal::all();
-        return view('guru.jurnalGuru', compact('jurnal'));
+        if ($request->ajax()) {
+            $data = RPP::select('*')
+            ->where('user_id', Auth::user()->id)
+            ->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $button = ' <a href="'. route("rppEdit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
+                    $button .= ' <a href="'. route("rpp-guru.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('guru.rpp');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        return view('jurnal.jurnalCreate');
+       return view('guru.rppCreate');
     }
+   
 
-    public function edit($id)
+    public function save(Request $request)
     {
+        $user = User::where('id', Auth::user()->id)->first();
+        $rpp = RPP::where('user_id', $user->id)->first();
 
-        $jurnal = Jurnal::find($id);
-        return view('jurnal.jurnalEdit',compact('jurnal'));
+        $rpp = new RPP;
+        $rpp->user_id = $user->id;
+        $rpp->mata_pelajaran = $request->mata_pelajaran;
+        $rpp->kompetensi_inti = $request->kompetensi_inti;
+        $rpp->penjelasan = $request->penjelasan;
+        $rpp->save();
+        alert()->success('RPP Berhasil Disimpan');
+        return redirect('rpp-guru');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   public function edit($id)
+   {
+
+       $rpp = RPP::find($id);
+       return view('guru.rppEdit',compact('rpp'));
+   }
+
     public function update(Request $request, $id)
     {
-        date_default_timezone_set('Asia/Jakarta');
-        $file = $request->file('foto_kegiatan');
-        if($file != ''){
-            // JIKA GAMBAR DIUBAH
-            DB::table('jurnal')->where('id',$id)->update([
-                'nama' => $request->nama,
-                'kelas' => $request->kelas,
-                'uraian_tugas' => $request->uraian_tugas,
-                'hasil' => $request->hasil,
-                'kendala' => $request->kendala,
-                'tindak_lanjut' => $request->tindak_lanjut,
-                'foto_kegiatan' => $file->move('images'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
-        }else{
-            // JIKA TIDAK MENGUBAH GAMBAR
-            DB::table('jurnal')->where('id',$id)->update([
-                'nama' => $request->nama,
-                'kelas' => $request->kelas,
-                'uraian_tugas' => $request->uraian_tugas,
-                'hasil' => $request->hasil,
-                'kendala' => $request->kendala,
-                'tindak_lanjut' => $request->tindak_lanjut,
-                'foto_kegiatan' => $request->foto_kegiatan_old,
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
-        }
-        return redirect('/jurnal-guru');
 
+        $rpp = RPP::findOrFail($id);
+        $rpp->mata_pelajaran = $request->mata_pelajaran;
+        $rpp->kompetensi_inti = $request->kompetensi_inti;
+        $rpp->penjelasan = $request->penjelasan;
+        $rpp->update();
+        alert()->success('Data RPP Berhasil Diupdate', 'Success');
+        return redirect('rpp-guru');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $jurnal= Jurnal::find($id);
-        $jurnal->delete();
-        return redirect('/jurnal-guru');
+        $data = RPP::find($id);
+        $data->delete();
+        return redirect('rpp-guru');
     }
 }

@@ -11,7 +11,6 @@ use Auth;
 use Alert;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
-// use App\Models\AbsenDatang;
 
 
 class AbsenDatangController extends Controller

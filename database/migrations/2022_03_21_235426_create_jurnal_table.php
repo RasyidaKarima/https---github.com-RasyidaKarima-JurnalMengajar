@@ -20,11 +20,8 @@ class CreateJurnalTable extends Migration
             $table->integer('rpp_id')->unsigned()->nullable();
             $table->foreign('rpp_id')->references('id')->on('rpp')->onDelete('cascade')->onUpdate('cascade');
             $table->text('hasil');
-            $table->text('nama');
-            $table->text('kelas');
-            $table->text('uraian_tugas');
-            $table->text('kendala');
-            $table->text('tindak_lanjut');
+            $table->text('kendala')->nullable();
+            $table->text('tindak_lanjut')->nullable();
             $table->string('foto_kegiatan');
             $table->date('tanggal');
             $table->string('status')->default('belum divalidasi');

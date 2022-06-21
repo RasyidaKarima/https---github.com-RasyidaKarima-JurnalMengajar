@@ -4,80 +4,87 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jurnal;
+use App\Models\RPP;
+use App\Models\User;
 use Auth;
+use Carbon\Carbon;
+use Yajra\Datatables\Datatables;
 
 class JurnalGuruController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function __construct()
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $jurnal = Jurnal::all();
-        return view('guru.jurnalGuru', compact('jurnal'));
+        $rpp = RPP::all();
+        if ($request->ajax()) {
+            $data = Jurnal::with('rpp');
 
-        //if(request()->input('tanggal')){
-       //     $data = $data->where('tanggal',request()->input('tanggal'));
-        //}
+
+            //Jurnal::select('*')
+            //->where('user_id', Auth::user()->id)
+            //->where('tanggal', Date("Y-m-d"))
+            //->get();
+            return DataTables::eloquent($data)
+                ->addIndexColumn()
+                ->addColumn('penjelasan', function (Post $post) {
+                    return $jurnal->rpp->penjelasan;
+                })
+                ->addColumn('action', function ($data) {
+                    $button = ' <a href="'. route("absen-datangEdit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
+                    $button .= ' <a href="'. route("absen-datang.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                    return $button;
+                })
+                ->rawColumns(['foto', 'action'])
+                ->make(true);
+        }
+        return view('guru.jurnalGuru', compact('rpp'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('jurnal.jurnalCreate');
+        $rpp = RPP::select('*')
+        ->where('user_id', Auth::user()->id)
+        ->get();
+        return view('guru.jurnalguruCreate', compact('rpp'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-     /*
-        public function store(Request $req){
-            $file = $req->file('foto_kegiatan');
-            DB::table('jurnal')->insert([
-                'nama' => $req->nama,
-                'kelas' => $req->kelas,
-                'uraian_tugas' => $req->uraian_tugas,
-                'hasil' => $req->hasil,
-                'kendala' => $req->kendala,
-                'tindak_lanjut' => $req->tindak_lanjut,
-                'foto_kegiatan' => $file->move('images')
-            ]);
-            return redirect('jurnal-guru');
-        }
-         */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function save(Request $request, $id)
     {
-        //
+        $date = Carbon::now();
+        $user = User::where('id', Auth::user()->id)->first();
+        $rpp = RPP::where('id', $id)>first();
+        $jurnal = Jurnal::where('user_id', $user->id)
+                ->where('rpp_id', $rpp->id)->first();
+        $jurnal = new Jurnal;
+        $jurnal->user_id = $user->id;
+        $jurnal->rpp_id = $rpp->id;
+        $jurnal->tanggal = $date;
+        $jurnal->hasil = $request->hasil;
+        $jurnal->kendala = $request->kendala;
+        $jurnal->tindak_lanjut = $request->kendala;
+        $file = $request->file('foto_kegiatan');
+        //Mendapatkan nama file
+        $nama_file = $file->getClientOriginalName();
+
+        // Mendapatkan Extension File
+        $extension = $file->getClientOriginalExtension();
+    
+        // Mendapatkan Ukuran File
+        $ukuran_file = $file->getSize();
+     
+        // Proses Upload File
+        $destinationPath = 'images\jurnal';
+        $file->move($destinationPath,$file->getClientOriginalName());
+        $jurnal->foto = $nama_file;
+        $jurnal->save();
+        alert()->success('Jurnal Berhasil Disimpan');
+        return redirect('jurnal-guru');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
 

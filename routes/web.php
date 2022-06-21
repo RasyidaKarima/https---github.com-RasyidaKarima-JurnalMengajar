@@ -24,12 +24,18 @@ Route::view('/jurnal', 'jurnal.jurnal');
 Route::view('/absen', 'absen.absen');
 Route::view('/jabatan', 'jabatan.jabatan');
 Route::view('/rekapan', 'absen.');
-Route::view('/profile', 'guru.profile');
+Route::view('/rpp', 'guru.rpp');
 Route::get('/', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
+
 //role guru
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.guru');
 Route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
 Route::get('/jurnal-guru', [App\Http\Controllers\Guru\JurnalGuruController::class, 'index'])->name('jurnal.guru');
+Route::get('/jurnal-guru/create', [App\Http\Controllers\Guru\JurnalGuruController::class, 'create'])->name('jurnalCreate.guru');
+Route::post('/jurnal-guru/{id}',  [App\Http\Controllers\Guru\JurnalGuruController::class, 'save']);
+Route::get('/jurnal-guru/destroy/{id}', [App\Http\Controllers\Guru\JurnalGuruController::class, 'destroy'])->name('jurnal.Destroy');
+Route::get('/jurnal-guru/edit/{id}', [App\Http\Controllers\Guru\JurnalGuruController::class, 'edit'])->name('jurnalEdit.guru');
+Route::post('/jurnal-guru/edit/{id}', [App\Http\Controllers\Guru\JurnalGuruController::class, 'update'])->name('jurnalUpdate.guru');
 Route::get('/absen-datang-guru', [App\Http\Controllers\Guru\AbsenDatangController::class, 'index'])->name('absen-datang.guru');
 Route::get('/absen-datang-guru/create', [App\Http\Controllers\Guru\AbsenDatangController::class, 'create'])->name('absen-datangCreate.guru');
 Route::post('/absen-datang-guru/{id}',  [App\Http\Controllers\Guru\AbsenDatangController::class, 'save']);
@@ -44,6 +50,12 @@ Route::post('/absen-pulang-guru/update/{id}', [App\Http\Controllers\Guru\AbsenPu
 Route::get('/absen-pulang/destroy/{id}', [App\Http\Controllers\Guru\AbsenPulangController::class, 'destroy'])->name('absen-pulang.Destroy');
 Route::get('/profile', [App\Http\Controllers\Guru\ProfileGuruController::class, 'index'])->name('profile');
 Route::post('/profile',  [App\Http\Controllers\Guru\ProfileGuruController::class, 'update']);
+Route::get('/rpp-guru', [App\Http\Controllers\Guru\RppController::class, 'index'])->name('rpp.guru');
+Route::get('/rpp-guru/create', [App\Http\Controllers\Guru\RppController::class, 'create'])->name('rppCreate.guru');
+Route::post('/rpp-guru/{id}',  [App\Http\Controllers\Guru\RppController::class, 'save']);
+Route::get('/rpp/destroy/{id}', [App\Http\Controllers\Guru\RppController::class, 'destroy'])->name('rpp-guru.Destroy');
+Route::get('/rpp-guru/edit/{id}', [App\Http\Controllers\Guru\RppController::class, 'edit'])->name('rppEdit.guru');
+Route::post('/rpp-guru/edit/{id}', [App\Http\Controllers\Guru\RppController::class, 'update'])->name('rppUpdate.guru');
 
 //view
 Route::get('user', [userController::class, 'index'])->name('user.index');
