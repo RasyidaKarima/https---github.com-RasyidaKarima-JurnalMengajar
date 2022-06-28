@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Files\LocalTemporaryFile;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use Carbon\Carbon;
 
 class AbsenExport implements FromArray, WithEvents, WithCustomStartCell
 {
@@ -53,7 +54,8 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell
                 return $event->getWriter()->getSheetByIndex(0);
             },
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->getCell('C11')->setValue(date('l, d F Y'));
+                $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+                $event->sheet->getDelegate()->getCell('C12')->setValue($today);
                 $this->getlastitemcount = ((count($this->arr_absens) - 1) + 15);
                 $styleArray = [
                     'borders' => [
@@ -69,7 +71,8 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell
                 $event->sheet->getDelegate()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
                 $tandatangancount = $this->getlastitemcount + 5;
                 // $event->sheet->getDelegate()->mergeCells($tandatangancell);
-                $event->sheet->getDelegate()->getCell('E' . $tandatangancount)->setValue('Gandusari, ' . date('d F Y'));
+                $today = Carbon::now()->isoFormat('D-m-Y');
+                $event->sheet->getDelegate()->getCell('E' . $tandatangancount)->setValue('Gandusari, ' . $today);
                 $event->sheet->getDelegate()->getStyle('E' . $tandatangancount)->getFont()->setName("Times New Roman")->setSize('11');
                 $kepalasekolahcount = $tandatangancount + 1;
                 // $event->sheet->getDelegate()->mergeCells('E' . $kepalasekolahcount . ':F' . $kepalasekolahcount);

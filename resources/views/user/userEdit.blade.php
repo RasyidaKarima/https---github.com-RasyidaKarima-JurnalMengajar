@@ -9,28 +9,28 @@
 <form action="{{route('user.update', $data->id)}}" method="post">
     @csrf
 <div class="mb-3">
-    <label for="nama" class="form-label">Nama</label>
-    <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" value="{{$data->nama}}">
-</div>
-
-<div class="mb-3">
-    <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username" value="{{$data->username}}">
-</div>
-
-<div class="mb-3">
-    <label for="nip" class="form-label">NIP</label>
-    <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP" value="{{$data->nip}}">
-</div>
-
-<div class="mb-3">
-    <label for="jabatan" class="form-label">Jabatan</label>
-    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan" value="{{$data->jabatan}}">
+    <label for="name" class="form-label">Nama</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama" value="{{$data->name}}">
 </div>
 
 <div class="mb-3">
     <label for="email" class="form-label">Email</label>
     <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan Email" value="{{$data->email}}">
+</div>
+
+<div class="mb-3">
+        <label for="role" class="form-control-label">Role :</label>
+            <select name="role" id="role" class="form-control" required>
+                <option value="">---</option>
+                <option value="guru" {{ $data->role == 'guru' ? 'selected':'' }}>Guru</option>
+                <option value="admin" {{ $data->role == 'admin' ? 'selected':'' }}>Admin</option>
+                <option value="kepsek" {{ $data->role == 'kepsek' ? 'selected':'' }}>Kepala Sekolah</option>
+            </select>
+    </div>
+
+<div class="mb-3">
+    <label for="jabatan" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" value="">
 </div>
 <br>
 <br>

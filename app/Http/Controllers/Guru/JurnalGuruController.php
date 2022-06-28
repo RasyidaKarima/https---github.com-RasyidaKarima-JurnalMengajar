@@ -19,28 +19,35 @@ class JurnalGuruController extends Controller
     }
     public function index(Request $request)
     {
-        $rpp = RPP::all();
         if ($request->ajax()) {
-            $data = Jurnal::with('rpp');
+            $jurnals = Jurnal::select(['id','tanggal','hasil','kendala','rpp_id','tindak_lanjut','foto_kegiatan','status'])
+                    ->with(['rpp']);
 
-
-            //Jurnal::select('*')
-            //->where('user_id', Auth::user()->id)
-            //->where('tanggal', Date("Y-m-d"))
-            //->get();
-            return DataTables::eloquent($data)
+            return DataTables::of($jurnals)
                 ->addIndexColumn()
-                ->addColumn('penjelasan', function (Post $post) {
-                    return $jurnal->rpp->penjelasan;
+                ->editColumn('foto_kegiatan', function ($data) {
+                    if($data->foto_kegiatan == null){
+                        return ' ';
+                    }else{
+                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        return '<img src="'.$url.'" width="70" alt="..." />';
+                    }
                 })
                 ->addColumn('action', function ($data) {
-                    $button = ' <a href="'. route("absen-datangEdit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
-                    $button .= ' <a href="'. route("absen-datang.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
-                    return $button;
+                    if($data->status == 'belum divalidasi'){
+                        $button = ' <a href="'. route("jurnalEdit.guru", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
+                        $button .= ' <a href="'. route("jurnal.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                        return $button;
+                    }else{
+                        return ' ';
+                    }
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['foto_kegiatan', 'action'])
                 ->make(true);
         }
+        $rpp = RPP::select('*')
+        ->where('user_id', Auth::user()->id)
+        ->get();
         return view('guru.jurnalGuru', compact('rpp'));
     }
 
@@ -54,33 +61,46 @@ class JurnalGuruController extends Controller
 
     public function save(Request $request, $id)
     {
-        $date = Carbon::now();
-        $user = User::where('id', Auth::user()->id)->first();
-        $rpp = RPP::where('id', $id)>first();
-        $jurnal = Jurnal::where('user_id', $user->id)
-                ->where('rpp_id', $rpp->id)->first();
-        $jurnal = new Jurnal;
-        $jurnal->user_id = $user->id;
-        $jurnal->rpp_id = $rpp->id;
-        $jurnal->tanggal = $date;
-        $jurnal->hasil = $request->hasil;
-        $jurnal->kendala = $request->kendala;
-        $jurnal->tindak_lanjut = $request->kendala;
-        $file = $request->file('foto_kegiatan');
-        //Mendapatkan nama file
-        $nama_file = $file->getClientOriginalName();
+        $request->validate([
+            'rpp_id' => 'required',
+        ], [
+            'rpp_id.required' => 'Rpp tidak boleh kosong'
+        ]);
 
-        // Mendapatkan Extension File
-        $extension = $file->getClientOriginalExtension();
-    
-        // Mendapatkan Ukuran File
-        $ukuran_file = $file->getSize();
-     
-        // Proses Upload File
-        $destinationPath = 'images\jurnal';
-        $file->move($destinationPath,$file->getClientOriginalName());
-        $jurnal->foto = $nama_file;
-        $jurnal->save();
+        
+
+        $file = $request->file('foto_kegiatan');
+        if($request->file('foto_kegiatan') != null){
+            
+            $ext_foto = $file->extension();
+            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $date = Carbon::now();
+            $user = User::where('id', Auth::user()->id)->first();
+            $jurnal = Jurnal::where('user_id', $user->id)->first();
+            
+            $jurnal = new Jurnal;
+            $jurnal->user_id = $user->id;
+            $jurnal->rpp_id = $request->rpp_id;
+            $jurnal->tanggal = $date;
+            $jurnal->hasil = $request->hasil;
+            $jurnal->kendala = $request->kendala;
+            $jurnal->tindak_lanjut = $request->tindak_kendala;
+            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->save();
+        }else{
+            $date = Carbon::now();
+            $user = User::where('id', Auth::user()->id)->first();
+            $jurnal = Jurnal::where('user_id', $user->id)->first();
+            $jurnal = new Jurnal;
+            $jurnal->user_id = $user->id;
+            $jurnal->rpp_id = $request->rpp_id;
+            $jurnal->tanggal = $date;
+            $jurnal->hasil = $request->hasil;
+            $jurnal->kendala = $request->kendala;
+            $jurnal->tindak_lanjut = $request->tindak_kendala;
+            $jurnal->save();
+        }
+
         alert()->success('Jurnal Berhasil Disimpan');
         return redirect('jurnal-guru');
     }
@@ -89,60 +109,53 @@ class JurnalGuruController extends Controller
     {
 
         $jurnal = Jurnal::find($id);
-        return view('jurnal.jurnalEdit',compact('jurnal'));
+        $rpp = RPP::select('*')
+        ->where('user_id', Auth::user()->id)
+        ->get();
+        return view('guru.jurnalguruedit',compact('jurnal','rpp'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
         $file = $request->file('foto_kegiatan');
-        if($file != ''){
-            // JIKA GAMBAR DIUBAH
-            DB::table('jurnal')->where('id',$id)->update([
-                'nama' => $request->nama,
-                'kelas' => $request->kelas,
-                'uraian_tugas' => $request->uraian_tugas,
-                'hasil' => $request->hasil,
-                'kendala' => $request->kendala,
-                'tindak_lanjut' => $request->tindak_lanjut,
-                'foto_kegiatan' => $file->move('images'),
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+        if($request->file('foto_kegiatan') != null){
+            
+            $ext_foto = $file->extension();
+            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $date = Carbon::now();
+            $jurnal = Jurnal::where('id', $id)->first();
+            $jurnal->rpp_id         = $request->rpp_id;
+            $jurnal->tanggal        = $date;
+            $jurnal->hasil          = $request->hasil;
+            $jurnal->kendala        = $request->kendala;
+            $jurnal->tindak_lanjut        = $request->tindak_lanjut;
+            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->updated_at     = date('Y-m-d H:i:s');
+            $jurnal->save();
         }else{
-            // JIKA TIDAK MENGUBAH GAMBAR
+            $date = Carbon::now();
             DB::table('jurnal')->where('id',$id)->update([
-                'nama' => $request->nama,
-                'kelas' => $request->kelas,
-                'uraian_tugas' => $request->uraian_tugas,
-                'hasil' => $request->hasil,
-                'kendala' => $request->kendala,
+                'tanggal'       => $date,
+                'rpp_id'        => $request->rpp_id,
+                'hasil'         => $request->hasil,
+                'kendala'       => $request->kendala,
+                'foto_kegiatan' => $request->foto_old,
                 'tindak_lanjut' => $request->tindak_lanjut,
-                'foto_kegiatan' => $request->foto_kegiatan_old,
-                'updated_at' => date('Y-m-d H:i:s')
+                'updated_at'    => date('Y-m-d H:i:s')
             ]);
         }
-        return redirect('jurnal');
+        
+        alert()->success('Jurnal Telah Diupdate', 'Success');
+        return redirect('jurnal-guru');
 
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $jurnal= Jurnal::find($id);
         $jurnal->delete();
-        return redirect('/jurnal');
+        return redirect('jurnal-guru');
     }
 }

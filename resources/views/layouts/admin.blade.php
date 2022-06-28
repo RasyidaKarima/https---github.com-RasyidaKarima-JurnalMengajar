@@ -26,7 +26,7 @@
     <!-- Site wrapper -->
     <div class="wrapper">
 
-        <header class="main-header">
+        <header class="main-header" data-color="blue">
             <!-- Logo -->
             <a href="/home-admin" class="logo">
                 <span class="logo-lg"><b>Admin</b></span>
@@ -49,24 +49,18 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <!-- Menu Body -->
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat" 
-                                            onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                    </div>
-                                </li>
-                            </ul>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('profileAdmin') }}">Profile</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" 
+                                    onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                            </div>
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                     </ul>
@@ -80,13 +74,6 @@
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                        <p>{{ Auth::user()->name }}</p>
-                </div>
-                <!-- search form -->
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
                 @include('layouts.navbar')
             </section>
             <!-- /.sidebar -->
@@ -128,6 +115,7 @@
         });
     </script>
     @stack('scripts')
+    @include('sweetalert::alert')
 </body>
 
 </html>

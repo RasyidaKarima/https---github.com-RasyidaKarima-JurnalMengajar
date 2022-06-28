@@ -96,7 +96,7 @@
                                         <span class="no-icon">{{ Auth::user()->name }}</span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="{{ url('profile') }}">Profil</a>
+                                        <a class="dropdown-item" href="{{ url('profile') }}">Profile</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" 
                                             onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

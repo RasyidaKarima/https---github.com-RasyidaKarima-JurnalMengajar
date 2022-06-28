@@ -14,6 +14,6 @@ class Jurnal extends Model
 
     public function rpp()
     {
-        return $this->hasMany(RPP::class, 'rpp_id', 'id');
+        return $this->belongsTo(RPP::class, 'rpp_id', 'id');
     }
 }

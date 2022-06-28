@@ -19,10 +19,10 @@ class CreateJurnalTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('rpp_id')->unsigned()->nullable();
             $table->foreign('rpp_id')->references('id')->on('rpp')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('hasil');
+            $table->text('hasil')->nullable();
             $table->text('kendala')->nullable();
             $table->text('tindak_lanjut')->nullable();
-            $table->string('foto_kegiatan');
+            $table->string('foto_kegiatan')->nullable();
             $table->date('tanggal');
             $table->string('status')->default('belum divalidasi');
             $table->timestamps();

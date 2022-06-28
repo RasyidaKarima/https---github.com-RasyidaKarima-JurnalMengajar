@@ -35,10 +35,34 @@ class ProfileGuruController extends Controller
     	$user->jabatan = $request->jabatan;
         $user->kelas = $request->kelas;
     	$user->mapel = $request->mapel;
-
     	$user->update();
 
-    	alert()->success('User successfully updated', 'Success');
+    	alert()->success('User berhasil diupdate', 'Success');
     	return redirect('profile');
+    }
+
+    public function indexAdmin()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $active = 'dashboard';
+    	return view('profileAdmin', compact('user', 'active'));
+    }
+
+    public function updateAdmin(Request $request)
+    {
+    	 $this->validate($request, [
+            'password'  => 'confirmed',
+        ]);
+
+    	$user = User::where('id', Auth::user()->id)->first();
+    	$user->name = $request->name;
+    	$user->nip = $request->nip;
+    	$user->jabatan = $request->jabatan;
+        $user->kelas = $request->kelas;
+    	$user->mapel = $request->mapel;
+    	$user->update();
+
+    	alert()->success('User berhasil diupdate', 'Success');
+    	return redirect('profileAdmin');
     }
 }

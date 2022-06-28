@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Alert;
+use Illuminate\Support\Facades\Hash;
 
 class userController extends Controller
 {
@@ -42,12 +44,13 @@ class userController extends Controller
     public function store(Request $request)
     {
         $data = new User;
-        $data ->nama = $request->nama;
-        $data ->username = $request->username;
-        $data ->nip = $request->nip;
-        $data ->jabatan = $request->jabatan;
+        $data ->name = $request->name;
         $data ->email = $request->email;
-        $data->save();
+        $data->password = Hash::make($request->password);
+        $data ->role = $request->role;
+        $data ->save();
+
+        alert()->success('User berhasil ditambahkan', 'Success');
         return redirect('/user');
     }
 
@@ -61,12 +64,13 @@ class userController extends Controller
     public function update(Request $request, $id)
     {
         $data = User::find($id);
-        $data->name = $request->nama;
-        $data ->username = $request->username;
-        $data ->nip = $request->nip;
-        $data ->jabatan = $request->jabatan;
+        $data->name = $request->name;
         $data ->email = $request->email;
+        $data->password = Hash::make($request->password);
+        $data ->role = $request->role;
         $data->update();
+
+        alert()->success('User berhasil diupdate', 'Success');
         return redirect('/user');
     }
 

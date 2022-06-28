@@ -18,13 +18,18 @@
             <form method="POST" action="{{ url('/jurnal-guru') }}/{{ auth()->user()->id }}" enctype="multipart/form-data">
                 @csrf
             <div class="mb-3">
-                <label for="rpp_id" class="form-label">RPP</label><br>
-                    <select class="custom-select" name="rpp_id" id="rpp_id">
+                <label for="rpp_id" class="form-label">*RPP</label><br>
+                    <select class="form-control @error('rpp_id') is-invalid @enderror" name="rpp_id" id="rpp_id">
                         <option selected>Pilih RPP</option>
                         @foreach ($rpp as $r)
                         <option  value="{{ $r->id }}">{{ $r->kompetensi_inti }}&nbsp-&nbsp{{ $r->penjelasan }}</option>
                         @endforeach
                     </select>
+                    @error('rpp_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
             </div>
             <div class="mb-3">
                 <label for="hasil" class="form-label">Hasil</label><br>
@@ -41,7 +46,7 @@
             </div>
             <div class="mb-3">
                 <label class="font-weight-bold" for="foto_kegiatan">Foto Kegiatan</label>
-                <input type="file" name="foto_kegiatan" class="form-control form-control-file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" required />
+                <input type="file" name="foto_kegiatan" class="form-control form-control-file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
             </div>
             <br>
             <br>

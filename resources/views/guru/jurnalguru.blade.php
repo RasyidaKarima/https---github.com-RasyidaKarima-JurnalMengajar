@@ -43,6 +43,8 @@
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
                         sClass:'text-center'
                     },
                     {
@@ -61,7 +63,7 @@
                         sClass:'text-center'
                     },
                     {
-                        data: 'penjelasan',
+                        data: 'rpp.penjelasan',
                         name: 'rpp.penjelasan',
                         sClass:'text-center'
                     },
@@ -84,7 +86,7 @@
                         data: 'action',
                         name: 'action',
                         orderable: true,
-                        searchable: true,
+                        searchable: false,
                         sClass:'text-center'
                     }
                 ]

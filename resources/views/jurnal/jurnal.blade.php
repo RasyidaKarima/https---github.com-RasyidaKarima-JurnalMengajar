@@ -5,8 +5,6 @@
 @section('content')
 <h1> Data Jurnal Mengajar</h1>
 
-<a href="{{route('jurnal.jurnalCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
-<br>
 <br>
 
 <div class="container">
