@@ -18,16 +18,16 @@
             <form method="POST" action="{{ url('/rpp-guru') }}/{{ auth()->user()->id }}" enctype="multipart/form-data">
                 @csrf
             <div class="mb-3">
-                <label for="mata_pelajaran" class="form-label">Mata Pelajaran</label><br>
-                    <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran" placeholder="Masukkan Mata Pelajaran">
+                <label for="mata_pelajaran" class="form-label">* Mata Pelajaran</label><br>
+                    <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran" placeholder="Masukkan Mata Pelajaran" required>
             </div>
             <div class="mb-3">
-                <label for="kompetensi_inti" class="form-label">Kompetensi inti</label><br>
-                <input type="text" class="form-control" id="kompetensi_inti" name="kompetensi_inti" placeholder="kompetensi_inti">
+                <label for="kompetensi_inti" class="form-label">* Kompetensi inti</label><br>
+                <input type="text" class="form-control" id="kompetensi_inti" name="kompetensi_inti" placeholder="kompetensi_inti" required>
             </div>
             <div class="mb-3">
-                <label for="penjelasan" class="font-weight-bold" for="foto">Penjelasan</label>
-                <input type="text" class="form-control" id="penjelasan" name="penjelasan" placeholder="penjelasan">
+                <label for="penjelasan" class="font-weight-bold" for="foto">* Penjelasan</label>
+                <input type="text" class="form-control" id="penjelasan" name="penjelasan" placeholder="penjelasan" required>
             </div>
             <br>
             <br>

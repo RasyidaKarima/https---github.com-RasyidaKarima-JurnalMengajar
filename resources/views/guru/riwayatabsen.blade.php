@@ -1,12 +1,18 @@
 @extends('layouts.sidebarGuru')
 
 @section('content')
+<div class="col-md-12 mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home.guru')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: gray;">Riwayat Absensi</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
-      <br>
-      <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
       <br>
     </div>
     <div class="card-body">
@@ -19,11 +25,12 @@
               <th>Status</th>
               <th>Kondisi</th>
               <th>Foto</th>
-              <th>Aksi</th>
             </tr>
           </thead>
         </table>
       </div>
+      <br>
+      <a href="{{route('home.guru')}}" class="btn btn-sm btn-warning">Kembali</a>
     </div>
   </div>
 </div>
@@ -36,7 +43,7 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
-                ajax: '{!! route('absen.guru') !!}', // memanggil route yang menampilkan data json
+                ajax: '{!! route('absen-riwayat.guru') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -61,40 +68,9 @@
                         data: 'foto',
                         name: 'foto',
                         sClass:'text-center'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: true,
-                        searchable: true,
-                        sClass:'text-center'
                     }
                 ]
             });
 });
-</script>
-<script>
-  $(document).on('click','.hapus', function (e) {
-    e.preventDefault();
-    const href = $(this).attr('href');
-    Swal.fire({
-      title: 'Apakah anda yakin menghapus data ini?',
-		  text: "Data yang dihapus tidak bisa dikembalikan!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Hapus Data!'
-        }).then((result) => {
-		  if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-        document.location.href = href; //kembalikan nilai true dengan redirect document ke halaman yang dituju
-  		}
-    })
-  });
 </script>
 @endpush

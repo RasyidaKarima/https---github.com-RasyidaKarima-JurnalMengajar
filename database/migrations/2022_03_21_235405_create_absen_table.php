@@ -17,10 +17,10 @@ class CreateAbsenTable extends Migration
             $table->id();
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->time('jam_masuk');
-            $table->date('tanggal_absen');
+            $table->date('tanggal');
             $table->string('status');
-            $table->string('lampiran');
+            $table->string('kondisi');
+            $table->string('foto');
             $table->timestamps();
         });
     }

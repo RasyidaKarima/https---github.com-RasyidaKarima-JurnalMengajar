@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Jurnal;
 use App\Models\RPP;
-use App\Models\AbsenDatang;
-use App\Models\AbsenPulang;
+use App\Models\Absen;
 
 class User extends Authenticatable
 {
@@ -56,14 +55,9 @@ class User extends Authenticatable
         return $this->hasMany(RPP::class, 'user_id', 'id');
     }
 
-    public function absenDatang()
+    public function absen()
     {
-        return $this->hasMany(AbsenDatang::class, 'user_id', 'id');
-    }
-
-    public function absenPulang()
-    {
-        return $this->hasMany(AbsenPulang::class, 'user_id', 'id');
+        return $this->hasMany(Absen::class, 'user_id', 'id');
     }
 
     public function deleteData($id)

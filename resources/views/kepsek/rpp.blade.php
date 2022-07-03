@@ -1,12 +1,20 @@
-@extends('layouts.sidebarGuru')
+@extends('layouts.sidebarKepsek')
 
 @section('content')
+<div class="col-md-12 mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home.kepsek')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: gray;">RPP</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">
-      <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
+      <h4 class="m-0 font-weight-bold"><strong>Rencana Pembelajaran</strong></h4>
       <br>
-      <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{route('rppCreate.kepsek')}}" class="btn btn-sm btn-success" id="tambahRpp"><i class="fa fa-plus"></i> Tambah Data</a>
       <br>
     </div>
     <div class="card-body">
@@ -15,10 +23,9 @@
           <thead>
             <tr class="text-center">
               <th>No</th>
-              <th>Tanggal</th>
-              <th>Status</th>
-              <th>Kondisi</th>
-              <th>Foto</th>
+              <th>Mata Pelajaran</th>
+              <th>Kompetensi Inti</th>
+              <th>Penjelasan</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -36,30 +43,25 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
-                ajax: '{!! route('absen.guru') !!}', // memanggil route yang menampilkan data json
+                ajax: '{!! route('rpp.kepsek') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         sClass:'text-center'
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal',
+                        data: 'mata_pelajaran',
+                        name: 'mata_pelajaran',
                         sClass:'text-center'
                     },
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'kompetensi_inti',
+                        name: 'kompetensi_inti',
                         sClass:'text-center'
                     },
                     {
-                        data: 'kondisi',
-                        name: 'kondisi',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'foto',
-                        name: 'foto',
+                        data: 'penjelasan',
+                        name: 'penjelasan',
                         sClass:'text-center'
                     },
                     {

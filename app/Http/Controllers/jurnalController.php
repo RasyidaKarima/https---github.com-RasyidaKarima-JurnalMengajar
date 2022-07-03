@@ -17,29 +17,20 @@ class jurnalController extends Controller
      */
     public function index()
     {
-        $jurnal = Jurnal::all();
+        $jurnal = DB::table('jurnal')
+                    ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
+                    ->join('users', 'users.id', '=', 'jurnal.user_id')
+                    ->get();
         $active = 'jurnal';
 
         return view('jurnal.jurnal', compact('jurnal', 'active'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $active = 'jurnal';
         return view('jurnal.jurnalCreate', compact('active'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function store(Request $req)
     {
@@ -56,23 +47,6 @@ class jurnalController extends Controller
         return redirect('jurnal');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
 
@@ -112,13 +86,6 @@ class jurnalController extends Controller
         return redirect('jurnal');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $jurnal = Jurnal::find($id);

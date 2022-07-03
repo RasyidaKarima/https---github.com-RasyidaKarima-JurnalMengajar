@@ -46,15 +46,21 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('absen-datang.guru') }}">
-                            <p>Absensi Datang</p>
+                        <a class="nav-link" href="{{ route('jurnal-riwayat.guru') }}">
+                            <p>Riwayat Jurnal</p>
+                            <i class="fa-solid fa-history"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ url('absen-guru') }}">
+                            <p>Absensi Guru</p>
                             <i class="fa-solid fa-clipboard"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('absen-pulang.guru') }}">
-                            <p>Absensi Pulang</p>
-                            <i class="fa-solid fa-clipboard"></i>
+                        <a class="nav-link" href="{{ url('absen-guru/riwayat') }}">
+                            <p>Riwayat Absensi</p>
+                            <i class="fa-solid fa-history"></i>
                         </a>
                     </li>
                     <li>

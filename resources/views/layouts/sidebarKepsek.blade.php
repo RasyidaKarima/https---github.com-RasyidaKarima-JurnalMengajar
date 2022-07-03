@@ -25,13 +25,13 @@
 
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="/home" class="simple-text">
+                    <a href="/home-kepsek" class="simple-text">
                         UPT SD NEGERI BUTUN 02
                     </a>
                 </div>
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('home.guru') }}">
+                        <a class="nav-link" href="{{ route('home.kepsek') }}">
                             <p>Dashboard</p>
                             <i class="fa-solid fa-home"></i>
                         </a>
@@ -40,33 +40,27 @@
 						<h4 class="text-section">Main Utama</h4>
 					</li>
                     <li>
-                        <a class="nav-link" href="{{ route('jurnal.guru') }}">
+                        <a class="nav-link" href="{{ route('jurnal.kepsek') }}">
                             <p>Jurnal Mengajar</p>
                             <i class="fa-solid fa-book"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('absen-datang.guru') }}">
-                            <p>Absensi Datang</p>
+                        <a class="nav-link" href="{{ route('absen.kepsek') }}">
+                            <p>Absensi Kepala Sekolah</p>
                             <i class="fa-solid fa-clipboard"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('absen-pulang.guru') }}">
-                            <p>Absensi Pulang</p>
-                            <i class="fa-solid fa-clipboard"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="./icons.html">
+                        <a class="nav-link" href="{{ route('rpp.kepsek') }}">
                             <p>Rencana Pembelajaran</p>
                             <i class="fa-solid fa-list"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./icons.html">
+                        <a class="nav-link" href="{{ route('validasi.kepsek') }}">
                             <p>Validasi Jurnal</p>
-                            <i class="fa-solid fa-list"></i>
+                            <i class="fa-solid fa-file"></i>
                         </a>
                     </li>
                 </ul>
@@ -102,7 +96,7 @@
                                         <span class="no-icon">{{ Auth::user()->name }}</span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">Profil</a>
+                                        <a class="dropdown-item" href="{{ url('profile-kepsek') }}">Profil</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" 
                                             onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

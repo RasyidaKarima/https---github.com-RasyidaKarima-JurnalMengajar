@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\AbsenDatang;
+use App\Models\Absen;
 use Auth;
 use Alert;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 
 
-class AbsenDatangController extends Controller
+class AbsenController extends Controller
 {
     public function __construct()
     {
@@ -23,19 +23,19 @@ class AbsenDatangController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = AbsenDatang::select('*')
+            $data = Absen::select('*')
             ->where('user_id', Auth::user()->id)
             ->where('tanggal', Date("Y-m-d"))
             ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('foto', function ($data) {
-                    $url= asset('images/absendatang/'.$data->foto);
+                    $url= asset('images/absen/'.$data->foto);
                     return '<img src="'.$url.'" width="70" alt="..." />'; 
                 })
                 ->addColumn('action', function ($data) {
-                    $button = ' <a href="'. route("absen-datangEdit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
-                    $button .= ' <a href="'. route("absen-datang.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                    $button = ' <a href="'. route("absen-Edit.guru", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
+                    $button .= ' <a href="'. route("absen.Destroy", $data->id).'" class="hapus btn btn-danger" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
                     return $button;
                 })
                 ->rawColumns(['foto', 'action'])
@@ -44,6 +44,23 @@ class AbsenDatangController extends Controller
         return view('guru.absendatang');
     }
 
+    public function riwayat(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Absen::select('*')
+            ->where('user_id', Auth::user()->id)
+            ->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('foto', function ($data) {
+                    $url= asset('images/absen/'.$data->foto);
+                    return '<img src="'.$url.'" width="70" alt="..." />'; 
+                })
+                ->rawColumns(['foto'])
+                ->make(true);
+        }
+        return view('guru.riwayatabsen');
+    }
 
     public function create()
     {
@@ -55,9 +72,9 @@ class AbsenDatangController extends Controller
     {
         $date = Carbon::now();
         $user = User::where('id', Auth::user()->id)->first();
-        $datang = AbsenDatang::where('user_id', $user->id)->first();
+        $datang = Absen::where('user_id', $user->id)->first();
 
-        $datang = new AbsenDatang;
+        $datang = new Absen;
         $datang->user_id = $user->id;
         $datang->tanggal = $date;
         $datang->status = $request->status;
@@ -73,18 +90,18 @@ class AbsenDatangController extends Controller
         $ukuran_file = $file->getSize();
      
         // Proses Upload File
-        $destinationPath = 'images\absendatang';
+        $destinationPath = 'images\absen';
         $file->move($destinationPath,$file->getClientOriginalName());
         $datang->foto = $nama_file;
         $datang->save();
-        alert()->success('Absen Kedatangan Berhasil Disimpan');
-        return redirect('absen-datang-guru');
+        alert()->success('Absen Berhasil Disimpan');
+        return redirect('absen-guru');
     }
 
    public function edit($id)
    {
 
-       $datang = AbsenDatang::find($id);
+       $datang = Absen::find($id);
        return view('guru.absendatangEdit',compact('datang'));
    }
 
@@ -95,9 +112,9 @@ class AbsenDatangController extends Controller
         if($request->file('foto') != null){
             // dd($file);
             $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/absendatang/', $file->getClientOriginalName());
+            $filename = $file->move(public_path() . '/images/absen/', $file->getClientOriginalName());
             $date = Carbon::now();
-            $datang = AbsenDatang::where('id', $id)->first();
+            $datang = Absen::where('id', $id)->first();
             // dd($absen_datang);
             $datang->tanggal      = $date;
             $datang->status       = $request->status;
@@ -107,7 +124,7 @@ class AbsenDatangController extends Controller
             $datang->save();
         }else{
             $date = Carbon::now();
-            DB::table('absen_datang')->where('id',$id)->update([
+            DB::table('absen')->where('id',$id)->update([
                 'tanggal' => $date,
                 'status' => $request->status,
                 'kondisi' => $request->kondisi,
@@ -115,15 +132,15 @@ class AbsenDatangController extends Controller
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
         }
-        alert()->success('Absen Datang Telah Diupdate', 'Success');
-        return redirect('absen-datang-guru');
+        alert()->success('Absen Telah Diupdate', 'Success');
+        return redirect('absen-guru');
 
     }
 
     public function destroy($id)
     {
-        $data = AbsenDatang::find($id);
+        $data = Absen::find($id);
         $data->delete();
-        return redirect('absen-datang-guru');
+        return redirect('absen-guru');
     }
 }

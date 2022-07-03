@@ -1,4 +1,4 @@
-@extends('layouts.sidebarGuru')
+@extends('layouts.sidebarKepsek')
 
 @section('content')
 
@@ -31,7 +31,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="font-weight-bold" for="foto_kegiatan">Foto </label>
+            <label class="font-weight-bold" for="foto_kegiatan">Foto</label>
             <br>
             <img src="{{ url('images/absen') }}/{{ $datang->foto }}" width="100" alt="..."> 
             <input type="hidden" name="foto_old" value="{{ $datang->foto }}">
@@ -45,7 +45,7 @@
 
         <div>
             <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{route('absen.guru')}}" class="btn btn-success">Kembali</a>
+            <a href="{{route('absen.kepsek')}}" class="btn btn-success">Kembali</a>
         </div>
     </div>
 </div>

@@ -25,6 +25,7 @@ class CreateJurnalTable extends Migration
             $table->string('foto_kegiatan')->nullable();
             $table->date('tanggal');
             $table->string('status')->default('belum divalidasi');
+            $table->string('pesan')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
 @section('content')
 <h1> Data User</h1>
 
-<a href="{{route('user.userCreate')}}" class="btn btn-success pull-right"> + Tambah Data</a>
+<a href="{{route('user.userCreate')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah Data</a>
 <br>
 <br>
 

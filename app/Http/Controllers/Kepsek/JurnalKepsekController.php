@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Guru;
+namespace App\Http\Controllers\Kepsek;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +10,7 @@ use Auth;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 
-class JurnalGuruController extends Controller
+class JurnalKepsekController extends Controller
 {
 
     public function __construct()
@@ -38,8 +38,8 @@ class JurnalGuruController extends Controller
                 })
                 ->addColumn('action', function ($data) {
                     if($data->status == 'belum divalidasi'){
-                        $button = ' <a href="'. route("jurnalEdit.guru", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
-                        $button .= ' <a href="'. route("jurnal.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                        $button = ' <a href="'. route("jurnalEdit.kepsek", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
+                        $button .= ' <a href="'. route("jurnal-kepsek.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
                         return $button;
                     }else{
                         return ' ';
@@ -51,7 +51,7 @@ class JurnalGuruController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
-        return view('guru.jurnalGuru', compact('rpp'));
+        return view('kepsek.jurnalKepsek', compact('rpp'));
     }
 
     public function riwayat(Request $request)
@@ -77,7 +77,7 @@ class JurnalGuruController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
-        return view('guru.riwayatjurnal', compact('rpp'));
+        return view('kepsek.riwayatjurnal', compact('rpp'));
     }
 
     public function create()
@@ -85,7 +85,7 @@ class JurnalGuruController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
-        return view('guru.jurnalguruCreate', compact('rpp'));
+        return view('kepsek.jurnalkepsekCreate', compact('rpp'));
     }
 
     public function save(Request $request, $id)
@@ -131,7 +131,7 @@ class JurnalGuruController extends Controller
         }
 
         alert()->success('Jurnal Berhasil Disimpan');
-        return redirect('jurnal-guru');
+        return redirect('jurnal-kepsek');
     }
 
     public function edit($id)
@@ -141,7 +141,7 @@ class JurnalGuruController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
-        return view('guru.jurnalguruedit',compact('jurnal','rpp'));
+        return view('kepsek.jurnalkepsekedit',compact('jurnal','rpp'));
     }
 
     public function update(Request $request, $id)
@@ -175,7 +175,7 @@ class JurnalGuruController extends Controller
             ]);
         }
         alert()->success('Jurnal Telah Diupdate', 'Success');
-        return redirect('jurnal-guru');
+        return redirect('jurnal-kepsek');
 
     }
 
@@ -184,6 +184,6 @@ class JurnalGuruController extends Controller
     {
         $jurnal= Jurnal::find($id);
         $jurnal->delete();
-        return redirect('jurnal-guru');
+        return redirect('jurnal-kepsek');
     }
 }

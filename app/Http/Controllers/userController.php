@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Alert;
+use Auth;
 use Illuminate\Support\Facades\Hash;
 
 class userController extends Controller
@@ -16,6 +17,12 @@ class userController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         //untuk menampilkan index

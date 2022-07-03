@@ -1,12 +1,13 @@
-@extends('layouts.sidebarGuru')
+@extends('layouts.sidebarKepsek')
 
 @section('content')
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">
-      <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
+      <h4 class="m-0 font-weight-bold"><strong>Jurnal Mengajar</strong></h4>
       <br>
-      <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{ route('jurnal-riwayat.kepsek') }}" class="btn btn-sm btn-primary"><i class="fa fa-history"></i> Riwayat Jurnal</a>
       <br>
     </div>
     <div class="card-body">
@@ -16,9 +17,12 @@
             <tr class="text-center">
               <th>No</th>
               <th>Tanggal</th>
+              <th>Hasil</th>
+              <th>Kendala</th>
+              <th>URAIAN TUGAS/KEGIATAN</th>
+              <th>Tindak Lanjut</th>
+              <th>Foto Kegiatan</th>
               <th>Status</th>
-              <th>Kondisi</th>
-              <th>Foto</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -36,10 +40,12 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
-                ajax: '{!! route('absen.guru') !!}', // memanggil route yang menampilkan data json
+                ajax: '{!! route('jurnal.kepsek') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
                         sClass:'text-center'
                     },
                     {
@@ -48,25 +54,40 @@
                         sClass:'text-center'
                     },
                     {
+                        data: 'hasil',
+                        name: 'hasil',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'kendala',
+                        name: 'kendala',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'rpp.penjelasan',
+                        name: 'rpp.penjelasan',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'tindak_lanjut',
+                        name: 'tindak_lanjut',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'foto_kegiatan',
+                        name: 'foto_kegiatan',
+                        sClass:'text-center'
+                    },
+                    {
                         data: 'status',
                         name: 'status',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'kondisi',
-                        name: 'kondisi',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'foto',
-                        name: 'foto',
                         sClass:'text-center'
                     },
                     {
                         data: 'action',
                         name: 'action',
                         orderable: true,
-                        searchable: true,
+                        searchable: false,
                         sClass:'text-center'
                     }
                 ]

@@ -8,8 +8,7 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\AbsenDatang;
-use App\Models\AbsenPulang;
+use App\Models\Absen;
 use App\Models\RPP;
 
 
@@ -24,11 +23,10 @@ class dashboardController extends Controller
     {
         $jurnal = Jurnal::count();
         $user= User::count();
-        $absendatang= AbsenDatang::count();
-        $absenpulang= AbsenPulang::count();
+        $absen= Absen::count();
         $rpp= RPP::count();
 
         $active = 'dashboard';
-        return view('dashboard.index', compact('jurnal', 'user', 'absendatang', 'absenpulang', 'rpp', 'active'));
+        return view('dashboard.index', compact('jurnal', 'user', 'absen', 'rpp', 'active'));
     }
 }
