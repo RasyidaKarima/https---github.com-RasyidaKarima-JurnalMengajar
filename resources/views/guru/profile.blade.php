@@ -114,6 +114,11 @@
 
                 <div class="col-md-7">
                     <input style="background-color: #ecebeb; color: black;" id="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" value="{{ $user->jabatan }}" required autocomplete="jabatan" autofocus>
+                    <!-- <select style="background-color: #ecebeb; color: black;"  class="form-control" name="role" id="role">
+                        <option value="" >Pilih salah satu jabatan</option>
+                        <option value="guru" {{ $user->role == "guru" ? 'selected' : ''}}>Guru</option>
+                        <option value="kepsek" {{ $user->role == "kepsek" ? 'selected' : ''}}>Kepala Sekolah</option>
+                    </select> -->
 
                     @error('jabatan')
                     <span class="invalid-feedback" role="alert">

@@ -36,11 +36,13 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $input = $request->all();
+        // dd($input);
         $this -> validate($request,[
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        $remember = $input['remember_me'] == "on" ? true : false;
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']), $remember))
         {
             if(auth()->user()->role == 'guru')
             {

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use Auth;
 use Alert;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileGuruController extends Controller
