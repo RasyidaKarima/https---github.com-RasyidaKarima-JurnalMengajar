@@ -25,13 +25,17 @@ class ProfileGuruController extends Controller
 
     public function update(Request $request)
     {
-    	 $this->validate($request, [
-            'password'  => 'confirmed',
-        ]);
+    	//  $this->validate($request, [
+        //     'password'  => 'confirmed',
+        // ]);
+        // dd($request->filled('password'));
 
     	$user = User::where('id', Auth::user()->id)->first();
     	$user->name = $request->name;
     	$user->nip = $request->nip;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
     	$user->jabatan = $request->jabatan;
         $user->kelas = $request->kelas;
     	$user->mapel = $request->mapel;

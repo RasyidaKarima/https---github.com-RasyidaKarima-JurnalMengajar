@@ -54,5 +54,8 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error', "email dan password salah");
         }
     }
+    public function showLoginForm() {
+        return view('auth.login_new');
+    }
 
 }

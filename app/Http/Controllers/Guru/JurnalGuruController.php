@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Jurnal;
 use App\Models\RPP;
 use App\Models\User;
-use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 
 class JurnalGuruController extends Controller
