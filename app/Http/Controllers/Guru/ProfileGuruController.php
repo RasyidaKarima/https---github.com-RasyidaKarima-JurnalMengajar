@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use Auth;
 use Alert;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileGuruController extends Controller
@@ -25,13 +25,17 @@ class ProfileGuruController extends Controller
 
     public function update(Request $request)
     {
-    	 $this->validate($request, [
-            'password'  => 'confirmed',
-        ]);
+    	//  $this->validate($request, [
+        //     'password'  => 'confirmed',
+        // ]);
+        // dd($request->filled('password'));
 
     	$user = User::where('id', Auth::user()->id)->first();
     	$user->name = $request->name;
     	$user->nip = $request->nip;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
     	$user->jabatan = $request->jabatan;
         $user->kelas = $request->kelas;
     	$user->mapel = $request->mapel;

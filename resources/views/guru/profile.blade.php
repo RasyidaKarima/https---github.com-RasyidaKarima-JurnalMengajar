@@ -68,6 +68,32 @@
                     @enderror
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="email" class="col-md-2 col-form-label text-md-right">{{ __('Email') }}</label>
+
+                <div class="col-md-7">
+                    <input style="background-color: #ecebeb; color: black;" id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus>
+                
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                <div class="col-md-7">
+                    <input style="background-color: #ecebeb; color: black;" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autofocus>
+                
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label for="nip" class="col-md-2 col-form-label text-md-right">{{ __('NIP') }}</label>
@@ -88,6 +114,11 @@
 
                 <div class="col-md-7">
                     <input style="background-color: #ecebeb; color: black;" id="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" value="{{ $user->jabatan }}" required autocomplete="jabatan" autofocus>
+                    <!-- <select style="background-color: #ecebeb; color: black;"  class="form-control" name="role" id="role">
+                        <option value="" >Pilih salah satu jabatan</option>
+                        <option value="guru" {{ $user->role == "guru" ? 'selected' : ''}}>Guru</option>
+                        <option value="kepsek" {{ $user->role == "kepsek" ? 'selected' : ''}}>Kepala Sekolah</option>
+                    </select> -->
 
                     @error('jabatan')
                     <span class="invalid-feedback" role="alert">
