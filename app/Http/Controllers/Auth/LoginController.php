@@ -36,13 +36,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $this -> validate($request,[
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $remember = $input['remember_me'] == "on" ? true : false;
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']), $remember))
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if(auth()->user()->role == 'guru')
             {
@@ -55,9 +53,6 @@ class LoginController extends Controller
         } else {
             return redirect()->route('login')->with('error', "email dan password salah");
         }
-    }
-    public function showLoginForm() {
-        return view('auth.login_new');
     }
 
 }
