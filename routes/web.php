@@ -78,6 +78,7 @@ Auth::routes();
     Route::get('/', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
     Route::get('user', [userController::class, 'index'])->name('user.index');
     Route::get('jurnal', [jurnalController::class, 'index'])->name('jurnal.index');
+    Route::get('/jurnal/exportWord', [jurnalController::class, 'exportWord'])->name('jurnal.exportWord');
     route::get('/rekapjurnal', [jurnalController::class, 'rekapan'])->name('jurnal.rekapan');
     route::get('/rekapjurnal/exportExcel', [jurnalController::class, 'exportExcel'])->name('jurnal.exportExcel');
     Route::get('absen', [absenController::class, 'index'])->name('absen.index');

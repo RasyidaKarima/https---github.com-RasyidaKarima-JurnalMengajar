@@ -106,4 +106,14 @@ class jurnalController extends Controller
         $export = new JurnalExport();
         return $export->download("rekap_jurnal_" . date('Y-m-d_H-i-s') . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
     }
+
+    public function exportWord(){
+
+        $jurnal = DB::table('jurnal')
+                ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
+                ->join('users', 'users.id', '=', 'jurnal.user_id')
+                ->get();
+        // dd($jurnal);
+        return view('jurnal.exportWord', compact('jurnal'));
+    }
 }

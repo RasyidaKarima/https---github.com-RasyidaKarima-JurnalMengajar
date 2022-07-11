@@ -9,11 +9,11 @@
 <div class="card">
 <br>
   <div class="d-flex flex-row justify-content-end">
-    <a href="{{route('jurnal.exportExcel')}}" class="btn btn-success mr-3 pull-right">Export Excel</a>
+    <a href="{{ route('jurnal.exportWord') }}" target="_blank" class="btn btn-success mr-3 pull-right">Export Word</a>
   </div>
   <br>
   <div class="container">
-  
+
     <div class="table-responsive">
       <table id="jurnalTable" class="table table-hover tale-bordered bg-white table-bordered table-striped shadow">
         <thead class="bg-light text-uppercase">
