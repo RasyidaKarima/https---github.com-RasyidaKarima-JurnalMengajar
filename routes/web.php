@@ -46,6 +46,8 @@ Auth::routes();
 
     Route::get('/home-kepsek', [App\Http\Controllers\HomeKepsekController::class, 'index'])->name('home.kepsek');
     Route::get('/validasi-kepsek', [App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'index'])->name('validasi.kepsek');
+    Route::get('/validasi-kepsek/{id}', [App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'validasi'])->name('jurnal.validasi');
+    Route::post('/validasi-update/{id}', [App\Http\Controllers\Kepsek\ValidasiJurnalController::class, 'updateValidasi'])->name('validasi.update');
     Route::get('/jurnal-kepsek', [App\Http\Controllers\Kepsek\JurnalKepsekController::class, 'index'])->name('jurnal.kepsek');
     Route::get('/jurnal-kepsek/riwayat', [App\Http\Controllers\Kepsek\JurnalKepsekController::class, 'riwayat'])->name('jurnal-riwayat.kepsek');
     Route::get('/jurnal-kepsek/create', [App\Http\Controllers\Kepsek\JurnalKepsekController::class, 'create'])->name('jurnalCreate.kepsek');

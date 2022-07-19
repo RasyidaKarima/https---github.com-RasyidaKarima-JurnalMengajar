@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jurnal;
+use Maatwebsite\Excel\Files\LocalTemporaryFile;
 
 class jurnalController extends Controller
 {
@@ -108,12 +109,16 @@ class jurnalController extends Controller
     }
 
     public function exportWord(){
-
         $jurnal = DB::table('jurnal')
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->get();
-        // dd($jurnal);
-        return view('jurnal.exportWord', compact('jurnal'));
+        $ttdKepsek = DB::table('absen')
+                ->join('users', 'users.id', '=', 'absen.user_id')
+                ->where('users.role', '=', 'kepsek')
+                ->latest('absen.created_at')
+                ->first(['absen.*', 'users.name', 'users.nip']);
+
+        return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
     }
 }

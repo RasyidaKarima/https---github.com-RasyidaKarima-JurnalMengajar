@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Absen;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\Reader\HTML;
 
 class absenController extends Controller
 {

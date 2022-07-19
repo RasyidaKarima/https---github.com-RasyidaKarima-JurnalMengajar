@@ -6,7 +6,9 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Jurnal Mengajar</strong></h4>
       <br>
-      <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @if ( $absen > 0)
+        <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @endif
       <br>
     </div>
     <div class="card-body">
@@ -22,6 +24,7 @@
               <th>Tindak Lanjut</th>
               <th>Foto Kegiatan</th>
               <th>Status</th>
+              <th>Pesan</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -80,6 +83,11 @@
                     {
                         data: 'status',
                         name: 'status',
+                        sClass:'text-center'
+                    },
+                    {
+                        data: 'pesan',
+                        name: 'pesan',
                         sClass:'text-center'
                     },
                     {

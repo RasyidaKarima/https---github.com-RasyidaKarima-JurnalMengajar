@@ -9,6 +9,7 @@ use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
+use App\Models\Absen;
 
 class JurnalKepsekController extends Controller
 {
@@ -24,7 +25,7 @@ class JurnalKepsekController extends Controller
                     ->where('user_id', Auth::user()->id)
                     ->where('tanggal', Date("Y-m-d"))
                     ->with(['rpp']);
-                    
+
 
             return DataTables::of($jurnals)
                 ->addIndexColumn()
@@ -51,7 +52,9 @@ class JurnalKepsekController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
-        return view('kepsek.jurnalKepsek', compact('rpp'));
+        $date = now()->format('Y-m-d');
+        $absen = Absen::where('tanggal', '=', $date)->count();
+        return view('kepsek.jurnalKepsek', compact('rpp','absen'));
     }
 
     public function riwayat(Request $request)
@@ -77,6 +80,7 @@ class JurnalKepsekController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
+
         return view('kepsek.riwayatjurnal', compact('rpp'));
     }
 
@@ -96,24 +100,23 @@ class JurnalKepsekController extends Controller
             'rpp_id.required' => 'Rpp tidak boleh kosong'
         ]);
 
-        
+
 
         $file = $request->file('foto_kegiatan');
         if($request->file('foto_kegiatan') != null){
-            
+
             $ext_foto = $file->extension();
             $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
             $date = Carbon::now();
             $user = User::where('id', Auth::user()->id)->first();
             $jurnal = Jurnal::where('user_id', $user->id)->first();
-            
+
             $jurnal = new Jurnal;
-            $jurnal->user_id = $user->id;
             $jurnal->rpp_id = $request->rpp_id;
             $jurnal->tanggal = $date;
             $jurnal->hasil = $request->hasil;
             $jurnal->kendala = $request->kendala;
-            $jurnal->tindak_lanjut = $request->tindak_kendala;
+            $jurnal->tindak_lanjut = $request->tindak_lanjut;
             $jurnal->foto_kegiatan  = $file->getClientOriginalName();
             $jurnal->save();
         }else{
@@ -126,7 +129,7 @@ class JurnalKepsekController extends Controller
             $jurnal->tanggal = $date;
             $jurnal->hasil = $request->hasil;
             $jurnal->kendala = $request->kendala;
-            $jurnal->tindak_lanjut = $request->tindak_kendala;
+            $jurnal->tindak_lanjut = $request->tindak_lanjut;
             $jurnal->save();
         }
 
@@ -149,11 +152,12 @@ class JurnalKepsekController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $file = $request->file('foto_kegiatan');
         if($request->file('foto_kegiatan') != null){
-            
+
             $ext_foto = $file->extension();
             $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
             $date = Carbon::now();
             $jurnal = Jurnal::where('id', $id)->first();
+
             $jurnal->rpp_id         = $request->rpp_id;
             $jurnal->tanggal        = $date;
             $jurnal->hasil          = $request->hasil;

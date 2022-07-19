@@ -6,7 +6,10 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Jurnal Mengajar</strong></h4>
       <br>
+      @if ( $absen > 0)
       <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @endif
+
       <a href="{{ route('jurnal-riwayat.kepsek') }}" class="btn btn-sm btn-primary"><i class="fa fa-history"></i> Riwayat Jurnal</a>
       <br>
     </div>
@@ -19,7 +22,7 @@
               <th>Tanggal</th>
               <th>Hasil</th>
               <th>Kendala</th>
-              <th>URAIAN TUGAS/KEGIATAN</th>
+              <th>Rencana Pembelajaran</th>
               <th>Tindak Lanjut</th>
               <th>Foto Kegiatan</th>
               <th>Status</th>

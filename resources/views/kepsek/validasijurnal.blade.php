@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Validasi Jurnal Mengajar</strong></h4>
-      
+
       <br>
     </div>
     <div class="card-body">
@@ -15,11 +15,10 @@
             <tr class="text-center">
               <th>No</th>
               <th>Nama</th>
-              <th>Kelas</th>
               <th>Tanggal</th>
               <th>Hasil</th>
               <th>Kendala</th>
-              <th>URAIAN TUGAS/KEGIATAN</th>
+              <th>Rencana Pembelajaran</th>
               <th>Tindak Lanjut</th>
               <th>Foto Kegiatan</th>
               <th>Status</th>
@@ -49,13 +48,8 @@
                         sClass:'text-center'
                     },
                     {
-                        data: 'users.name',
-                        name: 'users.name',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'users.kelas',
-                        name: 'users.kelas',
+                        data: 'name',
+                        name: 'name',
                         sClass:'text-center'
                     },
                     {
@@ -74,8 +68,8 @@
                         sClass:'text-center'
                     },
                     {
-                        data: 'rpp.penjelasan',
-                        name: 'rpp.penjelasan',
+                        data: 'penjelasan',
+                        name: 'penjelasan',
                         sClass:'text-center'
                     },
                     {
