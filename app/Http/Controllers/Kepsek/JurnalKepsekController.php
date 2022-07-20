@@ -49,7 +49,7 @@ class JurnalKepsekController extends Controller
                 ->rawColumns(['foto_kegiatan', 'action'])
                 ->make(true);
         }
-        
+
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
@@ -57,7 +57,12 @@ class JurnalKepsekController extends Controller
         $absen = Absen::where('tanggal', '=', $date)->count();
 
         $jurnal = Jurnal::where('tanggal', '=', $date)->count();
-        return view('kepsek.jurnalKepsek', compact('rpp','absen','jurnal'));
+
+        $jurnals = Jurnal::where('user_id', Auth::user()->id)
+                    ->where('tanggal', Date("Y-m-d"))
+                    ->with(['rpp'])->get();
+
+        return view('kepsek.jurnalKepsek', compact('rpp','absen','jurnal','jurnals'));
     }
 
     public function riwayat(Request $request)

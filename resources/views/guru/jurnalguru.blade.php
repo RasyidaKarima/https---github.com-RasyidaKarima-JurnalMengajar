@@ -11,7 +11,22 @@
       @endif
       <br>
     </div>
+
     <div class="card-body">
+        @foreach ($jurnals as $j )
+
+
+        @if($j->status ==  'belum divalidasi' || $j->status == 'Belum Divalidasi' || $j->status == 'sudah divalidasi terdapat kesalahan')
+            @if($j->pesan != null)
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    <strong>Pesan Validasi : {{$j->pesan}}</strong>
+                </div>
+            @else
+        @endif
+
+    @endif
+    @endforeach
       <div class="table-responsive">
         <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
           <thead>
@@ -24,7 +39,6 @@
               <th>Tindak Lanjut</th>
               <th>Foto Kegiatan</th>
               <th>Status</th>
-              <th>Pesan</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -83,11 +97,6 @@
                     {
                         data: 'status',
                         name: 'status',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'pesan',
-                        name: 'pesan',
                         sClass:'text-center'
                     },
                     {

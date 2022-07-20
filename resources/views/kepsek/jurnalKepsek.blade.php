@@ -14,16 +14,31 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Jurnal Mengajar</strong></h4>
       <br>
-      @if ( $absen > 0 && $jurnal == 0)
+      @if ( $absen > 0 )
       <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
       @elseif( $jurnal == 1)
-      <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success " id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
       @endif
 
       <a href="{{ route('jurnal-riwayat.kepsek') }}" class="btn btn-sm btn-primary"><i class="fa fa-history"></i> Riwayat Jurnal</a>
       <br>
     </div>
     <div class="card-body">
+        @foreach ($jurnals as $j )
+
+
+        @if($j->status ==  'belum divalidasi' || $j->status == 'Belum Divalidasi' || $j->status == 'sudah divalidasi terdapat kesalahan')
+            @if($j->pesan != null)
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    <strong>Pesan Validasi : {{$j->pesan}}</strong>
+                </div>
+            @else
+        @endif
+
+    @endif
+    @endforeach
+
       <div class="table-responsive">
         <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
           <thead>

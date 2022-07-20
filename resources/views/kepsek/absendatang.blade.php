@@ -17,7 +17,7 @@
       @if ( $absen == 0)
       <a href="{{route('absen-Create.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
       @elseif($absen == 1)
-      <a href="{{route('absen-Create.kepsek')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      <a href="{{route('absen-Create.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
       @endif
       <a href="{{ route('absen-riwayat.kepsek') }}" class="btn btn-sm btn-primary"><i class="fa fa-history"></i> Riwayat Absensi</a>
       <br>
