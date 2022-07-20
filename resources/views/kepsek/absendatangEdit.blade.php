@@ -1,7 +1,14 @@
 @extends('layouts.sidebarKepsek')
 
 @section('content')
-
+<div class="col-md-12 mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home.kepsek')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: gray;">Tambah Absensi</li>
+        </ol>
+    </nav>
+</div>
 <div class="card">
     <div class="card-header">
         <h4 class="m-0 font-weight-bold"><strong>Edit Absensi</strong></h4>

@@ -27,11 +27,13 @@ class AbsenController extends Controller
             ->where('user_id', Auth::user()->id)
             ->where('tanggal', Date("Y-m-d"))
             ->get();
+            
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('foto', function ($data) {
                     $url= asset('images/absen/'.$data->foto);
-                    return '<img src="'.$url.'" width="70" alt="..." />'; 
+                    return '<img src="'.$url.'" width="70" alt="..." />';
                 })
                 ->addColumn('action', function ($data) {
                     $button = ' <a href="'. route("absen-Edit.kepsek", $data->id).'" class="edit btn btn-success " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
@@ -41,7 +43,10 @@ class AbsenController extends Controller
                 ->rawColumns(['foto', 'action'])
                 ->make(true);
         }
-        return view('kepsek.absendatang');
+
+        $date = now()->format('Y-m-d');
+        $absen = Absen::where('tanggal', '=', $date)->count();
+        return view('kepsek.absendatang', compact('absen'));
     }
 
     public function riwayat(Request $request)

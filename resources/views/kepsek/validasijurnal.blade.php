@@ -1,25 +1,30 @@
 @extends('layouts.sidebarKepsek')
 
 @section('content')
+<div class="col-md-12 mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home.kepsek')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: gray;">Validasi Jurnal</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Validasi Jurnal Mengajar</strong></h4>
 
       <br>
+      <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success right" id="tambahJurnal"><i class="fa fa-sign"></i>Tanda Tangan</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" width="100%" >
+        <table class="table table-bordered table-striped yajra-datatable" id="data_users_side" >
           <thead>
             <tr class="text-center">
               <th>No</th>
               <th>Nama</th>
-              <th>Tanggal</th>
               <th>Hasil</th>
-              <th>Kendala</th>
-              <th>Rencana Pembelajaran</th>
-              <th>Tindak Lanjut</th>
               <th>Foto Kegiatan</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -53,28 +58,8 @@
                         sClass:'text-center'
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal',
-                        sClass:'text-center'
-                    },
-                    {
                         data: 'hasil',
                         name: 'hasil',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'kendala',
-                        name: 'kendala',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'penjelasan',
-                        name: 'penjelasan',
-                        sClass:'text-center'
-                    },
-                    {
-                        data: 'tindak_lanjut',
-                        name: 'tindak_lanjut',
                         sClass:'text-center'
                     },
                     {

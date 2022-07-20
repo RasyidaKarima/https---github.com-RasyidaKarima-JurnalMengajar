@@ -1,12 +1,24 @@
 @extends('layouts.sidebarKepsek')
 
 @section('content')
+<div class="col-md-12 mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home.kepsek')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: gray;">Absensi</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-md-12">
   <div class="card">
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
       <br>
+      @if ( $absen == 0)
       <a href="{{route('absen-Create.kepsek')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @elseif($absen == 1)
+      <a href="{{route('absen-Create.kepsek')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @endif
       <a href="{{ route('absen-riwayat.kepsek') }}" class="btn btn-sm btn-primary"><i class="fa fa-history"></i> Riwayat Absensi</a>
       <br>
       <br>

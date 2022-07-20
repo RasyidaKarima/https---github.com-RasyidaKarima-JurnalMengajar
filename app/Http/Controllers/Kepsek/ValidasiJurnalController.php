@@ -22,6 +22,7 @@ class ValidasiJurnalController extends Controller
         if ($request->ajax()) {
             $jurnals = Jurnal::join('users', 'users.id', '=', 'jurnal.user_id')
                                 ->join('rpp', 'rpp.id', '=', 'jurnal.rpp_id')
+                                ->where('tanggal', Date("Y-m-d"))
                                 ->get(['jurnal.*','rpp.penjelasan', 'users.name', 'users.kelas']);
 
             return DataTables::of($jurnals)
@@ -38,14 +39,12 @@ class ValidasiJurnalController extends Controller
                     }
                 })
                 ->addColumn('action', function ($data) {
-                    if($data->status == 'belum divalidasi' || $data->status == 'Belum Divalidasi'){
+                    if($data->status == 'belum divalidasi' || $data->status == "sudah divalidasi terdapat kesalahan"){
                         // $button  = ' <a href="'. route("jurnal-validasi.kepsek",$data->id).'" class="validasi btn btn-warning" id="' .$data->id. '"  > validasi </a>';
-                        $button  = ' <a href="'. route("jurnal.validasi", $data->id).'" class="validasi btn btn-warning" id="' .$data->id. '"  > validasi </a>';
-                        $button .= ' <a href="'. route("jurnalEdit.kepsek", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
-                        $button .= ' <a href="'. route("jurnal-kepsek.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
+                        $button  = ' <a href="'. route("jurnal.validasi", $data->id).'" class="validasi btn btn-warning" id="' .$data->id. '"  ><i class="fa fa-check"></i> validasi </a>';
                         return $button;
                     }else{
-                        return ' jurnal sudah benar';
+                        return 'jurnal sudah benar';
                     }
                 })
                 ->rawColumns(['foto_kegiatan', 'action','name'])
@@ -55,13 +54,16 @@ class ValidasiJurnalController extends Controller
         ->get();
         $user = User::select('*')
         ->get();
-        return view('kepsek.validasijurnal', compact('rpp', 'user'));
+        $date = now()->format('Y-m-d');
+        return view('kepsek.validasijurnal', compact('rpp', 'user', 'date'));
     }
 
     public function validasi($id)
     {
         $jurnal = Jurnal::find($id);
+
         $rpp = RPP::select('*')
+        ->where('user_id', Auth::user()->id)
         ->get();
         return view('kepsek.validasikepsek',compact('jurnal','rpp'));
     }
@@ -104,7 +106,7 @@ class ValidasiJurnalController extends Controller
                 'updated_at'    => date('Y-m-d H:i:s')
             ]);
         }
-        alert()->success('Jurnal Telah Diupdate', 'Success');
+        alert()->success('Validasi telah ditambahkan', 'Success');
         return redirect('jurnal-kepsek');
 
     }
@@ -122,7 +124,7 @@ class ValidasiJurnalController extends Controller
             'status' => $request ->status,
             'pesan'  => $request ->pesan,
         ]);
-        alert()->success('Jurnal Telah Diupdate', 'Success');
+        alert()->success('Validasi telah ditambahkan', 'Success');
         return redirect('validasi-kepsek');
     }
 }
