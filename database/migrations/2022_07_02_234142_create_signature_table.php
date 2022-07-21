@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateValidasiTable extends Migration
+class CreateSignatureTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateValidasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('validasi', function (Blueprint $table) {
+        Schema::create('signature', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->date('tanggal');
-            $table->string('tanda_tangan');
+            $table->date('tanggal')->nullable();
+            $table->string('tanda_tangan')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateValidasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('validasi');
+        Schema::dropIfExists('signature');
     }
 }

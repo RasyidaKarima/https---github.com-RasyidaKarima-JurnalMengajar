@@ -11,11 +11,21 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap1.min.css">
     <link rel="stylesheet" href="{{asset('css/guru.css')}}">
+    <style>
+        .kbw-signature {
+            width: 100%;
+            height: 200px;
+        }
+    </style>
 
 </head>
 
@@ -138,7 +148,6 @@
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{asset('js/core/')}}/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/popper.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/bootstrap.min.js" type="text/javascript"></script>
 <script src="{{asset('js/guru.js')}}" type="text/javascript "></script>

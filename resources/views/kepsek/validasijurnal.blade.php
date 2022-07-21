@@ -15,7 +15,7 @@
       <h4 class="m-0 font-weight-bold"><strong>Validasi Jurnal Mengajar</strong></h4>
 
       <br>
-      <a href="{{route('jurnalCreate.kepsek')}}" class="btn btn-sm btn-success right" id="tambahJurnal"><i class="fa fa-sign"></i>Tanda Tangan</a>
+      <a href="{{route('signature')}}" class="btn btn-sm btn-success right" id="tambahJurnal"><i class="fa fa-signature"></i>Tanda Tangan</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">

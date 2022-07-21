@@ -76,6 +76,8 @@ Auth::routes();
     Route::get('/rpp-kepsek/destroy/{id}', [App\Http\Controllers\Kepsek\RppController::class, 'destroy'])->name('rpp-kepsek.Destroy');
     Route::get('/rpp-kepsek/edit/{id}', [App\Http\Controllers\Kepsek\RppController::class, 'edit'])->name('rppEdit.kepsek');
     Route::post('/rpp-kepsek/edit/{id}', [App\Http\Controllers\Kepsek\RppController::class, 'update'])->name('rppUpdate.kepsek');
+    Route::get('/signature-pad', [App\Http\Controllers\SignatureController::class, 'index'])->name('signature');
+    Route::post('/signature-pad', [App\Http\Controllers\SignatureController::class, 'save'])->name('signpad.save');
 
     Route::get('/', [App\Http\Controllers\dashboardController::class, 'index'])->name('dashboard');
     Route::get('user', [userController::class, 'index'])->name('user.index');
