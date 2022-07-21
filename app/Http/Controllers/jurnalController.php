@@ -113,11 +113,11 @@ class jurnalController extends Controller
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->get();
-        $ttdKepsek = DB::table('absen')
-                ->join('users', 'users.id', '=', 'absen.user_id')
+        $ttdKepsek = DB::table('signature')
+                ->join('users', 'users.id', '=', 'signature.user_id')
                 ->where('users.role', '=', 'kepsek')
-                ->latest('absen.created_at')
-                ->first(['absen.*', 'users.name', 'users.nip']);
+                ->latest('signature.tanggal')
+                ->first(['signature.*', 'users.name', 'users.nip']);
 
         return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
     }

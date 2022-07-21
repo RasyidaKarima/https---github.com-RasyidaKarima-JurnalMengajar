@@ -6,7 +6,8 @@
 <h1> Absensi </h1>
 
 <br>
-
+<div class="card">
+  <div class="card-body">
 {{-- <div class="container"> --}}
   <table id="absenTable" class="table table-hover tale-bordered bg-white table-bordered table-striped shadow">
     <thead class="bg-light text-uppercase">
@@ -37,6 +38,8 @@
     </tbody>
   </table>
 {{-- </div> --}}
+</div>
+</div>
 @endsection
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

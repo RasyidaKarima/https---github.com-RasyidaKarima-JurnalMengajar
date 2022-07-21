@@ -93,7 +93,7 @@ class absenController extends Controller
             array_push($arr_absens, $arr_absen);
         }
         // dd($arr_absens);
-        $today = Carbon::now()->isoFormat('D MMMM Y');
+        $today = Carbon::now()->isoFormat('DD-M-Y');
         return (new AbsenExport($arr_absens))->download('02.LAPORAN KEBERADAAN DIKTENDIK UPT SD. BUTUN 02 KEC. GANDUSARI , ' . $today . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
     }
 }

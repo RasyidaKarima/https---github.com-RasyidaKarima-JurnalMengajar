@@ -11,26 +11,32 @@
   </head>
   <body>
     <div>
-        <button onclick="Export2Doc('source-html', `data-jurnal-${date.getDate()}${date.getMonth() + 1}${date.getFullYear()}`);">Download Document</button>
+        <button onclick="Export2Doc('source-html', `02. JURNAL PEMBELAJARAN UPT SD NEGERI BUTUN 02 Kec Gandusari, {{\Carbon\Carbon::now()->isoFormat('DD-M-Y')}}`);">Download Document</button>
         {{-- <button onclick="$('#source-html').wordExport();">Download Document</button> --}}
     </div>
     <div id="source-html" class="container-fluid">
-        <h6>
-            <center>PEMERINTAH KABUPATEN BLITAR</center>
-            <center>DINAS PENDIDIKAN</center>
-        </h6>
-        <h4><center>UPT SD NEGERI BUTUN 02</center></h4>
-        <h6><center>KECAMATAN GANDUSARI</center></h6>
-        <h6><center>Jl. Diponegoro No. 03 Desa Butun Kec.Gandusari</center></h6>
-        <h5><center>KABUPATEN BLITAR</center></h5>
-        <h6>NAMA LEMBAGA    : UPT SD NEGERI BUTUN 02</h6>
-        <h6>HARI,   TANGGAL    : </h6>
+        <div class="row">
+            <div class="column">
+            
+            </div>
+            <div class="column">
+                <h3>
+                    <center>PEMERINTAH KABUPATEN BLITAR
+                    DINAS PENDIDIKAN
+                    <center>UPT SD NEGERI BUTUN 02</center>
+                    <center>KECAMATAN GANDUSARI</center>
+                    <center>Jl. Diponegoro No. 03 Desa Butun Kec.Gandusari</center>
+                    <center>KABUPATEN BLITAR</center>
+                </h3>
+            </div>
+        </div>
+
+        <h6>        {{\Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y')}} </h6><br>
         <table style="width: 100%;" border="1">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Tanggal</th>
                     <th>Uraian Tugas</th>
                     <th>Hasil</th>
                     <th>Kendala</th>
@@ -43,7 +49,6 @@
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$jurnal->name}}</td>
-                        <td>{{$jurnal->tanggal}}</td>
                         <td>{{$jurnal ->penjelasan}}</td>
                         <td>{{$jurnal->hasil}}</td>
                         <td>{{$jurnal->kendala}}</td>
@@ -60,7 +65,8 @@
         <br>
 
         <div align="right">
-            <img src="{{asset('images/absendatang/'. $ttdKepsek->foto)}}" style="height: 10rem; width: 10rem;" class="img" alt="" srcset="" width="100" height="100">
+
+            <img src="{{asset('images/signature/'. $ttdKepsek->tanda_tangan)}}" style="height: 10rem; width: 10rem;" class="img" alt="" srcset="" width="100" height="100">
             <div style="width: 10rem">
                 <h5>{{$ttdKepsek->name}}</h5>
                 <p>NIP. {{$ttdKepsek->nip}}</p>
