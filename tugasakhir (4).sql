@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jul 2022 pada 10.38
+-- Waktu pembuatan: 21 Jul 2022 pada 02.54
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.2
 
@@ -21,72 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `tugasakhir`
 --
-
-DELIMITER $$
---
--- Prosedur
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jabatan` (IN `in_id` INT(11), IN `in_nama_jabatan` VARCHAR(25), IN `tipe` VARCHAR(11))  BEGIN
-    IF (tipe='post') THEN 
-	BEGIN
-             insert INTO jabatan VALUES(
-             in_id,
-             in_nama_jabatan,
-             NOW(),
-	     now()
-             );
-	END;
-	ELSE
-	BEGIN
-            replace INTO jabatan VALUES(
-             in_id,
-             in_nama_jabatan,
-             NOW(),
-	     NOW()
-             );
-        END;
-        END IF;
-	END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_user` (IN `in_id` INT(11), IN `in_nama` VARCHAR(25), IN `in_username` VARCHAR(25), IN `in_jabatan` VARCHAR(25), IN `in_nip` VARCHAR(25), IN `in_alamat` VARCHAR(25), IN `in_tanggal_lahir` DATE, IN `in_email` VARCHAR(25), IN `in_password` VARCHAR(10), IN `tipe` VARCHAR(10))  BEGIN
-    IF (tipe='post') THEN 
-	BEGIN
-             insert INTO users(
-		id, nama, username, jabatan,nip,alamat,tanggal_lahir,email,password,  created_at, updated_at
-             ) VALUES(
-             in_id,in_nama,
-             in_username,
-             in_jabatan,
-             in_nip,
-             in_alamat,    
-             in_tanggal_lahir,
-             in_email,
-             in_password,
-             NOW(),
-             NOW() 
-             );
-	END;
-	ELSE
-	BEGIN
-             REPLACE INTO users(
-		id, nama, username, jabatan,nip,alamat,tanggal_lahir,email,password,  created_at, updated_at
-             ) VALUES(
-             in_id,in_nama,
-             in_username,
-             in_jabatan,
-             in_nip,
-             in_alamat,    
-             in_tanggal_lahir,
-             in_email,
-             in_password,
-             NOW(),
-             NOW() 
-             );
-        END;
-        END IF;
-	END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -113,7 +47,11 @@ INSERT INTO `absen` (`id`, `user_id`, `tanggal`, `status`, `kondisi`, `foto`, `c
 (1, 2, '2022-07-02', 'WFO', 'Sehat', 'Infografic__MI_2C_Ayu3_Erni11_Masykur19_Zamron27.jpg', '2022-07-02 08:01:48', '2022-07-02 08:02:13'),
 (2, 2, '2022-07-02', 'WFO', 'Sehat', 'ERD FIX!!!.jpg', '2022-07-02 10:29:09', '2022-07-02 10:29:09'),
 (3, 3, '2022-07-02', 'WFO', 'Sehat', 'Internal_AyuAriestaWandari.jpg', '2022-07-02 11:38:59', '2022-07-02 11:38:59'),
-(4, 2, '2022-07-02', 'WFO', 'Sakit', 'jurnalmengajar.jpg', '2022-07-02 16:00:37', '2022-07-02 16:00:37');
+(4, 2, '2022-07-02', 'WFO', 'Sakit', 'jurnalmengajar.jpg', '2022-07-02 16:00:37', '2022-07-02 16:00:37'),
+(5, 2, '2022-07-18', 'WFO', 'Sakit', 'Sampul Facebook Livestream Gaming Anime Lucu Ungu Biru Merah Muda.png', '2022-07-18 09:34:05', '2022-07-18 09:34:05'),
+(10, 3, '2022-07-19', 'WFO', 'Sehat', 'WhatsApp Image 2022-03-10 at 15.03.38.jpeg', '2022-07-19 09:56:45', '2022-07-19 09:56:45'),
+(12, 3, '2022-07-20', 'WFO', 'Sakit', 'WhatsApp Image 2021-09-06 at 11.45.38.jpeg', '2022-07-20 14:45:24', '2022-07-20 14:45:24'),
+(13, 3, '2022-07-21', 'WFO', 'Sakit', 'WhatsApp Image 2021-09-06 at 11.45.38.jpeg', '2022-07-20 22:28:37', '2022-07-20 22:28:37');
 
 -- --------------------------------------------------------
 
@@ -157,9 +95,14 @@ CREATE TABLE `jurnal` (
 --
 
 INSERT INTO `jurnal` (`id`, `user_id`, `rpp_id`, `hasil`, `kendala`, `tindak_lanjut`, `foto_kegiatan`, `tanggal`, `status`, `pesan`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, NULL, NULL, NULL, NULL, '2022-07-02', 'belum divalidasi', NULL, '2022-07-02 12:48:57', '2022-07-02 12:48:57'),
-(4, 2, 3, NULL, NULL, NULL, NULL, '2022-07-03', 'belum divalidasi', NULL, '2022-07-03 02:09:23', '2022-07-03 02:09:23'),
-(5, 3, 1, 'murid mendengarkan dengan baik', 'beberapa siswa tidak hadir', NULL, 'Capture 5.jpg', '2022-07-03', 'belum divalidasi', NULL, '2022-07-03 02:42:56', '2022-07-03 04:40:11');
+(5, 3, 1, 'murid mendengarkan dengan baik', 'beberapa siswa tidak hadir', 'pasti bisa', 'Capture 5.jpg', '2022-07-18', 'Tervalidasi', 'sudah bagus', '2022-07-03 02:42:56', '2022-07-19 09:05:15'),
+(6, 3, 2, 'memuaskan', 'tidak ada', 'belajar lagi', 'baground.jpg', '2022-07-18', 'belum divalidasi', NULL, '2022-07-18 07:36:29', '2022-07-18 07:45:35'),
+(11, 3, 1, 'memuaskan', 'tidak ada', 'ayo bisaaaaa', 'WhatsApp Image 2022-03-10 at 15.03.38.jpeg', '2022-07-18', 'belum divalidasi', NULL, '2022-07-18 08:23:40', '2022-07-18 08:23:40'),
+(13, 2, 3, 'memuaskan', 'tidak ada', 'ayo bisaaaaa', 'blue-blur-gradation-pattern-wallpaper-preview.jpg', '2022-07-18', 'Tervalidasi', NULL, '2022-07-18 08:38:25', '2022-07-19 09:08:56'),
+(14, 2, 3, 'memuaskan', 'tidak ada', 'pasti bisa', 'WhatsApp Image 2022-04-30 at 07.23.28 (1).jpeg', '2022-07-19', 'Belum Divalidasi', 'kurang rapi', '2022-07-19 09:13:30', '2022-07-19 09:14:28'),
+(15, 3, 2, NULL, NULL, NULL, 'Internal_AyuAriestaWandari.jpg', '2022-07-20', 'sudah divalidasi', 'keterangan masih belum lengkap', '2022-07-20 07:37:37', '2022-07-20 08:10:59'),
+(16, 2, 3, NULL, NULL, NULL, 'ERD FIX!!!.jpg', '2022-07-20', 'sudah divalidasi terdapat kesalahan', 'Penjelasan kurang mendetail', '2022-07-20 08:10:12', '2022-07-20 08:11:58'),
+(17, 3, 1, NULL, NULL, NULL, 'jurnalmengajar.jpg', '2022-07-21', 'sudah divalidasi terdapat kesalahan', 'penjelasan kurang mendetail', '2022-07-20 22:28:56', '2022-07-20 23:23:36');
 
 -- --------------------------------------------------------
 
@@ -248,6 +191,28 @@ INSERT INTO `rpp` (`id`, `user_id`, `mata_pelajaran`, `kompetensi_inti`, `penjel
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `signature`
+--
+
+CREATE TABLE `signature` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
+  `tanggal` date NOT NULL,
+  `tanda_tangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `signature`
+--
+
+INSERT INTO `signature` (`id`, `user_id`, `tanggal`, `tanda_tangan`, `created_at`, `updated_at`) VALUES
+(1, 3, '2022-07-21', '62d89b722e88a.png', '2022-07-21 00:18:58', '2022-07-21 00:18:58');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -272,9 +237,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `nip`, `jabatan`, `kelas`, `mapel`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'rima', 'rima@gmail.com', NULL, '$2y$10$UwqloCX7PFLM3aQvgQxh6e9UgifqwQOZiF1zdogtLF6iVDR7Yr7IW', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'ayu', 'ayu@gmail.com', NULL, '$2y$10$og00q28o6fDS3/lhIg7lte5dgUfWMibNGJIRhHLCqipg2BaqZE4MO', 'guru', NULL, NULL, NULL, NULL, NULL, '2022-07-02 07:57:40', '2022-07-02 07:57:40'),
-(3, 'masykur', 'masykur@gmail.com', NULL, '$2y$10$3YvJDW9liCPdTmQJz/LdVeoZU0gpBjjNtf9mk./bly3fmPuYjmQaq', 'kepsek', NULL, 'Guru Kelas', '5', NULL, NULL, '2022-07-02 11:33:21', '2022-07-03 03:27:48');
+(1, 'Admin', 'rima@gmail.com', NULL, '$2y$10$UwqloCX7PFLM3aQvgQxh6e9UgifqwQOZiF1zdogtLF6iVDR7Yr7IW', 'admin', NULL, 'Admin', NULL, NULL, NULL, NULL, '2022-07-18 08:49:13'),
+(2, 'Rahma, S.Pd.', 'ayu@gmail.com', NULL, '$2y$10$ciovcu621B2SQXOuuWjarOTNZwJoJmLJ3C1kEIr9N.8D85nTy96ba', 'guru', NULL, 'Guru', NULL, NULL, NULL, '2022-07-02 07:57:40', '2022-07-20 08:35:53'),
+(3, 'Dra. EKO ENDANG IRIANI', 'masykur@gmail.com', NULL, '$2y$10$KZMrS74oxaXARP0VSEO.7eFvW4BtHZeB4vLASXuSeik4TxkFoNw.a', 'kepsek', '196203161980102001', 'Kepala Sekolah', '5', NULL, NULL, '2022-07-02 11:33:21', '2022-07-18 07:28:34');
 
 --
 -- Indexes for dumped tables
@@ -330,6 +295,13 @@ ALTER TABLE `rpp`
   ADD KEY `rpp_user_id_foreign` (`user_id`);
 
 --
+-- Indeks untuk tabel `signature`
+--
+ALTER TABLE `signature`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `validasi_user_id_foreign` (`user_id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -344,7 +316,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -356,7 +328,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -375,6 +347,12 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `rpp`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `signature`
+--
+ALTER TABLE `signature`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -404,6 +382,12 @@ ALTER TABLE `jurnal`
 --
 ALTER TABLE `rpp`
   ADD CONSTRAINT `rpp_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `signature`
+--
+ALTER TABLE `signature`
+  ADD CONSTRAINT `validasi_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
