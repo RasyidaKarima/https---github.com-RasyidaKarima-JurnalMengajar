@@ -64,7 +64,7 @@
 
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{route('absen-pulang.guru')}}" class="btn btn-success">Kembali</a>
+                <a href="{{ url('/jurnal-guru') }}" class="btn btn-success">Kembali</a>
             </div>
         </div>
     </div>

@@ -6,8 +6,12 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Jurnal Mengajar</strong></h4>
       <br>
-      @if ( $absen > 0)
+      @if ( $absen > 0 && $jurnal == 0 )
         <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @elseif( $jurnal == 1)
+        <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @endif
+      @if ( $absen > 0)
       @endif
       <br>
     </div>

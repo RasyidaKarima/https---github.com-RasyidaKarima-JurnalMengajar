@@ -38,12 +38,12 @@ class JurnalKepsekController extends Controller
                     }
                 })
                 ->addColumn('action', function ($data) {
-                    if($data->status == 'belum divalidasi'){
+                    if($data->status == 'belum divalidasi' || $data->status == 'sudah divalidasi terdapat kesalahan'){
                         $button = ' <a href="'. route("jurnalEdit.kepsek", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
                         $button .= ' <a href="'. route("jurnal-kepsek.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
                         return $button;
                     }else{
-                        return ' ';
+                        return '';
                     }
                 })
                 ->rawColumns(['foto_kegiatan', 'action'])

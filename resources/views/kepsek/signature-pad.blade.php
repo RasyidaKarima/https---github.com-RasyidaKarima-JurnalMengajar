@@ -33,6 +33,7 @@
                         <textarea id="signature" name="signed" style="display: none"></textarea>
                 </div>
                     <br/>
+                        <a href="{{ url('/validasi-kepsek') }}" class="btn btn-success">Kembali</a>
                         <button id="clear" class="btn btn-danger">Clear</button>
                         @if ( $signature == 0 )
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -43,6 +44,7 @@
                             <strong>Anda sudah melakukan tanda tangan pada hari ini</strong>
                         </div>
                         @endif
+                        
             </form>
         </div>
     </div>

@@ -31,7 +31,7 @@
         <td class="text-center">{{$absen->status}}</td>
         <td class="text-center">{{$absen->kondisi}}</td>
         <td class="text-center">
-          <img src="{{ asset('images/absendatang/'.$absen->foto) }}" alt="{{ $absen->foto }}" class="img img-thumbnail" style="width: 100px !important;">
+          <img src="{{ asset('images/absen/'.$absen->foto) }}" alt="{{ $absen->foto }}" class="img img-thumbnail" style="width: 100px !important;">
         </td>
       </tr>
     @endforeach

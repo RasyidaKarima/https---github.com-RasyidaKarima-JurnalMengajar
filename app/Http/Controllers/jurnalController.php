@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportJurnalWord;
 use App\Exports\JurnalExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class jurnalController extends Controller
         $jurnal = DB::table('jurnal')
                     ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                     ->join('users', 'users.id', '=', 'jurnal.user_id')
+                    ->where('jurnal.status', '=', 'sudah divalidasi')
                     ->get();
         $active = 'jurnal';
 
@@ -101,17 +103,11 @@ class jurnalController extends Controller
         return view('jurnal.jurnalRekap', compact('jurnal', 'active'));
     }
 
-    public function exportExcel()
-    {
-        // return Excel::download(new JurnalExport, "rekap_jurnal_" . date('Y-m-d_H-i-s') . ".xlsx");
-        $export = new JurnalExport();
-        return $export->download("rekap_jurnal_" . date('Y-m-d_H-i-s') . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
-    }
-
     public function exportWord(){
         $jurnal = DB::table('jurnal')
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
+                ->where('jurnal.status', '=', 'sudah divalidasi')
                 ->get();
         $ttdKepsek = DB::table('signature')
                 ->join('users', 'users.id', '=', 'signature.user_id')
@@ -119,6 +115,10 @@ class jurnalController extends Controller
                 ->latest('signature.tanggal')
                 ->first(['signature.*', 'users.name', 'users.nip']);
 
-        return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
+        $file = (new ExportJurnalWord())->exportWord($jurnal, $ttdKepsek);
+        return response()->download($file)->deleteFileAfterSend();
+
+        //return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
+
     }
 }

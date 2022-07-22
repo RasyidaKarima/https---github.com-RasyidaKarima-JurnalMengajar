@@ -38,7 +38,7 @@ class JurnalGuruController extends Controller
                     }
                 })
                 ->addColumn('action', function ($data) {
-                    if($data->status == 'belum divalidasi' || $data->status == 'Belum Divalidasi' ||  $data->status == 'sudah divalidasi terdapat kesalahan'){
+                    if($data->status == 'belum divalidasi' ||  $data->status == 'sudah divalidasi terdapat kesalahan'){
                         $button = ' <a href="'. route("jurnalEdit.guru", $data->id).'" class="edit btn btn-success btn-sm " id="' . $data->id . '" ><i class="fa fa-edit"></i></a>';
                         $button .= ' <a href="'. route("jurnal.Destroy", $data->id).'" class="hapus btn btn-danger btn-sm" id="' . $data->id . '" ><i class="fa fa-trash"></i></a>';
                         return $button;
@@ -52,13 +52,19 @@ class JurnalGuruController extends Controller
         $rpp = RPP::select('*')
         ->where('user_id', Auth::user()->id)
         ->get();
+
+        
+
         $date = now()->format('Y-m-d');
         $absen = Absen::where('tanggal', '=', $date)->count();
+
+        $jurnal = Jurnal::where('tanggal', '=', $date)->count();
+        
         $jurnals = Jurnal::where('user_id', Auth::user()->id)
                     ->where('tanggal', Date("Y-m-d"))
                     ->with(['rpp'])->get();
 
-        return view('guru.jurnalGuru', compact('rpp','absen','jurnals'));
+        return view('guru.jurnalGuru', compact('rpp','absen','jurnals', 'jurnal'));
     }
 
     public function riwayat(Request $request)

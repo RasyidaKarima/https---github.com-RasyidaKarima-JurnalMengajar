@@ -6,7 +6,12 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
       <br>
+      @if ( $absen == 1)
       <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @elseif($absen == 0)
+      <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @endif
+      
       <br>
     </div>
     <div class="card-body">

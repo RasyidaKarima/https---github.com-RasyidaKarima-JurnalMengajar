@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\Reader\HTML;
 
+
 class absenController extends Controller
 {
     public function index()
@@ -68,7 +69,6 @@ class absenController extends Controller
         // return view('absen.absen', ['dataAbsen' => $absen, 'active' => $active]);
     }
 
-
     public function rekapanPertanggal($tglawal, $tglakhir)
     {
         // dd(["Tanggal Awal : " . $tglawal, "Tanggal Akhir : " . $tglakhir]);
@@ -92,8 +92,14 @@ class absenController extends Controller
             ];
             array_push($arr_absens, $arr_absen);
         }
+        $ttdKepsek = DB::table('signature')
+                ->join('users', 'users.id', '=', 'signature.user_id')
+                ->where('users.role', '=', 'kepsek')
+                ->latest('signature.tanggal')
+                ->first(['signature.*', 'users.name', 'users.nip']);
+
         // dd($arr_absens);
         $today = Carbon::now()->isoFormat('DD-M-Y');
-        return (new AbsenExport($arr_absens))->download('02.LAPORAN KEBERADAAN DIKTENDIK UPT SD. BUTUN 02 KEC. GANDUSARI , ' . $today . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
+        return (new AbsenExport($arr_absens, $ttdKepsek))->download('02.LAPORAN KEBERADAAN DIKTENDIK UPT SD. BUTUN 02 KEC. GANDUSARI , ' . $today . ".xlsx", \Maatwebsite\Excel\Excel::XLSX);
     }
 }

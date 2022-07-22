@@ -41,7 +41,10 @@ class AbsenController extends Controller
                 ->rawColumns(['foto', 'action'])
                 ->make(true);
         }
-        return view('guru.absendatang');
+
+        $date = now()->format('Y-m-d');
+        $absen = Absen::where('tanggal', '=', $date)->count();
+        return view('guru.absendatang', compact('absen'));
     }
 
     public function riwayat(Request $request)
@@ -59,6 +62,7 @@ class AbsenController extends Controller
                 ->rawColumns(['foto'])
                 ->make(true);
         }
+
         return view('guru.riwayatabsen');
     }
 
