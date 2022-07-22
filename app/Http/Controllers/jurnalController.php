@@ -35,6 +35,12 @@ class jurnalController extends Controller
         return view('jurnal.jurnalCreate', compact('active'));
     }
 
+    public function cetak()
+    {
+        $active = 'cetak_jurnal';
+        return view('jurnal.cetakJurnal', compact('active'));
+    }
+
     public function store(Request $req)
     {
         $file = $req->file('foto_kegiatan');
@@ -95,13 +101,6 @@ class jurnalController extends Controller
         $jurnal->delete();
         return redirect('/jurnal');
     }
-    public function rekapan()
-    {
-        $jurnal = Jurnal::all();
-        $active = 'rekap';
-
-        return view('jurnal.jurnalRekap', compact('jurnal', 'active'));
-    }
 
     public function exportWord(){
         $jurnal = DB::table('jurnal')
@@ -120,5 +119,27 @@ class jurnalController extends Controller
 
         //return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
 
+    }
+
+
+    public function cetakPertanggal($tglawal)
+    {
+        $jurnal = DB::table('jurnal')
+                ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
+                ->join('users', 'users.id', '=', 'jurnal.user_id')
+                ->where('jurnal.status', '=', 'sudah divalidasi')
+                ->whereDate('tanggal', '=', $tglawal)
+                ->get();
+        
+        $ttdKepsek = DB::table('signature')
+                ->join('users', 'users.id', '=', 'signature.user_id')
+                ->where('users.role', '=', 'kepsek')
+                ->latest('signature.tanggal')
+                ->first(['signature.*', 'users.name', 'users.nip']);
+
+        $file = (new ExportJurnalWord())->exportWord($jurnal, $ttdKepsek);
+        return response()->download($file)->deleteFileAfterSend();
+
+        //return view('jurnal.exportWord', compact('jurnal', 'ttdKepsek'));
     }
 }

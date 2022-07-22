@@ -36,7 +36,7 @@ class ExportJurnalWord {
             $template->setImageValue('img-'.$key , public_path("images/jurnal/". $value->foto_kegiatan));
         }
 
-        $filename = '02. Jurnal Pembelajaran UPT SD Negeri Butun 02 Kec. Gandusari, '. Carbon::now()->isoFormat('D MMMM Y') .'.docx';
+        $filename = '02. Jurnal Pembelajaran UPT SD Negeri Butun 02 Kec. Gandusari, '. Carbon::now()->isoFormat('DD-M-Y') .'.docx';
         $file = storage_path('app/'.$filename);
         $template->saveAs($file);
         return $file;
