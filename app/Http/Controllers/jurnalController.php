@@ -107,6 +107,7 @@ class jurnalController extends Controller
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->where('jurnal.status', '=', 'sudah divalidasi')
+                ->where('tanggal', Date("Y-m-d"))
                 ->get();
         $ttdKepsek = DB::table('signature')
                 ->join('users', 'users.id', '=', 'signature.user_id')

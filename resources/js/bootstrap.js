@@ -32,7 +32,7 @@ function rekapanPertanggal() {
 }
 window.rekapanPertanggal = rekapanPertanggal;
 
-function cetakPertanggal() {
+/*function cetakPertanggal() {
     warning = false;
     let tgl_awal = document.getElementById('tglawal').value;
 
@@ -45,7 +45,7 @@ function cetakPertanggal() {
         alert('Tanggal awal kosong!');
     }
 }
-window.cetakPertanggal = cetakPertanggal;
+window.cetakPertanggal = cetakPertanggal;*/
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
