@@ -33,7 +33,7 @@ class JurnalGuruController extends Controller
                     if($data->foto_kegiatan == null){
                         return ' ';
                     }else{
-                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        $url= asset('storage/'.$data->foto_kegiatan);
                         return '<img src="'.$url.'" width="70" alt="..." />';
                     }
                 })
@@ -53,18 +53,20 @@ class JurnalGuruController extends Controller
         ->where('user_id', Auth::user()->id)
         ->get();
 
-        
-
         $date = now()->format('Y-m-d');
-        $absen = Absen::where('tanggal', '=', $date)->count();
+        $absen = Absen::where('tanggal', '=', $date)
+                        ->where('user_id', Auth::user()->id)
+                        ->count();
 
-        $jurnal = Jurnal::where('tanggal', '=', $date)->count();
+        $jurnal = Jurnal::where('tanggal', '=', $date)
+                          ->where('user_id', Auth::user()->id)
+                          ->count();
         
         $jurnals = Jurnal::where('user_id', Auth::user()->id)
                     ->where('tanggal', Date("Y-m-d"))
                     ->with(['rpp'])->get();
 
-        return view('guru.jurnalGuru', compact('rpp','absen','jurnals', 'jurnal'));
+        return view('guru.jurnalguru', compact('rpp','absen','jurnals', 'jurnal'));
     }
 
     public function riwayat(Request $request)
@@ -80,7 +82,7 @@ class JurnalGuruController extends Controller
                     if($data->foto_kegiatan == null){
                         return ' ';
                     }else{
-                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        $url= asset('storage/'.$data->foto_kegiatan);
                         return '<img src="'.$url.'" width="70" alt="..." />';
                     }
                 })
@@ -109,13 +111,9 @@ class JurnalGuruController extends Controller
             'rpp_id.required' => 'Rpp tidak boleh kosong'
         ]);
 
-
-
-        $file = $request->file('foto_kegiatan');
         if($request->file('foto_kegiatan') != null){
 
-            $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $file = $request->file('foto_kegiatan')->store('jurnal', 'public');
             $date = Carbon::now();
             $user = User::where('id', Auth::user()->id)->first();
             $jurnal = Jurnal::where('user_id', $user->id)->first();
@@ -127,7 +125,7 @@ class JurnalGuruController extends Controller
             $jurnal->hasil = $request->hasil;
             $jurnal->kendala = $request->kendala;
             $jurnal->tindak_lanjut = $request->tindak_lanjut;
-            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->foto_kegiatan  = $file;
             $jurnal->save();
         }else{
             $date = Carbon::now();
@@ -160,19 +158,18 @@ class JurnalGuruController extends Controller
     public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $file = $request->file('foto_kegiatan');
+
         if($request->file('foto_kegiatan') != null){
 
-            $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $file = $request->file('foto_kegiatan')->store('jurnal', 'public');
             $date = Carbon::now();
             $jurnal = Jurnal::where('id', $id)->first();
             $jurnal->rpp_id         = $request->rpp_id;
             $jurnal->tanggal        = $date;
             $jurnal->hasil          = $request->hasil;
             $jurnal->kendala        = $request->kendala;
-            $jurnal->tindak_lanjut        = $request->tindak_lanjut;
-            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->tindak_lanjut  = $request->tindak_lanjut;
+            $jurnal->foto_kegiatan  = $file;
             $jurnal->updated_at     = date('Y-m-d H:i:s');
             $jurnal->save();
         }else{

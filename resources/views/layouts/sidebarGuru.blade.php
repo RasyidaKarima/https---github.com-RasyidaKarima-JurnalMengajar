@@ -9,8 +9,9 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.0/datatables.min.css"/>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/')}}/bootstrap.min.css">
@@ -143,7 +144,7 @@
         </div>
     </div>
 
-<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{asset('js/core/')}}/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/popper.min.js" type="text/javascript"></script>
 <script src="{{asset('js/core/')}}/bootstrap.min.js" type="text/javascript"></script>

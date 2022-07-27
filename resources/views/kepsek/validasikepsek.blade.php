@@ -13,7 +13,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="m-0 font-weight-bold"><strong>Profile</strong></h4>
+            <h4 class="m-0 font-weight-bold"><strong>Data Jurnal</strong></h4>
         </div>
         <div class="card-body">
             <table class="table">

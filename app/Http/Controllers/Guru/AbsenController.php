@@ -30,7 +30,7 @@ class AbsenController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('foto', function ($data) {
-                    $url= asset('images/absen/'.$data->foto);
+                    $url= asset('storage/'.$data->foto);
                     return '<img src="'.$url.'" width="70" alt="..." />'; 
                 })
                 ->addColumn('action', function ($data) {
@@ -43,7 +43,8 @@ class AbsenController extends Controller
         }
 
         $date = now()->format('Y-m-d');
-        $absen = Absen::where('tanggal', '=', $date)->count();
+        $absen = Absen::where('tanggal', $date)
+                        ->where('user_id', Auth::user()->id)->count();
         return view('guru.absendatang', compact('absen'));
     }
 
@@ -56,7 +57,7 @@ class AbsenController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('foto', function ($data) {
-                    $url= asset('images/absen/'.$data->foto);
+                    $url= asset('storage/'.$data->foto);
                     return '<img src="'.$url.'" width="70" alt="..." />'; 
                 })
                 ->rawColumns(['foto'])
@@ -78,25 +79,14 @@ class AbsenController extends Controller
         $user = User::where('id', Auth::user()->id)->first();
         $datang = Absen::where('user_id', $user->id)->first();
 
-        $datang = new Absen;
-        $datang->user_id = $user->id;
-        $datang->tanggal = $date;
-        $datang->status = $request->status;
-        $datang->kondisi = $request->kondisi;
-        $file = $request->file('foto');
-        //Mendapatkan nama file
-        $nama_file = $file->getClientOriginalName();
+        $file = $request->file('foto')->store('absen', 'public');
 
-        // Mendapatkan Extension File
-        $extension = $file->getClientOriginalExtension();
-    
-        // Mendapatkan Ukuran File
-        $ukuran_file = $file->getSize();
-     
-        // Proses Upload File
-        $destinationPath = 'images\absen';
-        $file->move($destinationPath,$file->getClientOriginalName());
-        $datang->foto = $nama_file;
+        $datang = new Absen;
+        $datang->user_id    = $user->id;
+        $datang->tanggal    = $date;
+        $datang->status     = $request->status;
+        $datang->kondisi    = $request->kondisi;
+        $datang->foto       = $file;
         $datang->save();
         alert()->success('Absen Berhasil Disimpan');
         return redirect('absen-guru');
@@ -112,30 +102,23 @@ class AbsenController extends Controller
     public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $file = $request->file('foto');
-        if($request->file('foto') != null){
-            // dd($file);
-            $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/absen/', $file->getClientOriginalName());
-            $date = Carbon::now();
-            $datang = Absen::where('id', $id)->first();
-            // dd($absen_datang);
-            $datang->tanggal      = $date;
-            $datang->status       = $request->status;
-            $datang->kondisi      = $request->kondisi;
-            $datang->foto         = $file->getClientOriginalName();
-            $datang->updated_at   = date('Y-m-d H:i:s');
-            $datang->save();
-        }else{
-            $date = Carbon::now();
-            DB::table('absen')->where('id',$id)->update([
-                'tanggal' => $date,
-                'status' => $request->status,
-                'kondisi' => $request->kondisi,
-                'foto' => $request->foto_old,
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
+
+        $datang = Absen::find($id);
+
+        $date = Carbon::now();
+        $datang->tanggal      = $date;
+        $datang->status       = $request->status;
+        $datang->kondisi      = $request->kondisi;
+
+        $datang->updated_at   = date('Y-m-d H:i:s');
+
+        if($datang->foto && file_exists(storage_path('app/public/' . $datang->foto))){
+            \Storage::delete('public/'.$datang->foto);
         }
+        $file = $request->file('foto')->store('absen', 'public');
+        $datang->foto         = $file;
+        $datang->save();
+        
         alert()->success('Absen Telah Diupdate', 'Success');
         return redirect('absen-guru');
 

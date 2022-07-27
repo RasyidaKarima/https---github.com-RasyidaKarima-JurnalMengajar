@@ -8,8 +8,8 @@
       <br>
       @if ( $absen > 0 && $jurnal == 0 )
         <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
-      @elseif( $jurnal == 1)
-        <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @else
+        <!-- <a href="{{route('jurnalCreate.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a> -->
       @endif
       @if ( $absen > 0)
       @endif
@@ -60,6 +60,9 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
+                language:{
+                    "url":"https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json"
+                },
                 ajax: '{!! route('jurnal.guru') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',

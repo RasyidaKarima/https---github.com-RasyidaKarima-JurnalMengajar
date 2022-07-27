@@ -28,6 +28,12 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                 <div class="mb-4">
+                    @if ($message = Session::get('error'))
+                     <div class="alert alert-danger alert-block">
+                       <button type="button" class="close" data-dismiss="alert"></button> 
+                       <strong>{{ $message }}</strong>
+                     </div>
+                    @endif
                 <h3>Login</h3>
                 <p class="mb-4">Silahkan masukkan email dan password yang telah di daftarkan oleh admin untuk masuk ke dalam aplikasi</p>
                 </div>

@@ -28,7 +28,7 @@ class ExportJurnalWord {
         $template->setValue('date-jurnal-2', Carbon::now()->isoFormat('D MMMM Y'));
         $template->setValue('headschol-name', $ttd->name);
         $template->setValue('headschol-nip', $ttd->nip);
-        $template->setImageValue('ttd', public_path('images/signature/'. $ttd->tanda_tangan));
+        $template->setImageValue('ttd', asset('images/signature/'. $ttd->tanda_tangan));
 
         $template->setComplexBlock('table', $this->makeTable($absen));
 
@@ -69,7 +69,7 @@ class ExportJurnalWord {
             $table->addCell(2000)->addText($value->tinda_lanjut ?? '-');
             if ($value->foto_kegiatan) {
                 $table->addCell(2500)->addText('${img-'.$key.'}');
-                // $table->addCell(2500)->addImage(public_path("images/jurnal/". $value->foto_kegiatan), ['width' => 100,'height' => 100]);
+                // $table->addCell(2500)->addImage(asset("images/jurnal/". $value->foto_kegiatan), ['width' => 100,'height' => 100]);
             }else{
                 $table->addCell(2500)->addText('-');
             }

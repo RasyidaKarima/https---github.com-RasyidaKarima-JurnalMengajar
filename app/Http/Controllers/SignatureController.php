@@ -19,7 +19,7 @@ class SignatureController extends Controller
 
     public function save(Request $request)
     {
-        $folderPath = public_path('images/signature/');
+        $folderPath = 'images/signature/';
 
         $image = explode(";base64,", $request->signed);
 

@@ -129,7 +129,7 @@ class jurnalController extends Controller
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->where('jurnal.status', '=', 'sudah divalidasi')
-                ->whereDate('tanggal', '=', $tglawal)
+                ->whereDate('tanggal', $tglawal)
                 ->get();
         
         $ttdKepsek = DB::table('signature')

@@ -33,7 +33,7 @@
         <div class="mb-3">
             <label class="font-weight-bold" for="foto_kegiatan">Foto </label>
             <br>
-            <img src="{{ url('images/absen') }}/{{ $datang->foto }}" width="100" alt="..."> 
+            <img src="{{ url('storage/') }}/{{ $datang->foto }}" width="100" alt="..."> 
             <input type="hidden" name="foto_old" value="{{ $datang->foto }}">
             <input type="file" name="foto" class="form-control form-control-file" accept="image/*" />
             <small class="text-danger">

@@ -51,7 +51,7 @@ class LoginController extends Controller
                 return redirect()->route('dashboard');
             }
         } else {
-            return redirect()->route('login')->with('error', "email dan password salah");
+            return redirect()->route('login')->with('error', "email atau password terdapat kesalahan");
         }
     }
 

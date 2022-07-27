@@ -49,14 +49,14 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell, WithDra
     public function drawings()
     {
         if($this->calledDrawing) {
-            $step = 16;
+            $step = 17;
             $drawings = [];
             
             foreach($this->arr_absens as $key => $absen) {
                 $drawings[$key] = new Drawing();
                 $drawings[$key]->setName($absen['nama']);
-                $drawings[$key]->setPath(public_path("images/absen/".$absen['foto']));
-                $drawings[$key]->setHeight(90);
+                $drawings[$key]->setPath("images/absen/".$absen['foto']);
+                $drawings[$key]->setHeight(80);
                 $drawings[$key]->setCoordinates('F'.$step);
 
                 $step++;
@@ -65,8 +65,8 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell, WithDra
             // call for draw signature from head school
             $drawings[$key] = new Drawing();
             $drawings[$key]->setName($this->ttd->name);
-            $drawings[$key]->setPath(public_path("images/signature/".$this->ttd->tanda_tangan));
-            $drawings[$key]->setHeight(80);
+            $drawings[$key]->setPath("images/signature/".$this->ttd->tanda_tangan);
+            $drawings[$key]->setHeight(50);
             $drawings[$key]->setCoordinates('E'.($step + 11));
 
 
@@ -99,8 +99,10 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell, WithDra
                 foreach ($this->arr_absens as $key => $value) {
                     $event->sheet->getDelegate()->getCell('F'.$step)->setValue('');// clean cell for picture space
                     $step++;
+                    $event->sheet->getRowDimension('17')->setRowHeight(75);
+                    $event->sheet->getRowDimension($step)->setRowHeight(75);
                 }
-
+                
                 $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
                 $event->sheet->getDelegate()->getCell('C12')->setValue($today);
                 $this->getlastitemcount = ((count($this->arr_absens) + 1) + 15);

@@ -52,7 +52,7 @@
             <div class="mb-3">
                 <label class="font-weight-bold" for="foto_kegiatan">Foto Kegiatan</label>
                 <br>
-                <img src="{{ url('images/jurnal') }}/{{ $jurnal->foto_kegiatan }}" width="100" alt="..."> 
+                <img src="{{ url('storage/') }}/{{ $jurnal->foto_kegiatan }}" width="100" alt="..."> 
                 <input type="hidden" name="foto_old" value="{{ $jurnal->foto_kegiatan }}">
                 <input type="file" name="foto_kegiatan" class="form-control form-control-file" accept="image/*" />
                 <small class="text-danger">

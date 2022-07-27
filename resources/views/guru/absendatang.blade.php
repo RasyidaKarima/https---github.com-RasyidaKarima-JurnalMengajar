@@ -6,10 +6,10 @@
     <div class="card-header">
       <h4 class="m-0 font-weight-bold"><strong>Absensi</strong></h4>
       <br>
-      @if ( $absen == 1)
+      @if ( $absen == 0)
       <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
-      @elseif($absen == 0)
-      <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a>
+      @else
+      <!-- <a href="{{route('absen-Create.guru')}}" class="btn btn-sm btn-success disabled" id="tambahJurnal"><i class="fa fa-plus"></i> Tambah Data</a> -->
       @endif
       
       <br>
@@ -41,6 +41,9 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
+                language:{
+                    "url":"https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json"
+                },
                 ajax: '{!! route('absen.guru') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',

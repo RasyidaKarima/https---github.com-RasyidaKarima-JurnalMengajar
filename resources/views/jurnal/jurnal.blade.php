@@ -43,7 +43,7 @@
               <td>{{$jurnal ->kendala}}</td>
               <td>{{$jurnal ->tindak_lanjut}}</td>
               <td>
-                <img src="{{ asset('images/jurnal/'.$jurnal->foto_kegiatan) }}" alt="{{ $jurnal->foto_kegiatan }}" class="img img-thumbnail" style="width: 100px !important;">
+                <img src="{{ asset('storage/'.$jurnal->foto_kegiatan) }}" alt="{{ $jurnal->foto_kegiatan }}" class="img img-thumbnail" style="width: 100px !important;">
               </td>
               <td>{{$jurnal ->status}}</td>
             </tr>
@@ -57,7 +57,11 @@
 @push('scripts')
 <script>
   $(document).ready( function () {
-    $('#jurnalTable').DataTable();
+    $('#jurnalTable').DataTable({
+        language:{
+                    "url":"https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json"
+                }
+    });
   } );
 </script>
 @endpush

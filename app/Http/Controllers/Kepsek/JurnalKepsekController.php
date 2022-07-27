@@ -33,7 +33,7 @@ class JurnalKepsekController extends Controller
                     if($data->foto_kegiatan == null){
                         return ' ';
                     }else{
-                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        $url= asset('storage/'.$data->foto_kegiatan);
                         return '<img src="'.$url.'" width="70" alt="..." />';
                     }
                 })
@@ -54,9 +54,13 @@ class JurnalKepsekController extends Controller
         ->where('user_id', Auth::user()->id)
         ->get();
         $date = now()->format('Y-m-d');
-        $absen = Absen::where('tanggal', '=', $date)->count();
+        $absen = Absen::where('tanggal', $date)
+                        ->where('user_id', Auth::user()->id)
+                        ->count();
 
-        $jurnal = Jurnal::where('tanggal', '=', $date)->count();
+        $jurnal = Jurnal::where('tanggal', $date)
+                          ->where('user_id', Auth::user()->id)
+                          ->count();
 
         $jurnals = Jurnal::where('user_id', Auth::user()->id)
                     ->where('tanggal', Date("Y-m-d"))
@@ -78,7 +82,7 @@ class JurnalKepsekController extends Controller
                     if($data->foto_kegiatan == null){
                         return ' ';
                     }else{
-                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        $url= asset('storage/'.$data->foto_kegiatan);
                         return '<img src="'.$url.'" width="70" alt="..." />';
                     }
                 })
@@ -108,11 +112,9 @@ class JurnalKepsekController extends Controller
             'rpp_id.required' => 'Rpp tidak boleh kosong'
         ]);
 
-        $file = $request->file('foto_kegiatan');
         if($request->file('foto_kegiatan') != null){
 
-            $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $file = $request->file('foto_kegiatan')->store('jurnal', 'public');
             $date = Carbon::now();
             $user = User::where('id', Auth::user()->id)->first();
             $jurnal = Jurnal::where('user_id', $user->id)->first();
@@ -124,7 +126,7 @@ class JurnalKepsekController extends Controller
             $jurnal->hasil = $request->hasil;
             $jurnal->kendala = $request->kendala;
             $jurnal->tindak_lanjut = $request->tindak_lanjut;
-            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->foto_kegiatan  = $file;
             $jurnal->save();
         }else{
             $date = Carbon::now();
@@ -135,8 +137,8 @@ class JurnalKepsekController extends Controller
             $jurnal->rpp_id = $request->rpp_id;
             $jurnal->tanggal = $date;
             $jurnal->hasil = $request->hasil;
-            $jurnal->kendala = $request->kendala;
-            $jurnal->tindak_lanjut = $request->tindak_lanjut;
+            $jurnal->kendala = $request->lanjut;
+            $jurnal->tindak_lanjut = $request->tindak_kendala;
             $jurnal->save();
         }
 
@@ -157,20 +159,18 @@ class JurnalKepsekController extends Controller
     public function update(Request $request, $id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $file = $request->file('foto_kegiatan');
+
         if($request->file('foto_kegiatan') != null){
 
-            $ext_foto = $file->extension();
-            $filename = $file->move(public_path() . '/images/jurnal/', $file->getClientOriginalName());
+            $file = $request->file('foto_kegiatan')->store('jurnal', 'public');
             $date = Carbon::now();
             $jurnal = Jurnal::where('id', $id)->first();
-
             $jurnal->rpp_id         = $request->rpp_id;
             $jurnal->tanggal        = $date;
             $jurnal->hasil          = $request->hasil;
             $jurnal->kendala        = $request->kendala;
-            $jurnal->tindak_lanjut        = $request->tindak_lanjut;
-            $jurnal->foto_kegiatan  = $file->getClientOriginalName();
+            $jurnal->tindak_lanjut  = $request->tindak_lanjut;
+            $jurnal->foto_kegiatan  = $file;
             $jurnal->updated_at     = date('Y-m-d H:i:s');
             $jurnal->save();
         }else{

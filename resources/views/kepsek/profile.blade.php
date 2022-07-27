@@ -42,7 +42,7 @@
         <div class="card-body">
         <h4 class="m-0 font-weight-bold"><i class="fa fa-pencil-alt"></i><strong> Edit Profile</strong></h4>
         <br>
-        <form method="POST" action="{{ url('profile') }}">
+        <form method="POST" action="{{ url('profile-kepsek') }}">
             @csrf
 
             <div class="form-group row">

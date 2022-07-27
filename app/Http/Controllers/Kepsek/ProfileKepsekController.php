@@ -38,6 +38,6 @@ class ProfileKepsekController extends Controller
     	$user->update();
 
     	alert()->success('User berhasil diupdate', 'Success');
-    	return redirect('profile');
+    	return redirect('profile-kepsek');
     }
 }

@@ -30,7 +30,7 @@
 
 <div class="mb-3">
     <label for="jabatan" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" value="">
+    <input type="text" class="form-control" id="password" name="password" placeholder="Masukkan Password" value="">
 </div>
 <br>
 <br>

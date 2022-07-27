@@ -95,7 +95,7 @@ class absenController extends Controller
         $ttdKepsek = DB::table('signature')
                 ->join('users', 'users.id', '=', 'signature.user_id')
                 ->where('users.role', '=', 'kepsek')
-                ->latest('signature.tanggal')
+                ->where('signature.tanggal', Date("Y-m-d"))
                 ->first(['signature.*', 'users.name', 'users.nip']);
 
         // dd($arr_absens);

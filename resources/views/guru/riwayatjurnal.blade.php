@@ -46,6 +46,9 @@
                 serverSide: true,
                 autoWidth: false,
                 pageLength: 5,
+                language:{
+                    "url":"https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json"
+                },
                 ajax: '{!! route('jurnal-riwayat.guru') !!}', // memanggil route yang menampilkan data json
                 columns: [{ // mengambil & menampilkan kolom sesuai tabel database
                         data: 'DT_RowIndex',
