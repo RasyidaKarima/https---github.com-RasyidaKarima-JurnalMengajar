@@ -62,7 +62,7 @@ class ExportJurnalWord {
             $table->addRow();
             $table->addCell(null)->addText($key+1 . ".");
             $table->addCell(2000)->addText($value->name);
-            $table->addCell(null)->addText($value->kelas . " / " . $value->mapel ?? '-');
+            $table->addCell(null)->addText($value->kelas . " / " . $value->mata_pelajaran ?? '-');
             $table->addCell(4000)->addText($value->penjelasan ?? '-');
             $table->addCell(2500)->addText($value->hasil ?? '-');
             $table->addCell(2000)->addText($value->kendala ?? '-');

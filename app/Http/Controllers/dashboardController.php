@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Absen;
 use App\Models\RPP;
+use App\Models\signature;
 
 
 class dashboardController extends Controller
@@ -25,8 +26,9 @@ class dashboardController extends Controller
         $user= User::count();
         $absen= Absen::count();
         $rpp= RPP::count();
+        $signature= Signature::count();
 
         $active = 'dashboard';
-        return view('dashboard.index', compact('jurnal', 'user', 'absen', 'rpp', 'active'));
+        return view('dashboard.index', compact('jurnal', 'user', 'absen', 'rpp', 'signature', 'active'));
     }
 }

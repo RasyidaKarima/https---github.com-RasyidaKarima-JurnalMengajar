@@ -23,26 +23,6 @@ class absenController extends Controller
         $active = 'absen';
         return view('absen.absen', compact('absen', 'active'));
     }
-
-    public function create()
-    {
-        $active = 'absen';
-        return view('absen.absenCreate', compact('active'));
-    }
-
-    public function edit($id)
-    {
-        $active = 'absen';
-        $absen = Absen::find($id);
-        return view('absen.absenEdit', compact('absen','active'));
-    }
-
-    public function destroy($id)
-    {
-        $absen = Absen::find($id);
-        $absen->delete();
-        return redirect('/absen');
-    }
     public function rekapan()
     {
         $active = 'rekap_absensi';
