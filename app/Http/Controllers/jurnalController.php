@@ -29,6 +29,12 @@ class jurnalController extends Controller
         return view('jurnal.jurnal', compact('jurnal', 'active'));
     }
 
+    public function show(Request $request,$id)
+    {
+        $jurn = Jurnal::find($id);
+        return view('jurnal.jurnal',compact('jurn'))->renderSections()['content'];
+    }
+
     public function cetak()
     {
         $active = 'cetak_jurnal';
@@ -56,20 +62,21 @@ class jurnalController extends Controller
     }
 
 
-    public function cetakPertanggal($tglawal)
+    public function cetakPertanggal($tglawal, $tglakhir)
     {
         $jurnal = DB::table('jurnal')
                 ->join('rpp','rpp.id', '=', 'jurnal.rpp_id')
                 ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->where('jurnal.status', '=', 'sudah divalidasi')
-                ->whereDate('tanggal', $tglawal)
+                ->whereDate('tanggal', '>=', $tglawal)
+                ->whereDate('tanggal', '<=', $tglakhir)
                 ->get();
         
-        $ttdKepsek = DB::table('signature')
-                ->join('users', 'users.id', '=', 'signature.user_id')
+        $ttdKepsek = DB::table('jurnal')
+                ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->where('users.role', '=', 'kepsek')
-                ->latest('signature.tanggal')
-                ->first(['signature.*', 'users.name', 'users.nip']);
+                ->where('jurnal.tanggal', Date("Y-m-d"))
+                ->first(['jurnal.tanda_tangan', 'users.name', 'users.nip']);
 
         $file = (new ExportJurnalWord())->exportWord($jurnal, $ttdKepsek);
         return response()->download($file)->deleteFileAfterSend();

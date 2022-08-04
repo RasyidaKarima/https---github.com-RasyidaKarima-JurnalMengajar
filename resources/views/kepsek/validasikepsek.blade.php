@@ -46,7 +46,7 @@
                     <tr>
                         <td>Foto Kegiatan</td>
                         <td width="2">:</td>
-                        <td><img src="{{ url('images/jurnal') }}/{{ $jurnal->foto_kegiatan }}" width="100" alt="..."></td>
+                        <td><img src="{{ url('storage/') }}/{{ $jurnal->foto_kegiatan }}" width="100" alt="..."></td>
                     </tr>
                 </tbody>
             </table>
@@ -69,18 +69,26 @@
                         <option value="belum divalidasi" {{ $jurnal->status == 'belum divalidasi' ? 'selected':'' }} >Belum Divalidasi</option>
                         <option value="sudah divalidasi terdapat kesalahan" {{ $jurnal->status == 'sudah divalidasi terdapat kesalahan' ? 'selected':'' }} >Masih ada kesalahan</option>
                        </select>
-
                 </div>
 
                 <div class="mb-3">
                     <label for="pesan" class="form-label">Pesan</label><br>
                     <textarea name="pesan" class="form-control" id="pesan" rows="10" placeholder="Tuliskan pesan di sini...">{{$jurnal->pesan}}</textarea>
                 </div>
+
+                <div class="col-md-12">
+                    <label>Signature</label>
+                    <br/>
+                    <div id="sig"></div>
+                        <br/><br/>
+                        <textarea id="signature" name="signed" style="display: none"></textarea>
+                </div>
             <br>
             <br>
 
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
+                <button id="clear" class="btn btn-danger">Clear</button>
                 <a href="{{route('validasi.kepsek')}}" class="btn btn-success">Kembali</a>
             </div>
         </div>
@@ -88,3 +96,13 @@
 </div>
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+        var sig = $('#sig').signature({syncField: '#signature', syncFormat: 'PNG'});
+        $('#clear').click(function (e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+</script>
+@endpush

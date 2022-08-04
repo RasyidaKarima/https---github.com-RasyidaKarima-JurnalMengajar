@@ -30,9 +30,9 @@ class ExportJurnalWord {
         $template->setValue('headschol-nip', $ttd->nip);
         $template->setImageValue('ttd', asset('images/signature/'. $ttd->tanda_tangan));
 
-        $template->setComplexBlock('table', $this->makeTable($absen));
+        $template->setComplexBlock('table', $this->makeTable($jurnal));
 
-        foreach ($absen as $key => $value) {
+        foreach ($jurnal as $key => $value) {
             $template->setImageValue('img-'.$key , public_path("images/jurnal/". $value->foto_kegiatan));
         }
 
@@ -45,7 +45,7 @@ class ExportJurnalWord {
     {
         $table = new Table(array('borderSize' => 5, 'borderColor' => 'black', 'alignment' => JcTable::CENTER, 'unit' => TblWidth::AUTO, 'layout' => StyleTable::LAYOUT_AUTO));
 
-        // heading table
+        // heading table 
         $headingStyle = ['bgColor' => 'f7f7f7', 'font-family' => "Times New Roman"];
         $boldStyle = ['bold' => true, 'allCaps' => true];
         $table->addRow(null);

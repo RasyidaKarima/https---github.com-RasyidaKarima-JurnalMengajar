@@ -22,10 +22,6 @@
             <th>Nama</th>
             <th>Jabatan</th>
             <th>Tanggal</th>
-            <th>Uraian Tugas</th>
-            <th>Hasil</th>
-            <th>Kendala</th>
-            <th>Tindak Lanjut</th>
             <th style="width:10%">Foto Kegiatan</th>
             <th style="width:10%">Status</th>
           </tr>
@@ -38,20 +34,33 @@
               <td>{{$jurnal ->name}}</td>
               <td>{{$jurnal ->jabatan}}</td>
               <td>{{$jurnal ->tanggal}}</td>
-              <td>{{$jurnal ->penjelasan}}</td>
-              <td>{{$jurnal ->hasil}}</td>
-              <td>{{$jurnal ->kendala}}</td>
-              <td>{{$jurnal ->tindak_lanjut}}</td>
               <td>
                 <img src="{{ asset('storage/'.$jurnal->foto_kegiatan) }}" alt="{{ $jurnal->foto_kegiatan }}" class="img img-thumbnail" style="width: 100px !important;">
               </td>
               <td>{{$jurnal ->status}}</td>
+              <td>
+              <a href="#" value="{{ action('jurnalController@show',['id'=>$jurnal->id])}}" class="btn btn-xs btn-info modalMd" title="Tampil Jurnal" data-toggle="modal" data-target="#modalMd"><i class="fa fa-eye"></i></a>
+              </td>
             </tr>
           @endforeach
         </tbody>
       </table>
     </div>
   </div>
+</div>
+<div class="modal fade" id="modalMd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="modalMdTitle"></h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="modalError"></div>
+                      <div id="modalMdContent"></div>
+                  </div>
+              </div>
+          </div>
 </div>
 @endsection
 @push('scripts')
@@ -63,5 +72,13 @@
                 }
     });
   } );
+</script>
+<script>
+  $(document).on('ajaxComplete ready', function () {
+    $('.modalMd').off('click').on('click', function () {
+        $('#modalMdContent').load($(this).attr('value'));
+        $('#modalMdTitle').html($(this).attr('title'));
+    });
+  });
 </script>
 @endpush

@@ -45,6 +45,6 @@ class SignatureController extends Controller
         $save->tanda_tangan = $signature;
         $save->save();
 
-        return back()->with('success', 'Signature saved successfully !!');
+        return back()->with('success', 'Tanda tangan berhasil disimpan !!');
     }
 }

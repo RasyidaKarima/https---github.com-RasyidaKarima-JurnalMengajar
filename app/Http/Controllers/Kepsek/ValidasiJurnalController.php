@@ -34,7 +34,7 @@ class ValidasiJurnalController extends Controller
                     if($data->foto_kegiatan == null){
                         return ' ';
                     }else{
-                        $url= asset('images/jurnal/'.$data->foto_kegiatan);
+                        $url= asset('storage/'.$data->foto_kegiatan);
                         return '<img src="'.$url.'" width="70" alt="..." />';
                     }
                 })
@@ -120,9 +120,26 @@ class ValidasiJurnalController extends Controller
     }
 
     public function updateValidasi(Request $request, $id){
+        $folderPath = 'images/signature/';
+
+        $image = explode(";base64,", $request->signed);
+
+        $image_type_aux = explode("image/", $image[0]);
+
+        $image_type = $image_type_aux[1];
+
+        $image_base64 = base64_decode($image[1]);
+
+        $signature = uniqid() . '.'.$image_type;
+
+        $file = $folderPath . $signature;
+
+        file_put_contents($file, $image_base64);
+
         $jurnal = Jurnal::where('id',$id)->update([
-            'status' => $request ->status,
-            'pesan'  => $request ->pesan,
+            'status'        => $request ->status,
+            'pesan'         => $request ->pesan,
+            'tanda_tangan'  => $signature,
         ]);
         alert()->success('Validasi telah ditambahkan', 'Success');
         return redirect('validasi-kepsek');

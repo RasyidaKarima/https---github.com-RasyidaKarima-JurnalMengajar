@@ -37,7 +37,7 @@
                         <button id="clear" class="btn btn-danger">Clear</button>
                         @if ( $signature == 0 )
                         <button type="submit" class="btn btn-primary">Save</button>
-                        @elseif ( $signature == 1 )
+                        @elseif
                         <br>
                         <br>
                         <div class="alert alert-danger alert-block">

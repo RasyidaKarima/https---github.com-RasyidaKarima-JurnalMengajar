@@ -55,7 +55,7 @@ class AbsenExport implements FromArray, WithEvents, WithCustomStartCell, WithDra
             foreach($this->arr_absens as $key => $absen) {
                 $drawings[$key] = new Drawing();
                 $drawings[$key]->setName($absen['nama']);
-                $drawings[$key]->setPath("images/absen/".$absen['foto']);
+                $drawings[$key]->setPath("storage/".$absen['foto']);
                 $drawings[$key]->setHeight(80);
                 $drawings[$key]->setCoordinates('F'.$step);
 

@@ -30,22 +30,7 @@ function rekapanPertanggal() {
         alert('Tanggal awal atau Tanggal akhir kosong!');
     }
 }
-window.rekapanPertanggal = rekapanPertanggal;
-
-/*function cetakPertanggal() {
-    warning = false;
-    let tgl_awal = document.getElementById('tglawal').value;
-
-    if (tgl_awal == '') {
-        warning = true;
-    }
-    if (!warning) {
-        window.open('http://' + window.location.host + '/cetak-pertanggal/' + tgl_awal, '_blank').focus();
-    } else {
-        alert('Tanggal awal kosong!');
-    }
-}
-window.cetakPertanggal = cetakPertanggal;*/
+window.cetakPertanggal = cetakPertanggal;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

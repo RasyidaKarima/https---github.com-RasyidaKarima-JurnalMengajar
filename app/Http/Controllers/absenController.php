@@ -72,11 +72,11 @@ class absenController extends Controller
             ];
             array_push($arr_absens, $arr_absen);
         }
-        $ttdKepsek = DB::table('signature')
-                ->join('users', 'users.id', '=', 'signature.user_id')
+        $ttdKepsek = DB::table('jurnal')
+                ->join('users', 'users.id', '=', 'jurnal.user_id')
                 ->where('users.role', '=', 'kepsek')
-                ->where('signature.tanggal', Date("Y-m-d"))
-                ->first(['signature.*', 'users.name', 'users.nip']);
+                ->where('jurnal.tanggal', Date("Y-m-d"))
+                ->first(['jurnal.tanda_tangan', 'users.name', 'users.nip']);
 
         // dd($arr_absens);
         $today = Carbon::now()->isoFormat('DD-M-Y');
